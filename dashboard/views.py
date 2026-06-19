@@ -2,18 +2,9 @@ import streamlit as st
 import pandas as pd
 import altair as alt
 from datetime import datetime, timedelta
-from settings.config import load_settings, save_settings
-from storage.csv_storage import read_collector_status
-from analytics.metrics import (
-    calculate_summary_metrics,
-    get_hot_stocks_volume,
-    get_hot_stocks_turnover,
-    get_hot_stocks_bulk_transactions,
-    filter_bulk_trades
-)
 
 # Robust import for streamlit-aggrid across versions
-from st_aggrid import AgGrid, GridOptionsBuilder, GridUpdateMode, ColumnsAutoSizeMode
+from st_aggrid import AgGrid, GridOptionsBuilder, ColumnsAutoSizeMode
 try:
     from st_aggrid import JsCode
 except ImportError:
@@ -21,6 +12,9 @@ except ImportError:
 
 from dashboard.styles import get_grid_custom_css, get_grid_tv_css
 
+# -------------------------------------------------------------
+# Formatting Utilities
+# -------------------------------------------------------------
 def format_number(val):
     if val >= 1_000_000_000:
         return f"{val / 1_000_000_000:.2f} B"
@@ -41,38 +35,27 @@ def get_instrument_type(symbol, name):
     symbol = str(symbol).upper().strip()
     name = str(name).upper().strip()
     
-    # 1. ETF
     if "ETF" in symbol or "ETF" in name:
         return "ETF"
-    
-    # 2. Mutual Fund
     if "MUTUAL FUND" in name or "FUND" in name or "YOJANA" in name or "SCHEME" in name or symbol.endswith("MF"):
         return "Mutual Fund"
-    
-    # 3. Debenture
     if "DEBENTURE" in name or "BOND" in name or "%" in name or (symbol.endswith("D") and len(symbol) > 4) or any(symbol.endswith(f"D{yr}") for yr in range(70, 100)):
         return "Debenture"
-        
-    # 4. Preference Share
     if "PREFERENCE" in name or "PREF" in name or symbol.endswith("P") or symbol.endswith("PS"):
         return "Preference Share"
-        
-    # 5. Rights Share
     if "RIGHT" in name or "RIGHTS" in name or symbol.endswith("R"):
         return "Rights Share"
-        
-    # 6. Equity
     return "Equity"
 
 # -------------------------------------------------------------
-# AgGrid Cell Renderers & Formatters (JsCode)
+# AgGrid Cell Renderers (JsCode)
 # -------------------------------------------------------------
 symbol_renderer = JsCode("""
 class SymbolRenderer {
     init(params) {
         this.eGui = document.createElement('span');
         if (params.value != null) {
-            this.eGui.innerHTML = '<strong style="color: #00D4FF; font-weight: 700; cursor: pointer;">' + params.value + '</strong>';
+            this.eGui.innerHTML = '<strong style="color: #A78BFA; font-weight: 700; cursor: pointer;">' + params.value + '</strong>';
         }
     }
     getGui() {
@@ -88,19 +71,19 @@ class InstrumentRenderer {
         var val = params.value;
         if (val != null) {
             if (val === 'Mutual Fund') {
-                this.eGui.innerHTML = '<span style="display: inline-block; padding: 2px 8px; font-size: 11px; font-weight: 700; border-radius: 12px; text-transform: uppercase; background: rgba(139, 92, 246, 0.2); border: 1px solid #8B5CF6; color: #FFFFFF;">Mutual Fund</span>';
+                this.eGui.innerHTML = '<span style="display: inline-block; padding: 2px 8px; font-size: 10px; font-weight: 700; border-radius: 12px; text-transform: uppercase; background: rgba(109, 40, 217, 0.2); border: 1px solid #6D28D9; color: #A78BFA;">Mutual Fund</span>';
             } else if (val === 'Equity') {
-                this.eGui.innerHTML = '<span style="display: inline-block; padding: 2px 8px; font-size: 11px; font-weight: 700; border-radius: 12px; text-transform: uppercase; background: rgba(59, 130, 246, 0.2); border: 1px solid #3B82F6; color: #FFFFFF;">Equity</span>';
+                this.eGui.innerHTML = '<span style="display: inline-block; padding: 2px 8px; font-size: 10px; font-weight: 700; border-radius: 12px; text-transform: uppercase; background: rgba(59, 130, 246, 0.2); border: 1px solid #3B82F6; color: #93C5FD;">Equity</span>';
             } else if (val === 'Debenture') {
-                this.eGui.innerHTML = '<span style="display: inline-block; padding: 2px 8px; font-size: 11px; font-weight: 700; border-radius: 12px; text-transform: uppercase; background: rgba(245, 158, 11, 0.2); border: 1px solid #F59E0B; color: #FFFFFF;">Debenture</span>';
+                this.eGui.innerHTML = '<span style="display: inline-block; padding: 2px 8px; font-size: 10px; font-weight: 700; border-radius: 12px; text-transform: uppercase; background: rgba(245, 158, 11, 0.2); border: 1px solid #D97706; color: #FBBF24;">Debenture</span>';
             } else if (val === 'ETF') {
-                this.eGui.innerHTML = '<span style="display: inline-block; padding: 2px 8px; font-size: 11px; font-weight: 700; border-radius: 12px; text-transform: uppercase; background: rgba(6, 182, 212, 0.2); border: 1px solid #06B6D4; color: #FFFFFF;">ETF</span>';
+                this.eGui.innerHTML = '<span style="display: inline-block; padding: 2px 8px; font-size: 10px; font-weight: 700; border-radius: 12px; text-transform: uppercase; background: rgba(6, 182, 212, 0.2); border: 1px solid #0891B2; color: #22D3EE;">ETF</span>';
             } else if (val === 'Rights Share' || val === 'Rights') {
-                this.eGui.innerHTML = '<span style="display: inline-block; padding: 2px 8px; font-size: 11px; font-weight: 700; border-radius: 12px; text-transform: uppercase; background: rgba(34, 197, 94, 0.2); border: 1px solid #22C55E; color: #FFFFFF;">Rights</span>';
+                this.eGui.innerHTML = '<span style="display: inline-block; padding: 2px 8px; font-size: 10px; font-weight: 700; border-radius: 12px; text-transform: uppercase; background: rgba(16, 185, 129, 0.2); border: 1px solid #059669; color: #34D399;">Rights</span>';
             } else if (val === 'Preference Share') {
-                this.eGui.innerHTML = '<span style="display: inline-block; padding: 2px 8px; font-size: 11px; font-weight: 700; border-radius: 12px; text-transform: uppercase; background: rgba(239, 68, 68, 0.2); border: 1px solid #EF4444; color: #FFFFFF;">Pref. Share</span>';
+                this.eGui.innerHTML = '<span style="display: inline-block; padding: 2px 8px; font-size: 10px; font-weight: 700; border-radius: 12px; text-transform: uppercase; background: rgba(225, 29, 72, 0.2); border: 1px solid #E11D48; color: #FDA4AF;">Pref. Share</span>';
             } else {
-                this.eGui.innerHTML = '<span style="display: inline-block; padding: 2px 8px; font-size: 11px; font-weight: 700; border-radius: 12px; text-transform: uppercase; background: rgba(148, 163, 184, 0.2); border: 1px solid #94A3B8; color: #FFFFFF;">' + val + '</span>';
+                this.eGui.innerHTML = '<span style="display: inline-block; padding: 2px 8px; font-size: 10px; font-weight: 700; border-radius: 12px; text-transform: uppercase; background: rgba(148, 163, 184, 0.2); border: 1px solid #475569; color: #CBD5E1;">' + val + '</span>';
             }
         }
     }
@@ -117,11 +100,9 @@ class TradeTypeRenderer {
         var val = params.value;
         if (val != null) {
             if (val === 'Bulk') {
-                this.eGui.innerHTML = '<span style="display: inline-block; padding: 2px 8px; font-size: 11px; font-weight: 700; border-radius: 12px; text-transform: uppercase; background: rgba(239, 68, 68, 0.25); border: 1px solid #EF4444; color: #FFFFFF;">Bulk</span>';
-            } else if (val === 'Cross') {
-                this.eGui.innerHTML = '<span style="display: inline-block; padding: 2px 8px; font-size: 11px; font-weight: 700; border-radius: 12px; text-transform: uppercase; background: rgba(139, 92, 246, 0.25); border: 1px solid #8B5CF6; color: #FFFFFF;">Cross</span>';
+                this.eGui.innerHTML = '<span style="display: inline-block; padding: 2px 8px; font-size: 10px; font-weight: 700; border-radius: 12px; text-transform: uppercase; background: rgba(239, 68, 68, 0.2); border: 1px solid #EF4444; color: #FCA5A5;">Bulk</span>';
             } else {
-                this.eGui.innerHTML = '<span style="display: inline-block; padding: 2px 8px; font-size: 11px; font-weight: 700; border-radius: 12px; text-transform: uppercase; background: rgba(148, 163, 184, 0.2); border: 1px solid #94A3B8; color: #FFFFFF;">Normal</span>';
+                this.eGui.innerHTML = '<span style="display: inline-block; padding: 2px 8px; font-size: 10px; font-weight: 700; border-radius: 12px; text-transform: uppercase; background: rgba(71, 85, 105, 0.2); border: 1px solid #475569; color: #94A3B8;">Normal</span>';
             }
         }
     }
@@ -131,85 +112,29 @@ class TradeTypeRenderer {
 }
 """)
 
-qty_formatter = JsCode("""
-function(params) {
-    if (params.value == null) return '';
-    return Number(params.value).toLocaleString('en-US');
-}
-""")
-
-rate_formatter = JsCode("""
-function(params) {
-    if (params.value == null) return '';
-    return 'Rs. ' + Number(params.value).toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
-}
-""")
-
-amount_formatter = JsCode("""
-function(params) {
-    if (params.value == null) return '';
-    return 'Rs. ' + Number(params.value).toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
-}
-""")
-
-# Conditional styling JS callback (colors based on quantity threshold)
-cellstyle_jscode = JsCode("""
-function(params) {
-    var qty = params.data.Quantity;
-    if (qty >= 100000) {
-        return {
-            'backgroundColor': 'rgba(239, 68, 68, 0.45)',
-            'color': '#ffffff',
-            'fontWeight': 'bold'
-        };
-    } else if (qty >= 50000) {
-        return {
-            'backgroundColor': 'rgba(239, 68, 68, 0.25)',
-            'color': '#ffffff',
-            'fontWeight': 'bold'
-        };
-    } else if (qty >= 25000) {
-        return {
-            'backgroundColor': 'rgba(249, 115, 22, 0.25)',
-            'color': '#ffffff',
-            'fontWeight': 'bold'
-        };
-    } else if (qty >= 10000) {
-        return {
-            'backgroundColor': 'rgba(234, 179, 8, 0.25)',
-            'color': '#ffffff',
-            'fontWeight': 'bold'
-        };
-    } else {
-        return {
-            'color': '#ffffff'
-        };
-    }
-}
-""")
+qty_formatter = JsCode("function(params) { return params.value == null ? '' : Number(params.value).toLocaleString('en-US'); }")
+rate_formatter = JsCode("function(params) { return params.value == null ? '' : 'Rs. ' + Number(params.value).toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2}); }")
+amount_formatter = JsCode("function(params) { return params.value == null ? '' : 'Rs. ' + Number(params.value).toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2}); }")
 
 qty_cellstyle_jscode = JsCode("""
 function(params) {
     var qty = params.value;
     if (qty == null) return {};
     if (qty >= 100000) {
-        return { 'color': '#FF3B30', 'fontWeight': 'bold' }; // Bright Red
+        return { 'color': '#EF4444', 'fontWeight': '800' };
     } else if (qty >= 50000) {
-        return { 'color': '#EF4444', 'fontWeight': 'bold' }; // Red
+        return { 'color': '#F87171', 'fontWeight': '700' };
     } else if (qty >= 25000) {
-        return { 'color': '#F97316', 'fontWeight': 'bold' }; // Orange
+        return { 'color': '#F59E0B', 'fontWeight': '700' };
     } else if (qty >= 10000) {
-        return { 'color': '#F59E0B', 'fontWeight': 'bold' }; // Yellow
+        return { 'color': '#FBBF24', 'fontWeight': '600' };
     } else {
-        return { 'color': '#FFFFFF' }; // White Normal
+        return { 'color': '#FFFFFF' };
     }
 }
 """)
 
 def configure_grid_columns(gb, table_cols):
-    """
-    Applies the audited high-contrast text color system, formatters, and HTML renderers to AgGrid columns.
-    """
     if "Symbol" in table_cols:
         gb.configure_column("Symbol", cellRenderer=symbol_renderer)
     if "Instrument Type" in table_cols:
@@ -219,98 +144,96 @@ def configure_grid_columns(gb, table_cols):
     if "Quantity" in table_cols:
         gb.configure_column("Quantity", valueFormatter=qty_formatter, cellStyle=qty_cellstyle_jscode)
     if "Rate" in table_cols:
-        gb.configure_column("Rate", valueFormatter=rate_formatter, cellStyle={"color": "#34D399"})
+        gb.configure_column("Rate", valueFormatter=rate_formatter, cellStyle={"color": "#10B981"})
     if "Amount" in table_cols:
         gb.configure_column("Amount", valueFormatter=amount_formatter, cellStyle={"color": "#FBBF24"})
     if "Contract ID" in table_cols:
-        gb.configure_column("Contract ID", cellStyle={"color": "#94A3B8"})
+        gb.configure_column("Contract ID", cellStyle={"color": "#64748B", "fontFamily": "Roboto Mono"})
     if "Trade Time" in table_cols:
-        gb.configure_column("Trade Time", cellStyle={"color": "#FFFFFF"})
+        gb.configure_column("Trade Time", cellStyle={"color": "#E2E8F0", "fontFamily": "Roboto Mono"})
     if "Company" in table_cols:
-        gb.configure_column("Company", cellStyle={"color": "#FFFFFF"})
+        gb.configure_column("Company", cellStyle={"color": "#E2E8F0"})
 
 # -------------------------------------------------------------
 # Base Rendering Functions
 # -------------------------------------------------------------
 def render_summary_cards(df, bulk_threshold):
     """
-    Renders the metric summary cards at the top of the dashboard.
+    Renders 4 premium summary metrics cards:
+    - Total Bulk Volume (shares)
+    - Active Symbols (unique symbols traded today)
+    - Top Gainer by Bulk Activity (symbol with highest bulk transaction amount today)
+    - Largest Trade Today (single transaction with highest quantity/amount)
     """
-    metrics = calculate_summary_metrics(df, bulk_threshold)
+    # Calculate stats
+    bulk_df = df[df["contractQuantity"] >= bulk_threshold] if not df.empty else pd.DataFrame()
+    total_bulk_vol = bulk_df["contractQuantity"].sum() if not bulk_df.empty else 0
+    active_syms = df["stockSymbol"].nunique() if not df.empty else 0
     
-    total_contracts = f"{metrics['total_contracts']:,}"
-    total_volume = format_number(metrics['total_volume'])
-    total_turnover = format_nepali_amount(metrics['total_turnover'])
-    total_bulk = f"{metrics['total_bulk_transactions']:,}"
-    max_qty = f"{metrics['largest_trade_quantity']:,}"
-    max_val = format_nepali_amount(metrics['largest_trade_value'])
-    
+    # Top bulk activity stock
+    if not bulk_df.empty:
+        bulk_sums = bulk_df.groupby("stockSymbol")["contractAmount"].sum()
+        top_bulk_sym = bulk_sums.idxmax()
+        top_bulk_val = bulk_sums.max()
+        top_gainer_bulk = f"{top_bulk_sym} ({format_nepali_amount(top_bulk_val)})"
+    else:
+        top_gainer_bulk = "N/A"
+        
+    # Largest trade
+    if not df.empty:
+        idx_max = df["contractAmount"].idxmax()
+        max_trade_sym = df.loc[idx_max, "stockSymbol"]
+        max_trade_qty = int(df.loc[idx_max, "contractQuantity"])
+        max_trade_amt = float(df.loc[idx_max, "contractAmount"])
+        largest_trade_today = f"{max_trade_sym} ({max_trade_qty:,} sh / {format_nepali_amount(max_trade_amt)})"
+    else:
+        largest_trade_today = "N/A"
+        
     cards_html = f"""
-    <div class="metric-grid">
-        <div class="metric-card">
-            <div class="metric-header">
-                <div class="metric-icon" style="background: rgba(139, 92, 246, 0.15); color: #8b5cf6;">📄</div>
-                <div class="metric-label" style="color: #8b5cf6;">Total Contracts</div>
+    <div class="dashboard-kpi-grid">
+        <div class="kpi-card">
+            <div class="kpi-header">
+                <span class="kpi-label">Total Bulk Volume</span>
+                <span class="kpi-icon">📊</span>
             </div>
-            <div class="metric-value">{total_contracts}</div>
-            <div class="metric-sub">Today</div>
+            <div class="kpi-value">{total_bulk_vol:,}</div>
+            <span class="kpi-sub">Shares Traded (>{bulk_threshold:,})</span>
         </div>
-        <div class="metric-card">
-            <div class="metric-header">
-                <div class="metric-icon" style="background: rgba(16, 185, 129, 0.15); color: #10b981;">📊</div>
-                <div class="metric-label" style="color: #10b981;">Total Volume</div>
+        <div class="kpi-card">
+            <div class="kpi-header">
+                <span class="kpi-label">Active Symbols</span>
+                <span class="kpi-icon">⚡</span>
             </div>
-            <div class="metric-value">{total_volume}</div>
-            <div class="metric-sub">Shares</div>
+            <div class="kpi-value">{active_syms}</div>
+            <span class="kpi-sub">Unique Stocks Traded Today</span>
         </div>
-        <div class="metric-card">
-            <div class="metric-header">
-                <div class="metric-icon" style="background: rgba(245, 158, 11, 0.15); color: #f59e0b;">💼</div>
-                <div class="metric-label" style="color: #f59e0b;">Total Turnover</div>
+        <div class="kpi-card">
+            <div class="kpi-header">
+                <span class="kpi-label">Top Bulk Activity</span>
+                <span class="kpi-icon">🔥</span>
             </div>
-            <div class="metric-value" style="color: #facc15;">{total_turnover}</div>
-            <div class="metric-sub">Today</div>
+            <div class="kpi-value" style="font-size: 20px !important; margin: 18px 0 8px 0; color: #10B981 !important;">{top_gainer_bulk}</div>
+            <span class="kpi-sub">Highest Bulk Turnover Today</span>
         </div>
-        <div class="metric-card">
-            <div class="metric-header">
-                <div class="metric-icon" style="background: rgba(239, 68, 68, 0.15); color: #ef4444;">🔥</div>
-                <div class="metric-label" style="color: #ef4444;">Bulk Trades ({bulk_threshold}+)</div>
+        <div class="kpi-card">
+            <div class="kpi-header">
+                <span class="kpi-label">Largest Trade</span>
+                <span class="kpi-icon">💎</span>
             </div>
-            <div class="metric-value">{total_bulk}</div>
-            <div class="metric-sub">Today</div>
-        </div>
-        <div class="metric-card">
-            <div class="metric-header">
-                <div class="metric-icon" style="background: rgba(59, 130, 246, 0.15); color: #3b82f6;">🎯</div>
-                <div class="metric-label" style="color: #3b82f6;">Largest Qty</div>
-            </div>
-            <div class="metric-value">{max_qty}</div>
-            <div class="metric-sub">Shares</div>
-        </div>
-        <div class="metric-card">
-            <div class="metric-header">
-                <div class="metric-icon" style="background: rgba(168, 85, 247, 0.15); color: #a855f7;">💎</div>
-                <div class="metric-label" style="color: #a855f7;">Largest Value</div>
-            </div>
-            <div class="metric-value">{max_val}</div>
-            <div class="metric-sub">Value</div>
+            <div class="kpi-value" style="font-size: 16px !important; margin: 20px 0 10px 0; color: #F59E0B !important;">{largest_trade_today}</div>
+            <span class="kpi-sub">Single Largest Execution Today</span>
         </div>
     </div>
     """
     st.markdown(cards_html, unsafe_allow_html=True)
 
 def play_alert_sound():
-    """
-    Plays a short synthesized chime using the Web Audio API.
-    """
     sound_html = """
     <script>
     try {
         const AudioContext = window.AudioContext || window.webkitAudioContext;
         if (AudioContext) {
             const ctx = new AudioContext();
-            
-            // First tone
             const osc1 = ctx.createOscillator();
             const gain1 = ctx.createGain();
             osc1.type = 'sine';
@@ -320,7 +243,6 @@ def play_alert_sound():
             osc1.connect(gain1);
             gain1.connect(ctx.destination);
             
-            // Second tone
             const osc2 = ctx.createOscillator();
             const gain2 = ctx.createGain();
             osc2.type = 'sine';
@@ -343,7 +265,7 @@ def play_alert_sound():
     st.markdown(sound_html, unsafe_allow_html=True)
 
 def render_alert_banner(df, bulk_threshold, enable_sound):
-    bulk_trades = filter_bulk_trades(df, bulk_threshold)
+    bulk_trades = df[df["contractQuantity"] >= bulk_threshold] if not df.empty else pd.DataFrame()
     if bulk_trades.empty:
         return
         
@@ -370,15 +292,14 @@ def render_alert_banner(df, bulk_threshold, enable_sound):
     formatted_amount = format_nepali_amount(amount)
     
     alert_html = f"""
-    <div class="live-bulk-alert-container pulsing">
+    <div class="live-bulk-alert-container">
         <div style="display: flex; align-items: center; justify-content: space-between; width: 100%;">
             <div style="display: flex; align-items: center; gap: 12px;">
-                <span style="font-size: 18px; color: #ffd60a;">🔔</span>
+                <span style="font-size: 18px; color: #A78BFA;">🚨</span>
                 <span style="color: #ffffff; font-family: 'Inter', sans-serif; font-size: 14px;">
-                    <strong>LIVE BULK TRADE ALERT:</strong> <strong>{qty:,}</strong> shares of <strong>{symbol}</strong> traded at <strong>Rs. {rate:,.2f}</strong> (Total: <strong>{formatted_amount}</strong>) at {trade_time_str}.
+                    <strong>LIVE ALERT:</strong> Traded <strong>{qty:,}</strong> shares of <strong style="color: #A78BFA;">{symbol}</strong> at <strong>Rs. {rate:,.2f}</strong> (Turnover: <strong>{formatted_amount}</strong>) at {trade_time_str}.
                 </span>
             </div>
-            <span style="font-size: 18px; color: rgba(255,255,255,0.4); cursor: pointer; font-weight: bold;">×</span>
         </div>
     </div>
     """
@@ -393,27 +314,27 @@ def render_alert_banner(df, bulk_threshold, enable_sound):
 def render_filter_bar(df, bulk_threshold):
     st.markdown("""
     <div class="filter-panel">
-        <div class="filter-title">⚡ FILTERS</div>
+        <div class="filter-title">🔎 Advanced Query Filters</div>
     </div>
     """, unsafe_allow_html=True)
     
     with st.container():
-        col1, col2, col3, col4, col5, col_btn = st.columns([1.5, 2, 2.2, 1.5, 1.5, 1.3])
+        col1, col2, col3, col4, col5 = st.columns([1.5, 2.5, 2.5, 1.8, 1.7])
         with col1:
             bulk_qty_opt = st.selectbox(
-                "1. Bulk Filter (Min Qty) ℹ️",
-                options=["5000+", "10000+", "25000+", "50000+", "100000+", "All"],
-                index=0
+                "Filter by Min Quantity",
+                options=["All", "5,000+", "10,000+", "25,000+", "50,000+", "100,000+"],
+                index=1
             )
         with col2:
             all_symbols = sorted(df["stockSymbol"].unique()) if not df.empty else []
             selected_symbols = st.multiselect(
-                "2. Symbol ℹ️",
+                "Filter by Stock Symbol",
                 options=all_symbols,
                 default=[]
             )
         with col3:
-            st.markdown("<div style='font-size: 13px; font-weight: 600; color: #94a3b8; margin-bottom: 4px;'>3. Time Range ℹ️</div>", unsafe_allow_html=True)
+            st.markdown("<div style='font-size: 12px; font-weight: 600; color: #94a3b8; margin-bottom: 4px;'>Trading Time Range</div>", unsafe_allow_html=True)
             t_col1, t_col2 = st.columns(2)
             with t_col1:
                 start_time_str = st.text_input("Start", value="11:00", label_visibility="collapsed")
@@ -421,23 +342,17 @@ def render_filter_bar(df, bulk_threshold):
                 end_time_str = st.text_input("End", value="15:00", label_visibility="collapsed")
         with col4:
             instr_opt = st.selectbox(
-                "4. Instrument Type ℹ️",
+                "Instrument Category",
                 options=["All", "Equity", "Mutual Fund", "Preference Share", "Debenture", "Rights Share", "ETF"],
                 index=0
             )
         with col5:
             turnover_opt = st.selectbox(
-                "5. Turnover Range ℹ️",
+                "Turnover Range",
                 options=["All", "Below 1 Lakh", "1 Lakh – 5 Lakh", "5 Lakh – 10 Lakh", "10 Lakh – 50 Lakh", "50 Lakh – 1 Crore", "Above 1 Crore"],
                 index=0
             )
-        with col_btn:
-            st.write("") 
-            if st.button("🔄 Reset Filters", use_container_width=True):
-                st.session_state.clear()
-                st.rerun()
 
-    # Filtering Logic
     f_df = df.copy()
     
     # 1. Bulk Filter
@@ -496,94 +411,22 @@ def render_filter_bar(df, bulk_threshold):
             
     return f_df
 
-def render_market_activity_panel(df, bulk_threshold):
-    if df.empty:
-        st.info("No market transactions captured yet.")
-        return
-        
-    most_active_symbol = df["stockSymbol"].value_counts().idxmax()
-    most_active_count = df["stockSymbol"].value_counts().max()
-    
-    idx_max = df["contractAmount"].idxmax()
-    largest_symbol = df.loc[idx_max, "stockSymbol"]
-    largest_amount = df.loc[idx_max, "contractAmount"]
-    largest_qty = df.loc[idx_max, "contractQuantity"]
-    largest_amount_formatted = format_nepali_amount(largest_amount)
-    
-    turnovers = df.groupby("stockSymbol")["contractAmount"].sum()
-    highest_turnover_symbol = turnovers.idxmax()
-    highest_turnover_val = turnovers.max()
-    highest_turnover_formatted = format_nepali_amount(highest_turnover_val)
-    
-    bulk_df = df[df["contractQuantity"] >= bulk_threshold]
-    if not bulk_df.empty:
-        latest_bulk = bulk_df.sort_values(by="contractId", ascending=False).iloc[0]
-        latest_bulk_symbol = latest_bulk["stockSymbol"]
-        latest_bulk_qty = latest_bulk["contractQuantity"]
-        latest_bulk_time_full = latest_bulk["tradeTime"]
-        try:
-            t_parsed = datetime.fromisoformat(latest_bulk_time_full.replace("Z", ""))
-            latest_bulk_time_formatted = t_parsed.strftime("%H:%M:%S")
-        except:
-            latest_bulk_time_formatted = latest_bulk_time_full.split("T")[-1][:8]
-    else:
-        latest_bulk_symbol, latest_bulk_qty, latest_bulk_time_formatted = "None", 0, "N/A"
-        
-    updated_time_str = datetime.now().strftime("%H:%M:%S")
-    
-    activity_html = f"""
-    <div class="activity-panel">
-        <div>
-            <div class="activity-header">📡 LIVE MARKET ACTIVITY</div>
-            
-            <div class="activity-item">
-                <div class="activity-label">Most Active Stock</div>
-                <div class="activity-value" style="color: #38bdf8;">{most_active_symbol}</div>
-                <div class="activity-sub">{most_active_count:,} Total Trades</div>
-            </div>
-            
-            <div class="activity-item">
-                <div class="activity-label">Largest Trade Today</div>
-                <div class="activity-value" style="color: #facc15;">{largest_symbol}</div>
-                <div class="activity-sub">{largest_qty:,} shares • {largest_amount_formatted}</div>
-            </div>
-            
-            <div class="activity-item">
-                <div class="activity-label">Highest Turnover Stock</div>
-                <div class="activity-value" style="color: #4ade80;">{highest_turnover_symbol}</div>
-                <div class="activity-sub">{highest_turnover_formatted}</div>
-            </div>
-            
-            <div class="activity-item">
-                <div class="activity-label">Latest Bulk Trade</div>
-                <div class="activity-value" style="color: #f87171;">{latest_bulk_symbol}</div>
-                <div class="activity-sub">{latest_bulk_qty:,} shares @ {latest_bulk_time_formatted}</div>
-            </div>
-        </div>
-        
-        <div>
-            <div class="activity-update">Last Updated: {updated_time_str}</div>
-        </div>
-    </div>
-    """
-    st.markdown(activity_html, unsafe_allow_html=True)
-
 def render_live_table(df, bulk_threshold):
     if df.empty:
-        st.info("No records match the current filters.")
+        st.info("No trades found matching current filter query.")
         return
         
     display_df = df.copy().sort_values(by="contractId", ascending=False)
     
-    col_sel, col_dl = st.columns([8, 2])
+    col_sel, col_dl = st.columns([8.2, 1.8])
     with col_sel:
-        row_count = st.selectbox("Show rows", options=[50, 100, 200, 500], index=1, key="table_row_count", label_visibility="collapsed")
+        row_count = st.selectbox("Show rows", options=[25, 50, 100, 200, 500], index=1, key="table_row_count", label_visibility="collapsed")
     with col_dl:
         csv_data = display_df.to_csv(index=False).encode('utf-8')
         st.download_button(
-            label="📥 Export Table",
+            label="📥 Export CSV Data",
             data=csv_data,
-            file_name=f"NEPSE_Bulk_Trades_{datetime.now().strftime('%Y%m%d_%H%M%S')}.csv",
+            file_name=f"TradeNepse_floorsheet_{datetime.now().strftime('%Y%m%d_%H%M%S')}.csv",
             mime="text/csv",
             use_container_width=True
         )
@@ -611,14 +454,13 @@ def render_live_table(df, bulk_threshold):
     
     table_df = display_df[["Trade Time", "Symbol", "Company", "Instrument Type", "Quantity", "Rate", "Amount", "Contract ID", "Trade Type"]]
     
-    # AgGrid setup
     gb = GridOptionsBuilder.from_dataframe(table_df)
     gb.configure_default_column(resizable=True, filterable=True, sortable=True, editable=False)
     configure_grid_columns(gb, table_df.columns)
         
     gb.configure_grid_options(
-        rowHeight=50,
-        headerHeight=50,
+        rowHeight=44,
+        headerHeight=46,
         animateRows=True,
         rowSelection='single'
     )
@@ -637,30 +479,27 @@ def render_live_table(df, bulk_threshold):
 
 def render_live_dashboard(df, bulk_threshold, enable_sound):
     """
-    Renders the clean, optimized dashboard view.
+    Main Live Dashboard viewport layout.
     """
     # 1. Alert Banner
     render_alert_banner(df, bulk_threshold, enable_sound)
     
-    # 2. Filter Bar (Horizontal)
+    # 2. Advanced Horizontal Filters
     f_df = render_filter_bar(df, bulk_threshold)
     
-    # 3. Top KPI Cards (Collapsible)
-    if st.session_state.get("show_metrics", True):
-        st.markdown('<div class="section-header"><span class="section-header-icon">📈</span><span class="section-header-title">KEY METRICS (FILTERED)</span></div>', unsafe_allow_html=True)
-        render_summary_cards(f_df, bulk_threshold)
+    # 3. KPI Summary cards
+    st.markdown('<div class="section-header"><span class="section-header-icon">📊</span><span class="section-header-title">Market Intelligence Metrics</span></div>', unsafe_allow_html=True)
+    render_summary_cards(f_df, bulk_threshold)
     
-    # 4. Live Feed Header & Content
-    refresh_interval = st.session_state.get("refresh_interval", 15)
-    live_feed_header = f"""
-    <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #1e293b; margin-top: 35px; margin-bottom: 15px; padding-bottom: 10px;">
-        <div style="display: flex; align-items: center; gap: 10px;">
-            <span style="font-size: 24px; color: #a78bfa;">⚡</span>
-            <span style="font-family: 'Outfit', sans-serif; font-size: 22px; font-weight: 800; color: #ffffff; text-transform: uppercase;">Floorsheet Live Feed</span>
+    # 4. Live Table Feed
+    live_feed_header = """
+    <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #1E293B; margin-top: 25px; margin-bottom: 15px; padding-bottom: 8px;">
+        <div style="display: flex; align-items: center; gap: 8px;">
+            <span style="font-size: 20px; color: #8B5CF6;">⚡</span>
+            <span style="font-family: 'Outfit', sans-serif; font-size: 18px; font-weight: 800; color: #ffffff; text-transform: uppercase;">Floorsheet Activity Feed</span>
         </div>
-        <div style="display: flex; align-items: center; gap: 12px; font-size: 14px; color: #94a3b8;">
-            <span style="color: #10b981; font-weight: bold; font-family: 'Inter', sans-serif;">● Auto Refresh: {refresh_interval}s</span>
-            <span style="cursor: pointer; font-size: 16px;">🔄 ⛶</span>
+        <div style="display: flex; align-items: center; gap: 12px; font-size: 13px; color: #64748b;">
+            <span style="color: #10B981; font-weight: bold; font-family: 'Inter', sans-serif;">● Live Stream Active</span>
         </div>
     </div>
     """
@@ -668,32 +507,26 @@ def render_live_dashboard(df, bulk_threshold, enable_sound):
 
     render_live_table(f_df, bulk_threshold)
         
-    # Footer Row
-    last_update_str = datetime.now().strftime("%I:%M:%S %p")
-    footer_html = f"""
-    <div style="display: flex; justify-content: space-between; align-items: center; border-top: 1px solid #1e293b; margin-top: 30px; padding-top: 15px; font-size: 12px; color: #64748b;">
-        <div>Data Source: NEPSE Floorsheet API</div>
-        <div>Last Updated: {last_update_str} • <span style="color: #10b981; font-weight: bold;">Connected</span></div>
-    </div>
-    """
-    st.markdown(footer_html, unsafe_allow_html=True)
 
+
+# -------------------------------------------------------------
+# TV Mode View (Optimized for Large screens)
+# -------------------------------------------------------------
 def render_tv_mode(df, bulk_threshold, refresh_interval, enable_sound):
     """
-    Renders a maximized, OBS-ready full screen dashboard with AgGrid.
+    OBS/Big TV optimized viewport.
     """
-    # 1. Header Row
     now_str = datetime.now().strftime("%H:%M:%S")
     header_html = f"""
     <div class="tv-header-container">
-        <div class="tv-header-title">📊 NEPSE LIVE BULK TERMINAL</div>
+        <div class="tv-header-title">📊 TradeNepse Live Terminal</div>
         <div class="tv-header-time">{now_str}</div>
     </div>
     """
     st.markdown(header_html, unsafe_allow_html=True)
     
-    # 2. Alert Banner (TV styling)
-    bulk_trades = filter_bulk_trades(df, bulk_threshold)
+    # TV Alert Banner
+    bulk_trades = df[df["contractQuantity"] >= bulk_threshold] if not df.empty else pd.DataFrame()
     if not bulk_trades.empty:
         newest_bulk = bulk_trades.sort_values(by="contractId", ascending=False).iloc[0]
         newest_cid = int(newest_bulk["contractId"])
@@ -719,26 +552,26 @@ def render_tv_mode(df, bulk_threshold, refresh_interval, enable_sound):
         
         tv_alert_html = f"""
         <div class="tv-alert-banner">
-            <div class="tv-alert-header">🚨 LIVE BULK TRADE DETECTED</div>
+            <div class="tv-alert-header">🚨 BLOCK TRADE ENGAGED</div>
             <div class="tv-alert-grid">
                 <div class="alert-item">
-                    <span class="alert-label">Symbol</span>
+                    <span class="alert-label" style="display:block; font-size:10px; color:#A78BFA;">Symbol</span>
                     <span class="tv-alert-val sym">{symbol}</span>
                 </div>
                 <div class="alert-item">
-                    <span class="alert-label">Quantity</span>
+                    <span class="alert-label" style="display:block; font-size:10px; color:#A78BFA;">Quantity</span>
                     <span class="tv-alert-val qty">{qty:,}</span>
                 </div>
                 <div class="alert-item">
-                    <span class="alert-label">Rate</span>
+                    <span class="alert-label" style="display:block; font-size:10px; color:#A78BFA;">Rate</span>
                     <span class="tv-alert-val">Rs. {rate:,.2f}</span>
                 </div>
                 <div class="alert-item">
-                    <span class="alert-label">Turnover</span>
+                    <span class="alert-label" style="display:block; font-size:10px; color:#A78BFA;">Turnover</span>
                     <span class="tv-alert-val val">{formatted_amount}</span>
                 </div>
                 <div class="alert-item">
-                    <span class="alert-label">Time</span>
+                    <span class="alert-label" style="display:block; font-size:10px; color:#A78BFA;">Execution Time</span>
                     <span class="tv-alert-val time">{trade_time_str}</span>
                 </div>
             </div>
@@ -752,46 +585,48 @@ def render_tv_mode(df, bulk_threshold, refresh_interval, enable_sound):
                 play_alert_sound()
                 st.toast(f"🚨 Bulk trade detected! {qty:,} shares of {symbol}", icon="🔥")
                 
-    # 3. Giant KPI Metric Cards
-    metrics = calculate_summary_metrics(df, bulk_threshold)
-    total_contracts = f"{metrics['total_contracts']:,}"
-    total_volume = format_number(metrics['total_volume'])
-    total_turnover = format_nepali_amount(metrics['total_turnover'])
-    total_bulk = f"{metrics['total_bulk_transactions']:,}"
-    max_qty = f"{metrics['largest_trade_quantity']:,}"
-    max_val = format_nepali_amount(metrics['largest_trade_value'])
+    # Giant TV KPI Cards
+    active_syms = df["stockSymbol"].nunique() if not df.empty else 0
+    total_bulk_vol = bulk_trades["contractQuantity"].sum() if not bulk_trades.empty else 0
     
+    if not bulk_trades.empty:
+        bulk_sums = bulk_trades.groupby("stockSymbol")["contractAmount"].sum()
+        top_bulk_sym = bulk_sums.idxmax()
+        top_bulk_val = bulk_sums.max()
+        top_gainer_bulk = f"{top_bulk_sym} ({format_nepali_amount(top_bulk_val)})"
+    else:
+        top_gainer_bulk = "N/A"
+        
+    if not df.empty:
+        idx_max = df["contractAmount"].idxmax()
+        max_trade_sym = df.loc[idx_max, "stockSymbol"]
+        max_trade_qty = int(df.loc[idx_max, "contractQuantity"])
+        largest_trade_today = f"{max_trade_sym} ({max_trade_qty:,} sh)"
+    else:
+        largest_trade_today = "N/A"
+        
     tv_cards_html = f"""
     <div class="tv-grid">
         <div class="tv-card">
-            <div class="tv-label">Total Contracts</div>
-            <div class="tv-value">{total_contracts}</div>
+            <div class="tv-label">Total Bulk Volume</div>
+            <div class="tv-value">{total_bulk_vol:,}</div>
         </div>
         <div class="tv-card">
-            <div class="tv-label">Total Volume</div>
-            <div class="tv-value">{total_volume}</div>
+            <div class="tv-label">Active Symbols</div>
+            <div class="tv-value">{active_syms}</div>
         </div>
         <div class="tv-card accent">
-            <div class="tv-label">Total Turnover</div>
-            <div class="tv-value" style="color: #4ade80;">{total_turnover}</div>
+            <div class="tv-label">Top Bulk Activity</div>
+            <div class="tv-value" style="color: #34D399; font-size: 24px;">{top_gainer_bulk}</div>
         </div>
         <div class="tv-card">
-            <div class="tv-label">Bulk Trades</div>
-            <div class="tv-value" style="color: #ffd60a;">{total_bulk}</div>
-        </div>
-        <div class="tv-card">
-            <div class="tv-label">Max Qty</div>
-            <div class="tv-value">{max_qty}</div>
-        </div>
-        <div class="tv-card">
-            <div class="tv-label">Max Value</div>
-            <div class="tv-value">{max_val}</div>
+            <div class="tv-label">Largest Trade</div>
+            <div class="tv-value" style="color: #ffd60a; font-size: 24px;">{largest_trade_today}</div>
         </div>
     </div>
     """
     st.markdown(tv_cards_html, unsafe_allow_html=True)
     
-    # 4. TV Mode AgGrid rendering
     st.markdown('<div class="tv-aggrid-container">', unsafe_allow_html=True)
     display_df = df.copy().sort_values(by="contractId", ascending=False).head(15)
     
@@ -821,8 +656,8 @@ def render_tv_mode(df, bulk_threshold, refresh_interval, enable_sound):
     configure_grid_columns(gb, table_df.columns)
         
     gb.configure_grid_options(
-        rowHeight=60,
-        headerHeight=60,
+        rowHeight=54,
+        headerHeight=54,
         animateRows=True
     )
     
@@ -839,27 +674,25 @@ def render_tv_mode(df, bulk_threshold, refresh_interval, enable_sound):
     )
     st.markdown('</div>', unsafe_allow_html=True)
     
-    # 5. Exit TV Mode Button
     st.markdown('<div class="tv-exit-container">', unsafe_allow_html=True)
-    if st.button("Exit TV Mode"):
+    if st.button("Exit TV Terminal"):
         st.session_state.tv_mode = False
         st.query_params.clear()
         st.rerun()
     st.markdown('</div>', unsafe_allow_html=True)
 
 # -------------------------------------------------------------
-# Dedicated Sidebar Page Renderers
+# Hot Stocks Page View
 # -------------------------------------------------------------
 def render_hot_bulk_stocks_page(df, bulk_threshold):
-    st.markdown('<div class="section-header"><span class="section-header-icon">🔥</span><span class="section-header-title">Hot Bulk Stocks Rankings</span></div>', unsafe_allow_html=True)
+    st.markdown('<div class="section-header"><span class="section-header-icon">🔥</span><span class="section-header-title">Hot Stocks Rankings (Bulk activity)</span></div>', unsafe_allow_html=True)
     
-    view_limit = st.selectbox("Rank Limit", options=[10, 20, 50], format_func=lambda x: f"Top {x}")
-    
-    bulk_df = df[df["contractQuantity"] >= bulk_threshold]
+    bulk_df = df[df["contractQuantity"] >= bulk_threshold] if not df.empty else pd.DataFrame()
     if bulk_df.empty:
-        st.info("No bulk transactions recorded today to compile rankings.")
+        st.info("No bulk transactions captured yet today. Rankings will populate as trades occur.")
         return
         
+    # Compile statistics
     grouped = bulk_df.groupby("stockSymbol").agg(
         total_qty=("contractQuantity", "sum"),
         total_turnover=("contractAmount", "sum"),
@@ -867,34 +700,92 @@ def render_hot_bulk_stocks_page(df, bulk_threshold):
         largest_trade=("contractAmount", "max")
     ).reset_index()
     
-    grouped["avg_size"] = grouped["total_turnover"] / grouped["trades_count"]
-    grouped = grouped.sort_values(by="total_turnover", ascending=False).head(view_limit).reset_index(drop=True)
+    # Calculate Activity Score (trades_count weight + turnover log weight)
+    grouped["activity_score"] = (grouped["trades_count"] * 5) + (grouped["total_turnover"] / 100_000)
+    grouped["activity_score"] = grouped["activity_score"].round(1)
     
-    grouped.insert(0, "Rank", grouped.index + 1)
+    # Top 3 Highlighting Metrics
+    top_turnover_row = grouped.sort_values(by="total_turnover", ascending=False).iloc[0]
+    top_trades_row = grouped.sort_values(by="trades_count", ascending=False).iloc[0]
+    top_score_row = grouped.sort_values(by="activity_score", ascending=False).iloc[0]
     
-    grouped = grouped.rename(columns={
+    top_cards_html = f"""
+    <div class="dashboard-kpi-grid">
+        <div class="kpi-card">
+            <div class="kpi-header">
+                <span class="kpi-label">Highest Turnover Stock</span>
+                <span class="kpi-icon">💰</span>
+            </div>
+            <div class="kpi-value" style="font-size: 20px !important; margin: 18px 0 8px 0; color: #10B981 !important;">{top_turnover_row['stockSymbol']}</div>
+            <span class="kpi-sub">Total Turnover: {format_nepali_amount(top_turnover_row['total_turnover'])}</span>
+        </div>
+        <div class="kpi-card">
+            <div class="kpi-header">
+                <span class="kpi-label">Most Bulk Transactions</span>
+                <span class="kpi-icon">🔄</span>
+            </div>
+            <div class="kpi-value" style="font-size: 20px !important; margin: 18px 0 8px 0; color: #3B82F6 !important;">{top_trades_row['stockSymbol']}</div>
+            <span class="kpi-sub">Bulk Trades Count: {top_trades_row['trades_count']:,}</span>
+        </div>
+        <div class="kpi-card">
+            <div class="kpi-header">
+                <span class="kpi-label">Highest Activity Score</span>
+                <span class="kpi-icon">⚡</span>
+            </div>
+            <div class="kpi-value" style="font-size: 20px !important; margin: 18px 0 8px 0; color: #F59E0B !important;">{top_score_row['stockSymbol']}</div>
+            <span class="kpi-sub">Activity Score: {top_score_row['activity_score']} pts</span>
+        </div>
+        <div class="kpi-card">
+            <div class="kpi-header">
+                <span class="kpi-label">Active Hot Stocks</span>
+                <span class="kpi-icon">📈</span>
+            </div>
+            <div class="kpi-value">{len(grouped)}</div>
+            <span class="kpi-sub">Total Symbols with Bulk Trade Activity</span>
+        </div>
+    </div>
+    """
+    st.markdown(top_cards_html, unsafe_allow_html=True)
+    
+    # Sorting controls & options
+    st.markdown("#### Hot Stocks Leaderboard")
+    sort_by_field = st.selectbox("Rank By", options=["Activity Score", "Bulk Turnover", "Bulk Quantity", "Number Of Bulk Trades"], index=0)
+    
+    map_sort_fields = {
+        "Activity Score": "activity_score",
+        "Bulk Turnover": "total_turnover",
+        "Bulk Quantity": "total_qty",
+        "Number Of Bulk Trades": "trades_count"
+    }
+    
+    sorted_df = grouped.sort_values(by=map_sort_fields[sort_by_field], ascending=False).reset_index(drop=True)
+    sorted_df.insert(0, "Rank", sorted_df.index + 1)
+    
+    sorted_df = sorted_df.rename(columns={
         "stockSymbol": "Symbol",
+        "activity_score": "Activity Score",
         "total_qty": "Bulk Quantity",
         "total_turnover": "Bulk Turnover",
         "trades_count": "Number Of Bulk Trades",
-        "avg_size": "Average Trade Size",
         "largest_trade": "Largest Trade"
     })
     
-    gb = GridOptionsBuilder.from_dataframe(grouped)
+    table_view_df = sorted_df[["Rank", "Symbol", "Activity Score", "Bulk Quantity", "Bulk Turnover", "Number Of Bulk Trades", "Largest Trade"]]
+    
+    gb = GridOptionsBuilder.from_dataframe(table_view_df)
     gb.configure_default_column(resizable=True, sortable=True)
     gb.configure_column("Rank", width=80)
     gb.configure_column("Symbol", cellRenderer=symbol_renderer)
+    gb.configure_column("Activity Score", cellStyle={"color": "#F59E0B", "fontWeight": "bold"})
     gb.configure_column("Bulk Quantity", valueFormatter=qty_formatter)
     gb.configure_column("Bulk Turnover", valueFormatter=amount_formatter)
     gb.configure_column("Number Of Bulk Trades", valueFormatter=qty_formatter)
-    gb.configure_column("Average Trade Size", valueFormatter=amount_formatter)
     gb.configure_column("Largest Trade", valueFormatter=amount_formatter)
     
     gridOptions = gb.build()
     
     AgGrid(
-        grouped,
+        table_view_df,
         gridOptions=gridOptions,
         allow_unsafe_jscode=True,
         theme="alpine",
@@ -902,15 +793,28 @@ def render_hot_bulk_stocks_page(df, bulk_threshold):
         use_container_width=True
     )
 
+# -------------------------------------------------------------
+# Largest Trades Page View
+# -------------------------------------------------------------
 def render_largest_trades_page(df, bulk_threshold):
-    st.markdown('<div class="section-header"><span class="section-header-icon">💰</span><span class="section-header-title">Largest Trades Today</span></div>', unsafe_allow_html=True)
+    st.markdown('<div class="section-header"><span class="section-header-icon">💰</span><span class="section-header-title">Largest Trades Board</span></div>', unsafe_allow_html=True)
     
     if df.empty:
-        st.info("No transaction data available.")
+        st.info("No transaction data available yet today.")
         return
         
-    limit = st.selectbox("Show Top", options=[25, 50, 100], index=0)
-    large_df = df.copy().sort_values(by="contractAmount", ascending=False).head(limit)
+    col_limit, col_filt = st.columns([3, 7])
+    with col_limit:
+        limit = st.selectbox("Show Top Trades", options=[25, 50, 100, 250], index=1)
+    with col_filt:
+        min_qty_filter = st.slider("Filter by Minimum Share Quantity", min_value=1000, max_value=100000, value=10000, step=1000)
+        
+    filtered_df = df[df["contractQuantity"] >= min_qty_filter]
+    if filtered_df.empty:
+        st.info(f"No trades found with quantity >= {min_qty_filter:,}.")
+        return
+        
+    large_df = filtered_df.sort_values(by="contractAmount", ascending=False).head(limit)
     
     def format_time(val):
         try:
@@ -938,8 +842,8 @@ def render_largest_trades_page(df, bulk_threshold):
     configure_grid_columns(gb, table_df.columns)
         
     gb.configure_grid_options(
-        rowHeight=50,
-        headerHeight=50,
+        rowHeight=44,
+        headerHeight=46,
         animateRows=True
     )
     gridOptions = gb.build()
@@ -953,41 +857,125 @@ def render_largest_trades_page(df, bulk_threshold):
         use_container_width=True
     )
 
+# -------------------------------------------------------------
+# Symbol Analytics Page View
+# -------------------------------------------------------------
 def render_symbol_analytics_page(df, bulk_threshold):
-    st.markdown('<div class="section-header"><span class="section-header-icon">📊</span><span class="section-header-title">Symbol Analytics</span></div>', unsafe_allow_html=True)
+    st.markdown('<div class="section-header"><span class="section-header-icon">📈</span><span class="section-header-title">Symbol Intelligence & Analytics</span></div>', unsafe_allow_html=True)
     
     if df.empty:
-        st.info("No transaction data available.")
+        st.info("No transaction data available yet today.")
         return
         
     all_symbols = sorted(df["stockSymbol"].unique())
-    selected_symbol = st.selectbox("Select Symbol", options=all_symbols)
+    selected_symbol = st.selectbox("Search Stock Symbol", options=all_symbols)
     
-    symbol_df = df[df["stockSymbol"] == selected_symbol]
+    symbol_df = df[df["stockSymbol"] == selected_symbol].copy()
     bulk_symbol_df = symbol_df[symbol_df["contractQuantity"] >= bulk_threshold]
     
+    # Basic Stats
     total_trades = len(symbol_df)
     total_bulk_trades = len(bulk_symbol_df)
     total_qty = symbol_df["contractQuantity"].sum()
     bulk_qty = bulk_symbol_df["contractQuantity"].sum()
     total_turnover = symbol_df["contractAmount"].sum()
     bulk_turnover = bulk_symbol_df["contractAmount"].sum()
+    avg_price = symbol_df["contractRate"].mean() if total_trades > 0 else 0
     
-    st.markdown(f"### Analysis for **{selected_symbol}**")
+    st.markdown(f"### Analysis for symbol: **{selected_symbol}**")
     
-    col1, col2, col3 = st.columns(3)
+    # Stats Layout
+    col1, col2, col3, col4 = st.columns(4)
     with col1:
         st.metric("Total Trades", f"{total_trades:,}")
-        st.metric("Bulk Trades", f"{total_bulk_trades:,}")
+        st.metric("Bulk Trades Count", f"{total_bulk_trades:,}")
     with col2:
-        st.metric("Total Quantity", f"{total_qty:,}")
-        st.metric("Bulk Quantity", f"{bulk_qty:,} ({bulk_qty/total_qty*100:.1f}%)" if total_qty > 0 else "0")
+        st.metric("Total Share Volume", f"{total_qty:,}")
+        ratio_qty = (bulk_qty/total_qty*100) if total_qty > 0 else 0
+        st.metric("Bulk Share Volume", f"{bulk_qty:,} ({ratio_qty:.1f}%)")
     with col3:
         st.metric("Total Turnover", format_nepali_amount(total_turnover))
+        ratio_turn = (bulk_turnover/total_turnover*100) if total_turnover > 0 else 0
         st.metric("Bulk Turnover", format_nepali_amount(bulk_turnover))
+    with col4:
+        st.metric("Avg Trade Price", f"Rs. {avg_price:,.2f}")
+        bulk_avg = bulk_symbol_df["contractRate"].mean() if total_bulk_trades > 0 else 0
+        st.metric("Avg Bulk Price", f"Rs. {bulk_avg:,.2f}" if bulk_avg > 0 else "N/A")
+
+    # Tick-Test Buy/Sell Classification Proxy
+    if total_trades > 1:
+        symbol_df = symbol_df.sort_values(by="contractId").copy()
+        rates = symbol_df["contractRate"].values
+        directions = ["Neutral"]
+        last_dir = "Neutral"
+        for i in range(1, len(rates)):
+            diff = rates[i] - rates[i-1]
+            if diff > 0:
+                directions.append("Buy")
+                last_dir = "Buy"
+            elif diff < 0:
+                directions.append("Sell")
+                last_dir = "Sell"
+            else:
+                directions.append(last_dir)
+        symbol_df["TickDirection"] = directions
         
+        buy_vol = symbol_df[symbol_df["TickDirection"] == "Buy"]["contractQuantity"].sum()
+        sell_vol = symbol_df[symbol_df["TickDirection"] == "Sell"]["contractQuantity"].sum()
+        total_dir_vol = buy_vol + sell_vol
+        
+        if total_dir_vol > 0:
+            buy_percent = (buy_vol / total_dir_vol) * 100
+            sell_percent = (sell_vol / total_dir_vol) * 100
+        else:
+            buy_percent, sell_percent = 50.0, 50.0
+            
+        st.markdown(f"""
+        <div style="margin-top: 15px; margin-bottom: 25px;">
+            <h5 style="color: white; margin-bottom: 8px; font-family: 'Outfit';">Intraday Buy/Sell Volume Pressure (Tick-Test Proxy)</h5>
+            <div style="display: flex; height: 26px; border-radius: 8px; overflow: hidden; width: 100%; border: 1px solid #1E293B;">
+                <div style="background-color: #059669; width: {buy_percent}%; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; font-size: 11px;">
+                    BUY INITIATED: {buy_percent:.1f}% ({buy_vol:,} shares)
+                </div>
+                <div style="background-color: #DC2626; width: {sell_percent}%; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; font-size: 11px;">
+                    SELL INITIATED: {sell_percent:.1f}% ({sell_vol:,} shares)
+                </div>
+            </div>
+        </div>
+        """, unsafe_allow_html=True)
+        
+    # Volume Trend Chart
+    st.markdown("#### Intraday Share Volume Trend")
+    symbol_df["ParsedTime"] = pd.to_datetime(symbol_df["tradeTime"].str.replace("Z", ""), errors="coerce")
+    symbol_df = symbol_df.dropna(subset=["ParsedTime"]).sort_values("ParsedTime")
+    
+    if not symbol_df.empty:
+        chart = alt.Chart(symbol_df).mark_bar(color="#7C3AED", cornerRadiusTopLeft=3, cornerRadiusTopRight=3).encode(
+            x=alt.X("ParsedTime:T", title="Trade Time"),
+            y=alt.Y("contractQuantity:Q", title="Quantity (Shares)"),
+            color=alt.condition(
+                alt.datum.contractQuantity >= bulk_threshold,
+                alt.value("#EC4899"), # Pink for bulk trades
+                alt.value("#6366F1")  # Blue-violet for normal trades
+            ),
+            tooltip=[
+                alt.Tooltip("tradeTime:N", title="Time"),
+                alt.Tooltip("contractQuantity:Q", title="Quantity"),
+                alt.Tooltip("contractRate:Q", title="Price"),
+                alt.Tooltip("contractAmount:Q", title="Turnover")
+            ]
+        ).properties(
+            height=300
+        ).interactive()
+        
+        st.altair_chart(chart, use_container_width=True)
+        st.caption("Pink bars signify transactions exceeding the bulk volume threshold.")
+    else:
+        st.info("No time series data parsed to render charts.")
+
+    # Historical Bulk Trades insights list
     if not bulk_symbol_df.empty:
-        st.markdown("#### Bulk Trades Details")
+        st.markdown("#### Historical Intraday Bulk Transactions")
         bulk_symbol_df = bulk_symbol_df.copy()
         
         def format_time(val):
@@ -1011,8 +999,8 @@ def render_symbol_analytics_page(df, bulk_threshold):
         configure_grid_columns(gb, disp_df.columns)
         
         gb.configure_grid_options(
-            rowHeight=50,
-            headerHeight=50,
+            rowHeight=44,
+            headerHeight=46,
             animateRows=True
         )
         gridOptions = gb.build()
@@ -1025,15 +1013,21 @@ def render_symbol_analytics_page(df, bulk_threshold):
             use_container_width=True
         )
 
+# -------------------------------------------------------------
+# Live Alerts Log Page View
+# -------------------------------------------------------------
 def render_live_alerts_page(df, bulk_threshold):
-    st.markdown('<div class="section-header"><span class="section-header-icon">⚡</span><span class="section-header-title">Live Alerts Log</span></div>', unsafe_allow_html=True)
+    st.markdown('<div class="section-header"><span class="section-header-icon">🚨</span><span class="section-header-title">Live Intel & Block Alerts</span></div>', unsafe_allow_html=True)
     
-    bulk_df = df[df["contractQuantity"] >= bulk_threshold].sort_values(by="contractId", ascending=False)
+    bulk_df = df[df["contractQuantity"] >= bulk_threshold].copy() if not df.empty else pd.DataFrame()
     if bulk_df.empty:
-        st.info("No bulk alerts recorded yet today.")
+        st.info("No bulk alerts logged yet today. Real-time entries will compile automatically.")
         return
         
-    st.markdown("### Daily Bulk Trade Alerts Log")
+    st.markdown("### Today's Cumulative Bulk Alert Log")
+    
+    # Sort descending to show newest alerts first
+    bulk_df = bulk_df.sort_values(by="contractId", ascending=False)
     
     for idx, row in bulk_df.iterrows():
         qty = int(row["contractQuantity"])
@@ -1041,6 +1035,7 @@ def render_live_alerts_page(df, bulk_threshold):
         rate = float(row["contractRate"])
         amount = float(row["contractAmount"])
         trade_time_full = row["tradeTime"]
+        
         try:
             t_parsed = datetime.fromisoformat(trade_time_full.replace("Z", ""))
             trade_time_str = t_parsed.strftime("%H:%M:%S")
@@ -1049,206 +1044,54 @@ def render_live_alerts_page(df, bulk_threshold):
             
         formatted_amount = format_nepali_amount(amount)
         
+        # Color coding by severity
+        if qty >= 50000:
+            border_color = "#DC2626"
+            bg_color = "rgba(220, 38, 38, 0.04)"
+            badge_text = "Critical Block Trade"
+            badge_color = "#DC2626"
+        elif qty >= 25000:
+            border_color = "#D97706"
+            bg_color = "rgba(217, 119, 6, 0.04)"
+            badge_text = "Large Bulk Trade"
+            badge_color = "#D97706"
+        else:
+            border_color = "#2563EB"
+            bg_color = "rgba(37, 99, 235, 0.04)"
+            badge_text = "Bulk Trade"
+            badge_color = "#2563EB"
+            
         st.markdown(f"""
-        <div style="background-color: rgba(239, 68, 68, 0.05); border-left: 4px solid #ef4444; padding: 12px 16px; margin-bottom: 12px; border-radius: 4px;">
-            <span style="color: #ef4444; font-weight: bold; font-family: 'Roboto Mono', monospace;">[{trade_time_str}]</span> &nbsp;
-            <strong style="color: #ffffff;">ALERT:</strong> Traded <strong>{qty:,}</strong> shares of <strong style="color: #22d3ee;">{symbol}</strong> @ Rs. {rate:,.2f} (Turnover: <strong style="color: #4ade80;">{formatted_amount}</strong>)
+        <div style="background-color: {bg_color}; border: 1px solid {border_color}; border-left: 6px solid {border_color}; padding: 14px 18px; margin-bottom: 12px; border-radius: 8px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+                <span style="background-color: {badge_color}; color: white; padding: 2px 8px; border-radius: 12px; font-size: 10px; font-weight: bold; text-transform: uppercase; letter-spacing: 0.5px;">
+                    {badge_text}
+                </span>
+                <span style="color: #64748B; font-family: 'Roboto Mono', monospace; font-size: 11px; font-weight: bold;">
+                    {trade_time_str}
+                </span>
+            </div>
+            <div style="color: #E2E8F0; font-size: 14px; font-family: 'Inter', sans-serif;">
+                Traded <strong style="color: #FFFFFF; font-size: 15px;">{qty:,}</strong> shares of <strong style="color: #A78BFA; font-size: 15px;">{symbol}</strong> @ Rs. {rate:,.2f} (Turnover: <strong style="color: #34D399;">{formatted_amount}</strong>)
+            </div>
         </div>
         """, unsafe_allow_html=True)
 
-def render_bulk_history_page(df, bulk_threshold):
-    st.markdown('<div class="section-header"><span class="section-header-icon">📋</span><span class="section-header-title">Bulk Trade History</span></div>', unsafe_allow_html=True)
+# -------------------------------------------------------------
+# Coming Soon Placeholder Page View
+# -------------------------------------------------------------
+def render_coming_soon_page(page_name, page_icon):
+    st.markdown(f'<div class="section-header"><span class="section-header-icon">{page_icon}</span><span class="section-header-title">{page_name}</span></div>', unsafe_allow_html=True)
     
-    bulk_df = df[df["contractQuantity"] >= bulk_threshold]
-    if bulk_df.empty:
-        st.info("No bulk trades recorded today.")
-        return
-        
-    render_live_table(bulk_df, bulk_threshold)
-
-def render_hot_stocks(df, bulk_threshold):
-    st.subheader("🏆 Hot Stocks Rankings")
-    
-    if df.empty:
-        st.info("No transaction data available to rank stocks.")
-        return
-        
-    tab_vol, tab_turn, tab_bulk = st.tabs(["📊 Top by Volume", "💰 Top by Turnover", "🔥 Top by Bulk Transactions"])
-    
-    with tab_vol:
-        st.markdown("### Top 10 Stocks Ranked by Traded Quantity")
-        vol_df = get_hot_stocks_volume(df, limit=10)
-        if not vol_df.empty:
-            chart = alt.Chart(vol_df).mark_bar(
-                cornerRadiusTopRight=6,
-                cornerRadiusBottomRight=6,
-                height=25
-            ).encode(
-                x=alt.X('Volume:Q', title='Total Shares Traded'),
-                y=alt.Y('Symbol:N', sort='-x', title='Stock Symbol'),
-                color=alt.Color('Volume:Q', scale=alt.Scale(scheme='indigo'), legend=None),
-                tooltip=['Symbol', alt.Tooltip('Volume:Q', format=',')]
-            ).properties(height=350)
-            
-            st.altair_chart(chart, use_container_width=True)
-            st.table(vol_df.style.format({"Volume": "{:,}"}))
-            
-    with tab_turn:
-        st.markdown("### Top 10 Stocks Ranked by Turnover (Amount)")
-        turn_df = get_hot_stocks_turnover(df, limit=10)
-        if not turn_df.empty:
-            chart = alt.Chart(turn_df).mark_bar(
-                cornerRadiusTopRight=6,
-                cornerRadiusBottomRight=6,
-                height=25
-            ).encode(
-                x=alt.X('Turnover:Q', title='Turnover (Rs.)'),
-                y=alt.Y('Symbol:N', sort='-x', title='Stock Symbol'),
-                color=alt.Color('Turnover:Q', scale=alt.Scale(scheme='magma'), legend=None),
-                tooltip=['Symbol', alt.Tooltip('Turnover:Q', format='Rs. ,.2f')]
-            ).properties(height=350)
-            
-            st.altair_chart(chart, use_container_width=True)
-            st.table(turn_df.style.format({"Turnover": "Rs. {:,.2f}"}))
-            
-    with tab_bulk:
-        st.markdown(f"### Top 10 Stocks Ranked by Frequency of Bulk Trades ({bulk_threshold}+ shares)")
-        bulk_ranks = get_hot_stocks_bulk_transactions(df, bulk_threshold, limit=10)
-        if not bulk_ranks.empty:
-            chart = alt.Chart(bulk_ranks).mark_bar(
-                cornerRadiusTopRight=6,
-                cornerRadiusBottomRight=6,
-                height=25
-            ).encode(
-                x=alt.X('Bulk Transactions:Q', title='Number of Bulk Transactions'),
-                y=alt.Y('Symbol:N', sort='-x', title='Stock Symbol'),
-                color=alt.Color('Bulk Transactions:Q', scale=alt.Scale(scheme='warmorange'), legend=None),
-                tooltip=['Symbol', 'Bulk Transactions']
-            ).properties(height=350)
-            
-            st.altair_chart(chart, use_container_width=True)
-            st.table(bulk_ranks)
-        else:
-            st.info("No bulk transactions recorded yet to display rankings.")
-
-def render_settings_page(settings):
-    st.subheader("⚙️ System Settings")
-    
-    status_data = read_collector_status(settings.get("data_folder", "data"))
-    
-    c_status = status_data.get("status", "offline")
-    last_heartbeat = status_data.get("last_heartbeat")
-    last_sync = status_data.get("last_sync_time")
-    records_count = status_data.get("total_records", 0)
-    business_date = status_data.get("business_date", "N/A")
-    progress = status_data.get("sync_progress", "")
-    
-    is_active = False
-    if last_heartbeat:
-        try:
-            hb_time = datetime.fromisoformat(last_heartbeat)
-            diff = (datetime.now() - hb_time).total_seconds()
-            if diff < 45:
-                is_active = True
-        except:
-            pass
-            
-    if not is_active:
-        c_status = "offline"
-        
-    st.markdown("### Collector Daemon Status")
-    
-    col1, col2, col3 = st.columns(3)
-    with col1:
-        if c_status == "offline":
-            st.markdown('Status: <span class="status-dot offline"></span> **Offline**', unsafe_allow_html=True)
-        elif c_status in ("checking", "live_sync", "running"):
-            st.markdown('Status: <span class="status-dot online"></span> **Online (Running)**', unsafe_allow_html=True)
-        else:
-            st.markdown(f'Status: <span class="status-dot syncing"></span> **Syncing** ({progress})', unsafe_allow_html=True)
-    with col2:
-        st.markdown(f"**Business Date**: {business_date}")
-    with col3:
-        st.markdown(f"**Total Captured**: {records_count:,} trades")
-        
-    if last_sync:
-        try:
-            ls_time = datetime.fromisoformat(last_sync).strftime("%Y-%m-%d %H:%M:%S")
-            st.caption(f"Last successful API sync completed at: {ls_time}")
-        except:
-            st.caption(f"Last successful API sync completed at: {last_sync}")
-            
-    st.markdown("---")
-    st.markdown("### Configuration Form")
-    
-    with st.form("settings_form"):
-        refresh_interval = st.number_input(
-            "API Refresh & Polling Interval (seconds)",
-            min_value=5,
-            max_value=300,
-            value=int(settings.get("refresh_interval", 15)),
-            help="How frequently the background collector queries the newest floorsheet pages."
-        )
-        
-        bulk_threshold = st.number_input(
-            "Default Bulk Transaction Threshold (shares)",
-            min_value=100,
-            max_value=1_000_000,
-            value=int(settings.get("bulk_threshold", 5000)),
-            help="Trades with volume at or above this value will be highlighted."
-        )
-        
-        data_folder = st.text_input(
-            "Local Data Folder Path",
-            value=settings.get("data_folder", "data")
-        )
-        
-        auto_start = st.checkbox(
-            "Auto-start Background Collector Process",
-            value=settings.get("auto_start_collector", True)
-        )
-        
-        sound_enabled = st.checkbox(
-            "Enable Audible Alerts (Chime buzzer)",
-            value=settings.get("enable_sound", True)
-        )
-        
-        submitted = st.form_submit_button("Save Settings")
-        
-        if submitted:
-            new_settings = {
-                "refresh_interval": int(refresh_interval),
-                "bulk_threshold": int(bulk_threshold),
-                "data_folder": data_folder,
-                "auto_start_collector": auto_start,
-                "enable_sound": sound_enabled
-            }
-            if save_settings(new_settings):
-                st.success("Settings saved successfully!")
-                st.rerun()
-            else:
-                st.error("Failed to save settings.")
-
-def render_market_depth_stub():
-    st.markdown('<div class="section-header"><span class="section-header-icon">📊</span><span class="section-header-title">Market Depth</span></div>', unsafe_allow_html=True)
-    st.info("Market Depth panel is currently in sync with the NEPSE scraper daemon. Real-time bids and asks will populate here.")
-    st.caption("Terminal Data Stream Active")
-
-def render_analytics_stub():
-    st.markdown('<div class="section-header"><span class="section-header-icon">📈</span><span class="section-header-title">Market Analytics</span></div>', unsafe_allow_html=True)
-    st.info("Institutional analytics panel is loading historical data models. Quantitative charts will display shortly.")
-    
-def render_alerts_stub():
-    st.markdown('<div class="section-header"><span class="section-header-icon">🔔</span><span class="section-header-title">System Alerts</span></div>', unsafe_allow_html=True)
-    st.info("Configure live notifications, SMS/Email buzzers, and custom threshold triggers.")
-    
-def render_about_page():
-    st.markdown('<div class="section-header"><span class="section-header-icon">ℹ️</span><span class="section-header-title">About NEPSE Analyzer</span></div>', unsafe_allow_html=True)
-    st.markdown("""
-    ### NEPSE Live Bulk Market Analyzer Pro
-    Designed for professional trading rooms, broadcast streams, and live floorsheet analytics.
-    
-    - **Developer**: Antigravity AI Subagent
-    - **Version**: 2.5.0-Live
-    - **Status**: Production Release
-    """)
+    st.markdown(f"""
+    <div style="background: linear-gradient(135deg, #0F172A 0%, #0B0F19 100%); border: 1px solid #1E293B; border-radius: 12px; padding: 50px 30px; text-align: center; margin-top: 30px; box-shadow: 0 4px 15px rgba(0,0,0,0.3);">
+        <div style="font-size: 64px; margin-bottom: 20px; filter: drop-shadow(0 0 12px #6D28D9);">{page_icon}</div>
+        <h3 style="color: white; margin-bottom: 10px; font-family: 'Outfit'; font-weight: 800;">{page_name} Workspace</h3>
+        <p style="color: #94A3B8; font-size: 14px; max-width: 500px; margin: 0 auto 25px auto; font-family: 'Inter'; line-height: 1.5;">
+            We are designing a high-fidelity quantitative analysis workspace for institutional NEPSE traders. This feature is currently in active development.
+        </p>
+        <div style="display: inline-block; background-color: rgba(109, 40, 217, 0.1); border: 1px solid #6D28D9; border-radius: 20px; padding: 6px 18px; font-size: 12px; font-weight: 700; color: #A78BFA; text-transform: uppercase; letter-spacing: 1.5px; font-family: 'Inter';">
+            ⚡ Coming Soon to TradeNepse
+        </div>
+    </div>
+    """, unsafe_allow_html=True)
