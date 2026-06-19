@@ -43,6 +43,13 @@ st.set_page_config(
 
 # Load current settings
 settings = load_settings()
+import pytz
+tz_name = settings.get("timezone", "Asia/Kathmandu")
+try:
+    tz = pytz.timezone(tz_name)
+except Exception:
+    tz = pytz.timezone("Asia/Kathmandu")
+
 data_folder = settings.get("data_folder", "data")
 
 # Read refresh interval from settings.json (supporting both legacy refresh_interval and refresh_interval_seconds)
@@ -114,7 +121,7 @@ if not active_business_date or active_business_date == "N/A":
         newest_file = csv_files[-1]
         active_business_date = os.path.basename(newest_file).replace(".csv", "")
     else:
-        active_business_date = datetime.now().strftime("%Y-%m-%d")
+        active_business_date = datetime.now(tz).strftime("%Y-%m-%d")
 
 csv_path = get_csv_path(active_business_date, data_folder)
 trades_df = read_today_trades(csv_path)
@@ -286,8 +293,8 @@ else:
             """, unsafe_allow_html=True)
 
         with col_clock:
-            now_str = datetime.now().strftime("%I:%M:%S %p")
-            date_str = datetime.now().strftime("%a, %b %d, %Y")
+            now_str = datetime.now(tz).strftime("%I:%M:%S %p")
+            date_str = datetime.now(tz).strftime("%a, %b %d, %Y")
             st.markdown(f"""
             <div style="background-color: #0F172A; border: 1px solid #1E293B; border-radius: 12px; padding: 10px 18px; display: flex; align-items: center; gap: 12px; justify-content: flex-end; height: 100%; max-width: 320px; margin-left: auto;">
                 <span style="font-size: 18px; color: #8B5CF6;">🕒</span>

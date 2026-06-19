@@ -2,6 +2,7 @@ import time
 import os
 import sys
 from datetime import datetime
+import pytz
 from settings.config import load_settings
 from storage.csv_storage import (
     get_csv_path,
@@ -46,6 +47,13 @@ def run_sync_loop():
             data_folder = settings.get("data_folder", "data")
             refresh_interval = settings.get("refresh_interval", 15)
             
+            # Load timezone context dynamically
+            tz_name = settings.get("timezone", "Asia/Kathmandu")
+            try:
+                tz = pytz.timezone(tz_name)
+            except Exception:
+                tz = pytz.timezone("Asia/Kathmandu")
+            
             # Check if market is open before performing any network actions
             from analytics.schedule import market_is_open
             if not market_is_open():
@@ -81,7 +89,7 @@ def run_sync_loop():
             api_business_date = content[0].get("businessDate")
             if not api_business_date:
                 # Fallback to local date if missing
-                api_business_date = datetime.now().strftime("%Y-%m-%d")
+                api_business_date = datetime.now(tz).strftime("%Y-%m-%d")
                 
             # 2. Check if the business date has rolled over or is not initialized
             if current_date != api_business_date:

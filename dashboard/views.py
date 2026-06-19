@@ -368,7 +368,16 @@ def render_filter_bar(df, bulk_threshold):
     if not f_df.empty:
         f_df["ParsedTime"] = pd.to_datetime(f_df["tradeTime"].str.replace("Z", ""), errors="coerce")
         valid_times = f_df["ParsedTime"].dropna()
-        ref_date = valid_times.max().date() if not valid_times.empty else datetime.now().date()
+        # Get Nepal date for ref_date fallback
+        from settings.config import load_settings
+        import pytz
+        settings = load_settings()
+        tz_name = settings.get("timezone", "Asia/Kathmandu")
+        try:
+            tz = pytz.timezone(tz_name)
+        except Exception:
+            tz = pytz.timezone("Asia/Kathmandu")
+        ref_date = valid_times.max().date() if not valid_times.empty else datetime.now(tz).date()
         
         def parse_time_str(time_str, default_time_val):
             try:
@@ -423,10 +432,19 @@ def render_live_table(df, bulk_threshold):
         row_count = st.selectbox("Show rows", options=[25, 50, 100, 200, 500], index=1, key="table_row_count", label_visibility="collapsed")
     with col_dl:
         csv_data = display_df.to_csv(index=False).encode('utf-8')
+        # Get Nepal time for file name
+        from settings.config import load_settings
+        import pytz
+        settings = load_settings()
+        tz_name = settings.get("timezone", "Asia/Kathmandu")
+        try:
+            tz = pytz.timezone(tz_name)
+        except Exception:
+            tz = pytz.timezone("Asia/Kathmandu")
         st.download_button(
             label="📥 Export CSV Data",
             data=csv_data,
-            file_name=f"TradeNepse_floorsheet_{datetime.now().strftime('%Y%m%d_%H%M%S')}.csv",
+            file_name=f"TradeNepse_floorsheet_{datetime.now(tz).strftime('%Y%m%d_%H%M%S')}.csv",
             mime="text/csv",
             use_container_width=True
         )
@@ -516,7 +534,16 @@ def render_tv_mode(df, bulk_threshold, refresh_interval, enable_sound):
     """
     OBS/Big TV optimized viewport.
     """
-    now_str = datetime.now().strftime("%H:%M:%S")
+    from settings.config import load_settings
+    import pytz
+    settings = load_settings()
+    tz_name = settings.get("timezone", "Asia/Kathmandu")
+    try:
+        tz = pytz.timezone(tz_name)
+    except Exception:
+        tz = pytz.timezone("Asia/Kathmandu")
+        
+    now_str = datetime.now(tz).strftime("%H:%M:%S")
     header_html = f"""
     <div class="tv-header-container">
         <div class="tv-header-title">📊 TradeNepse Live Terminal</div>
