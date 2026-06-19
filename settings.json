@@ -1,0 +1,7 @@
+{
+    "refresh_interval": 15,
+    "bulk_threshold": 5000,
+    "data_folder": "data",
+    "auto_start_collector": true,
+    "enable_sound": true
+}
