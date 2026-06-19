@@ -1,9 +1,0 @@
-{
-    "status": "running",
-    "last_heartbeat": "2026-06-19T16:10:07.580441",
-    "last_sync_time": "2026-06-19T16:10:07.580435",
-    "total_records": 6388,
-    "is_syncing": false,
-    "business_date": "2026-06-19",
-    "sync_progress": "Synced 0 new"
-}
