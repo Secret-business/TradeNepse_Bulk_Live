@@ -3,5 +3,22 @@
     "bulk_threshold": 5000,
     "data_folder": "data",
     "auto_start_collector": true,
-    "enable_sound": true
+    "enable_sound": true,
+    "refresh_interval_seconds": 15,
+    "timezone": "Asia/Kathmandu",
+    "market_open": "11:01",
+    "market_close": "15:05",
+    "trading_days": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        6
+    ],
+    "holiday_mode": false,
+    "admin_password": "nepse_admin123",
+    "force_market_open": false,
+    "force_market_closed": false,
+    "enable_auto_refresh": true
 }

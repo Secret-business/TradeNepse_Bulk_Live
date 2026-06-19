@@ -3,10 +3,20 @@ import json
 
 DEFAULT_SETTINGS = {
     "refresh_interval": 15,          # seconds
+    "refresh_interval_seconds": 15,  # seconds
     "bulk_threshold": 5000,          # number of shares
     "data_folder": "data",           # folder to store YYYY-MM-DD.csv
     "auto_start_collector": True,    # start collector process automatically in app.py
-    "enable_sound": True             # enable buzzer/sound in Streamlit
+    "enable_sound": True,            # enable buzzer/sound in Streamlit
+    "timezone": "Asia/Kathmandu",
+    "market_open": "11:01",
+    "market_close": "15:05",
+    "trading_days": [0, 1, 2, 3, 4, 6], # 0=Monday, 6=Sunday
+    "holiday_mode": False,
+    "admin_password": "nepse_admin123",
+    "force_market_open": False,
+    "force_market_closed": False,
+    "enable_auto_refresh": True
 }
 
 def get_settings_file_path():

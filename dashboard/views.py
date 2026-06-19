@@ -1095,3 +1095,163 @@ def render_coming_soon_page(page_name, page_icon):
         </div>
     </div>
     """, unsafe_allow_html=True)
+
+def render_admin_loot_workspace(settings):
+    from settings.config import save_settings
+    from analytics.schedule import get_market_status, get_next_market_open, get_next_market_close
+    import pytz
+    
+    # -------------------------------------------------------------
+    # ⚙️ Diagnostics Monitor
+    # -------------------------------------------------------------
+    st.markdown("### ⚙️ Diagnostics")
+    
+    tz_name = settings.get("timezone", "Asia/Kathmandu")
+    try:
+        tz = pytz.timezone(tz_name)
+    except Exception:
+        tz = pytz.timezone("Asia/Kathmandu")
+        
+    nepal_now = datetime.now(tz)
+    nepal_now_str = nepal_now.strftime("%Y-%m-%d %I:%M:%S %p (%Z)")
+    
+    status_str = get_market_status()
+    
+    next_open = get_next_market_open()
+    next_open_str = next_open.strftime("%Y-%m-%d %I:%M %p") if next_open else "N/A"
+    
+    next_close = get_next_market_close()
+    next_close_str = next_close.strftime("%Y-%m-%d %I:%M %p") if next_close else "N/A"
+    
+    st.markdown(f"""
+    <div style="background-color: #0F172A; border: 1px solid #1E293B; border-radius: 12px; padding: 20px; margin-bottom: 25px; box-shadow: 0 4px 10px rgba(0,0,0,0.3);">
+        <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px;">
+            <div>
+                <div style="font-size: 11px; font-weight: 700; color: #64748B; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px;">Current Nepal Time</div>
+                <div style="font-size: 14px; font-weight: 700; color: white; font-family: 'Roboto Mono', monospace;">{nepal_now_str}</div>
+            </div>
+            <div>
+                <div style="font-size: 11px; font-weight: 700; color: #64748B; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px;">Current Market Status</div>
+                <div style="font-size: 14px; font-weight: 700; color: {'#10B981' if 'Open' in status_str else '#F59E0B'}; font-family: 'Inter';">{status_str}</div>
+            </div>
+            <div>
+                <div style="font-size: 11px; font-weight: 700; color: #64748B; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px;">Next Market Open Time</div>
+                <div style="font-size: 14px; font-weight: 700; color: white; font-family: 'Roboto Mono', monospace;">{next_open_str}</div>
+            </div>
+            <div>
+                <div style="font-size: 11px; font-weight: 700; color: #64748B; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px;">Next Market Close Time</div>
+                <div style="font-size: 14px; font-weight: 700; color: white; font-family: 'Roboto Mono', monospace;">{next_close_str}</div>
+            </div>
+        </div>
+    </div>
+    """, unsafe_allow_html=True)
+
+    # -------------------------------------------------------------
+    # Two Columns: Left = Schedule Settings, Right = System Controls
+    # -------------------------------------------------------------
+    col_left, col_right = st.columns(2)
+    
+    with col_left:
+        st.markdown("### ⚙️ Market Schedule Settings")
+        with st.form("admin_market_schedule_form"):
+            form_timezone = st.text_input(
+                "Timezone Context", 
+                value=settings.get("timezone", "Asia/Kathmandu")
+            )
+            form_open = st.text_input(
+                "Market Open Time (24h Format HH:MM)", 
+                value=settings.get("market_open", "11:01")
+            )
+            form_close = st.text_input(
+                "Market Close Time (24h Format HH:MM)", 
+                value=settings.get("market_close", "15:05")
+            )
+            
+            days_options = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
+            days_indices = {
+                "Monday": 0, "Tuesday": 1, "Wednesday": 2, "Thursday": 3, "Friday": 4, "Saturday": 5, "Sunday": 6
+            }
+            inv_days = {v: k for k, v in days_indices.items()}
+            current_days = [inv_days[d] for d in settings.get("trading_days", [0, 1, 2, 3, 4, 6]) if d in inv_days]
+            
+            form_days = st.multiselect(
+                "Configure Trading Session Weekdays",
+                options=days_options,
+                default=current_days
+            )
+            
+            form_interval = st.number_input(
+                "Browser Refresh Frequency (seconds)",
+                min_value=5, max_value=300,
+                value=int(settings.get("refresh_interval_seconds", settings.get("refresh_interval", 15)))
+            )
+            
+            form_holiday = st.checkbox(
+                "Holiday Mode Activated", 
+                value=settings.get("holiday_mode", False)
+            )
+            
+            form_pass = st.text_input(
+                "Change Admin Password (leave blank to keep current)", 
+                type="password"
+            )
+            
+            submit_schedule = st.form_submit_button("Save Market Schedule", type="primary", use_container_width=True)
+            
+            if submit_schedule:
+                new_days_list = [days_indices[d] for d in form_days]
+                settings["timezone"] = form_timezone.strip()
+                settings["market_open"] = form_open.strip()
+                settings["market_close"] = form_close.strip()
+                settings["trading_days"] = new_days_list
+                settings["refresh_interval"] = int(form_interval)
+                settings["refresh_interval_seconds"] = int(form_interval)
+                settings["holiday_mode"] = form_holiday
+                if form_pass.strip():
+                    settings["admin_password"] = form_pass.strip()
+                    
+                if save_settings(settings):
+                    st.success("Market schedule configurations updated successfully!")
+                    import time
+                    time.sleep(1)
+                    st.rerun()
+                else:
+                    st.error("Failed to write to settings.json.")
+
+    with col_right:
+        st.markdown("### ⚙️ System Controls")
+        with st.form("admin_system_controls_form"):
+            control_auto_ref = st.checkbox(
+                "Enable Auto Refresh", 
+                value=settings.get("enable_auto_refresh", True),
+                help="Toggle standard browser autorefresh loops."
+            )
+            control_force_open = st.checkbox(
+                "Force Market Open", 
+                value=settings.get("force_market_open", False),
+                help="Overrides normal schedule checking to force status: OPEN."
+            )
+            control_force_close = st.checkbox(
+                "Force Market Closed", 
+                value=settings.get("force_market_closed", False),
+                help="Overrides normal schedule checking to force status: CLOSED."
+            )
+            
+            submit_controls = st.form_submit_button("Save System Controls", type="primary", use_container_width=True)
+            
+            if submit_controls:
+                # Basic validation: cannot force both open and closed!
+                if control_force_open and control_force_close:
+                    st.error("Invalid Configuration: Cannot force market to be Open and Closed simultaneously.")
+                else:
+                    settings["enable_auto_refresh"] = control_auto_ref
+                    settings["force_market_open"] = control_force_open
+                    settings["force_market_closed"] = control_force_close
+                    
+                    if save_settings(settings):
+                        st.success("System controls saved successfully!")
+                        import time
+                        time.sleep(1)
+                        st.rerun()
+                    else:
+                        st.error("Failed to write controls to settings.json.")

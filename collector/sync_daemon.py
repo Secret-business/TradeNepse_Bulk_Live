@@ -46,6 +46,16 @@ def run_sync_loop():
             data_folder = settings.get("data_folder", "data")
             refresh_interval = settings.get("refresh_interval", 15)
             
+            # Check if market is open before performing any network actions
+            from analytics.schedule import market_is_open
+            if not market_is_open():
+                print("Market is closed. Skipping Floorsheet sync cycle.")
+                status_dict["status"] = "idle"
+                status_dict["last_heartbeat"] = datetime.now().isoformat()
+                update_collector_status(status_dict, data_folder)
+                time.sleep(refresh_interval)
+                continue
+                
             # 1. Fetch page 0 to get current business date and total pages
             print("Checking floorsheet page 0...")
             status_dict["status"] = "checking"
