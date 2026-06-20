@@ -1,0 +1,6 @@
+{
+    "enabled": true,
+    "start_date": "2022-09-18",
+    "request_delay_seconds": 1.5,
+    "update_frequency": "daily"
+}

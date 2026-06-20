@@ -1,0 +1,20 @@
+{
+  "host": "127.0.0.1",
+  "port": 5432,
+  "database": "nepse_data",
+  "user": "postgres",
+  "password": "kxnas76@",
+  "schema": "public",
+  "batch_size": 5000,
+
+  "import_enabled": true,
+
+  "company_master_enabled": true,
+  "daily_price_enabled": true,
+  "indices_enabled": true,
+  "floorsheet_enabled": true,
+
+  "max_retries": 3,
+  "log_imports": true,
+  "test_mode": true
+}

@@ -7,20 +7,29 @@ from playwright.sync_api import sync_playwright
 # Suppress certificate verification warnings
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
-class NepseDownloader:
+class DailyPriceDownloader:
     """
-    Downloader class to fetch today-price data from NEPSE.
-    Uses Playwright to capture dynamic authorization tokens and payload IDs,
-    then makes direct POST requests to the NEPSE API.
+    Downloader responsible for fetching today's price raw JSON data from NEPSE.
+    
+    Uses Playwright to intercept dynamic authorization tokens and payload IDs
+    from the floorsheet page, then performs standard POST requests to the NEPSE API.
     """
+    
     def __init__(self):
         self.auth_token: Optional[str] = None
         self.payload_id: Optional[str] = None
+        self.floorsheet_url: str = "https://www.nepalstock.com/floor-sheet"
+        self.api_url: str = "https://www.nepalstock.com/api/nots/nepse-data/today-price"
 
     def refresh_credentials(self, max_retries: int = 3) -> bool:
         """
-        Launches Playwright headless Chromium browser, navigates to the floor-sheet page,
-        intercepts the API authorization token and payload id, and closes the browser.
+        Launches a headless browser to capture dynamic authentication headers and IDs.
+        
+        Args:
+            max_retries: Maximum number of attempts to capture credentials.
+            
+        Returns:
+            True if credentials were captured successfully, False otherwise.
         """
         for attempt in range(1, max_retries + 1):
             try:
@@ -56,10 +65,9 @@ class NepseDownloader:
                                 
                     page.on("request", handle_request)
                     
-                    url = "https://www.nepalstock.com/floor-sheet"
-                    page.goto(url, timeout=35000, wait_until="networkidle")
+                    page.goto(self.floorsheet_url, timeout=35000, wait_until="networkidle")
                     
-                    # Wait up to 10 seconds for the AJAX request to load and be intercepted
+                    # Wait up to 10 seconds for interception
                     for _ in range(20):
                         if captured_token and captured_id:
                             break
@@ -76,23 +84,21 @@ class NepseDownloader:
             time.sleep(2)
         return False
 
-    def fetch_today_price(self, business_date: str, size: int = 500) -> Dict[str, Any]:
+    def download_date(self, business_date: str, size: int = 500) -> Dict[str, Any]:
         """
-        Fetches a single date's today-price data using requests with intercepted credentials.
-        Automatically handles credential expiration.
+        Downloads today's stock prices for a specific date from NEPSE.
         
         Args:
-            business_date: Date string in YYYY-MM-DD format.
-            size: Size parameter (default 500).
-
+            business_date: Date string formatted as YYYY-MM-DD.
+            size: The page size or number of records to request (defaults to 500).
+            
         Returns:
-            JSON response dictionary from the API.
+            The raw JSON dictionary from NEPSE API response.
         """
         if not self.auth_token or not self.payload_id:
             if not self.refresh_credentials():
-                raise Exception("Could not capture credentials from NEPSE floorsheet page.")
+                raise RuntimeError("Failed to capture credentials from NEPSE floorsheet.")
                 
-        url = "https://www.nepalstock.com/api/nots/nepse-data/today-price"
         params = {
             "size": str(size),
             "businessDate": business_date
@@ -107,30 +113,34 @@ class NepseDownloader:
         payload = {"id": self.payload_id}
         
         try:
-            response = requests.post(url, params=params, json=payload, headers=headers, verify=False, timeout=15)
+            response = requests.post(self.api_url, params=params, json=payload, headers=headers, verify=False, timeout=15)
             
-            # If unauthorized or forbidden, reload credentials and retry
+            # If unauthorized or forbidden, reload credentials and retry once
             if response.status_code in (401, 403):
                 if self.refresh_credentials():
                     headers["Authorization"] = self.auth_token
                     payload["id"] = self.payload_id
-                    response = requests.post(url, params=params, json=payload, headers=headers, verify=False, timeout=15)
+                    response = requests.post(self.api_url, params=params, json=payload, headers=headers, verify=False, timeout=15)
                 else:
-                    raise Exception("Failed to re-authenticate with NEPSE.")
+                    raise RuntimeError("Failed to re-authenticate with NEPSE.")
                     
             if response.status_code == 200:
                 return response.json()
+            elif response.status_code == 500 and "Searched Date is not valid" in response.text:
+                return {"content": [], "message": "Searched Date is not valid"}
             else:
-                raise Exception(f"Failed to fetch today-price. Status: {response.status_code}, Body: {response.text}")
+                raise RuntimeError(f"HTTP error {response.status_code}: {response.text}")
         except Exception as e:
-            # Catch other request exceptions and try to heal once
+            # Healing attempt for connection exceptions
             try:
                 if self.refresh_credentials():
                     headers["Authorization"] = self.auth_token
                     payload["id"] = self.payload_id
-                    response = requests.post(url, params=params, json=payload, headers=headers, verify=False, timeout=15)
+                    response = requests.post(self.api_url, params=params, json=payload, headers=headers, verify=False, timeout=15)
                     if response.status_code == 200:
                         return response.json()
+                    elif response.status_code == 500 and "Searched Date is not valid" in response.text:
+                        return {"content": [], "message": "Searched Date is not valid"}
             except Exception:
                 pass
             raise e

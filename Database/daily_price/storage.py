@@ -1,104 +1,54 @@
-import sqlite3
 import os
-from typing import List, Optional
-from daily_price.models import DailyPriceRecord
+import json
+from typing import Dict, Any
 
-class DailyPriceStorage:
+class DailyPriceStorageManager:
     """
-    Handles SQLite storage for Daily Price records.
-    Initializes the database, handles schema updates, queries the latest business date,
-    and inserts records transactionally.
+    Handles the file storage operations for raw Daily Price JSON data.
     """
-    def __init__(self, db_path: str):
-        self.db_path = db_path
-        # Create directory path if it does not exist
-        db_dir = os.path.dirname(self.db_path)
-        if db_dir:
-            os.makedirs(db_dir, exist_ok=True)
-        self.init_db()
 
-    def _get_connection(self) -> sqlite3.Connection:
-        """Returns a connection to the SQLite database with Row factory enabled."""
-        conn = sqlite3.connect(self.db_path)
-        conn.row_factory = sqlite3.Row
-        return conn
-
-    def init_db(self):
-        """Initializes the database table and indexes if they do not exist."""
-        schema = """
-        CREATE TABLE IF NOT EXISTS daily_prices (
-            business_date TEXT NOT NULL,
-            symbol TEXT NOT NULL,
-            company_name TEXT,
-            open_price REAL,
-            high_price REAL,
-            low_price REAL,
-            close_price REAL,
-            previous_close REAL,
-            volume INTEGER,
-            turnover REAL,
-            trades INTEGER,
-            vwap REAL,
-            last_price REAL,
-            fifty_two_week_high REAL,
-            fifty_two_week_low REAL,
-            last_updated_time TEXT,
-            PRIMARY KEY (business_date, symbol)
-        );
-        CREATE INDEX IF NOT EXISTS idx_business_date ON daily_prices (business_date);
-        CREATE INDEX IF NOT EXISTS idx_symbol ON daily_prices (symbol);
+    def __init__(self, data_dir: str = "data/daily_price"):
         """
-        with self._get_connection() as conn:
-            conn.executescript(schema)
-            conn.commit()
-
-    def get_latest_business_date(self) -> Optional[str]:
-        """
-        Queries the database for the maximum business date stored.
-        
-        Returns:
-            The latest business date as a string (YYYY-MM-DD), or None if the database has no records.
-        """
-        query = "SELECT MAX(business_date) as max_date FROM daily_prices"
-        with self._get_connection() as conn:
-            row = conn.execute(query).fetchone()
-            if row and row["max_date"]:
-                return str(row["max_date"])
-        return None
-
-    def save_records(self, records: List[DailyPriceRecord]) -> int:
-        """
-        Saves a batch of parsed DailyPriceRecord objects.
-        Uses INSERT OR REPLACE to prevent duplicate records on (business_date, symbol).
+        Initializes the storage manager with the target directory.
         
         Args:
-            records: List of DailyPriceRecord dataclass instances.
+            data_dir: Target directory path for storing JSON files.
+        """
+        self.data_dir = os.path.abspath(data_dir)
+        os.makedirs(self.data_dir, exist_ok=True)
+
+    def get_file_path(self, business_date: str) -> str:
+        """
+        Returns the absolute file path for a given business date.
+        
+        Args:
+            business_date: Date string formatted as YYYY-MM-DD.
             
         Returns:
-            The count of saved records.
+            The absolute file path string.
         """
-        if not records:
-            return 0
+        return os.path.join(self.data_dir, f"{business_date}.json")
 
-        query = """
-        INSERT OR REPLACE INTO daily_prices (
-            business_date, symbol, company_name, open_price, high_price, low_price,
-            close_price, previous_close, volume, turnover, trades, vwap,
-            last_price, fifty_two_week_high, fifty_two_week_low, last_updated_time
-        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+    def exists(self, business_date: str) -> bool:
         """
+        Checks if a JSON file for the given business date already exists.
+        
+        Args:
+            business_date: Date string formatted as YYYY-MM-DD.
+            
+        Returns:
+            True if the file exists, False otherwise.
+        """
+        return os.path.isfile(self.get_file_path(business_date))
 
-        data_tuples = [
-            (
-                r.business_date, r.symbol, r.company_name, r.open_price, r.high_price, r.low_price,
-                r.close_price, r.previous_close, r.volume, r.turnover, r.trades, r.vwap,
-                r.last_price, r.fifty_two_week_high, r.fifty_two_week_low, r.last_updated_time
-            )
-            for r in records
-        ]
-
-        with self._get_connection() as conn:
-            cursor = conn.cursor()
-            cursor.executemany(query, data_tuples)
-            conn.commit()
-            return cursor.rowcount
+    def save_raw_json(self, business_date: str, data: Dict[str, Any]) -> None:
+        """
+        Saves raw JSON dictionary to the file corresponding to the business date.
+        
+        Args:
+            business_date: Date string formatted as YYYY-MM-DD.
+            data: Raw dictionary data to save.
+        """
+        file_path = self.get_file_path(business_date)
+        with open(file_path, "w", encoding="utf-8") as f:
+            json.dump(data, f, indent=4, ensure_ascii=False)

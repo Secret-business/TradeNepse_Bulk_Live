@@ -1,0 +1,54 @@
+{
+    "timestamp": "2026-06-20T09:48:33.552234",
+    "test_mode": true,
+    "runs": [
+        {
+            "source": "company_master",
+            "date": "2026-06-20",
+            "records_imported": 5,
+            "duration": 0.010885,
+            "status": "Success",
+            "error_message": null
+        },
+        {
+            "source": "daily_price",
+            "date": "2026-06-16",
+            "records_imported": 0,
+            "duration": 0.022683,
+            "status": "Error",
+            "error_message": "insert or update on table \"daily_price\" violates foreign key constraint \"fk_daily_price_company\"\nDETAIL:  Key (symbol)=(ACLBSL) is not present in table \"company_master\".\n"
+        },
+        {
+            "source": "daily_price",
+            "date": "2026-06-17",
+            "records_imported": 0,
+            "duration": 0.003839,
+            "status": "Error",
+            "error_message": "insert or update on table \"daily_price\" violates foreign key constraint \"fk_daily_price_company\"\nDETAIL:  Key (symbol)=(ACLBSL) is not present in table \"company_master\".\n"
+        },
+        {
+            "source": "indices_51",
+            "date": "2026-06-20",
+            "records_imported": 10,
+            "duration": 0.003062,
+            "status": "Success",
+            "error_message": null
+        },
+        {
+            "source": "indices_52",
+            "date": "2026-06-20",
+            "records_imported": 10,
+            "duration": 0.001727,
+            "status": "Success",
+            "error_message": null
+        },
+        {
+            "source": "floorsheet",
+            "date": "2026-06-19",
+            "records_imported": 100,
+            "duration": 0.167572,
+            "status": "Success",
+            "error_message": null
+        }
+    ]
+}

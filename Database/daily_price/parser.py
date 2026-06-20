@@ -1,39 +1,48 @@
-from typing import List, Dict, Any
-from daily_price.models import DailyPriceRecord
+from typing import Dict, Any, List, Optional
 
-def parse_today_price_response(response_json: Dict[str, Any]) -> List[DailyPriceRecord]:
+class DailyPriceParser:
     """
-    Parses the JSON response from NEPSE today-price endpoint.
-    Extracts the list of records from the 'content' key and converts them
-    to DailyPriceRecord structures.
-
-    Args:
-        response_json: Raw API response dictionary.
-
-    Returns:
-        List of parsed DailyPriceRecord instances.
+    Parser class responsible for validating and interpreting raw daily price JSON data.
     """
-    if not isinstance(response_json, dict):
-        return []
 
-    content = response_json.get("content")
-    if not isinstance(content, list):
-        return []
-
-    records: List[DailyPriceRecord] = []
-    for index, item in enumerate(content):
-        if not isinstance(item, dict):
-            continue
+    def parse_and_validate(self, response_json: Any) -> List[Dict[str, Any]]:
+        """
+        Parses and validates the raw API JSON response.
+        
+        Args:
+            response_json: The raw JSON returned by the NEPSE today-price endpoint.
             
-        # Ensure critical identification fields are present
-        if not item.get("symbol") or not item.get("businessDate"):
-            continue
+        Returns:
+            A list of valid records from the response. Returns an empty list if the structure is invalid.
+        """
+        if not isinstance(response_json, dict):
+            return []
 
-        try:
-            record = DailyPriceRecord.from_api_json(item)
-            records.append(record)
-        except (ValueError, TypeError):
-            # Ignore individual malformed records but log or print if debugging
-            continue
+        content = response_json.get("content")
+        if not isinstance(content, list):
+            return []
 
-    return records
+        valid_records: List[Dict[str, Any]] = []
+        for item in content:
+            if not isinstance(item, dict):
+                continue
+            
+            # A valid record must contain at least the business date and symbol
+            if not item.get("businessDate") or not item.get("symbol"):
+                continue
+                
+            valid_records.append(item)
+
+        return valid_records
+
+    def get_record_count(self, response_json: Any) -> int:
+        """
+        Convenience method to retrieve the count of valid records.
+        
+        Args:
+            response_json: The raw JSON response.
+            
+        Returns:
+            The number of valid records in the response.
+        """
+        return len(self.parse_and_validate(response_json))

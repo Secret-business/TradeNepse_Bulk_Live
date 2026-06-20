@@ -1,297 +1,41 @@
-2026-06-19 21:59:32,994 [INFO] =========================================
-2026-06-19 21:59:32,994 [INFO] NEPSE Daily Price Data Synchronizer V1 Starting
-2026-06-19 21:59:32,994 [INFO] =========================================
-2026-06-19 21:59:32,994 [INFO] Database Path: D:\TradeNepse\Bulk live market\Database\daily_price.db
-2026-06-19 21:59:32,994 [INFO] Default Config Start Date: 2026-06-16
-2026-06-19 21:59:32,994 [INFO] Politeness Delay: 1.5 seconds
-2026-06-19 21:59:33,034 [INFO] Clean Run: No existing data in database.
-2026-06-19 21:59:33,035 [INFO] Sync will start from configured start date: 2026-06-16
-2026-06-19 21:59:33,036 [INFO] Sync range: 2026-06-16 to 2026-06-19
-2026-06-19 21:59:41,564 [INFO] Date Processed: 2026-06-16 | Records Downloaded: 355 | Records Saved: 355 | Errors: None
-2026-06-19 21:59:44,600 [INFO] Date Processed: 2026-06-17 | Records Downloaded: 352 | Records Saved: 352 | Errors: None
-2026-06-19 21:59:47,556 [INFO] Date Processed: 2026-06-18 | Records Downloaded: 347 | Records Saved: 347 | Errors: None
-2026-06-19 21:59:50,479 [INFO] Date Processed: 2026-06-19 | Records Downloaded: 353 | Records Saved: 353 | Errors: None
-2026-06-19 21:59:50,479 [INFO] =========================================
-2026-06-19 21:59:50,479 [INFO] NEPSE Daily Price Data Synchronizer V1 Sync Completed Successfully
-2026-06-19 21:59:50,479 [INFO] =========================================
-2026-06-19 21:59:55,040 [INFO] =========================================
-2026-06-19 21:59:55,040 [INFO] NEPSE Daily Price Data Synchronizer V1 Starting
-2026-06-19 21:59:55,040 [INFO] =========================================
-2026-06-19 21:59:55,040 [INFO] Database Path: D:\TradeNepse\Bulk live market\Database\daily_price.db
-2026-06-19 21:59:55,040 [INFO] Default Config Start Date: 2026-06-16
-2026-06-19 21:59:55,040 [INFO] Politeness Delay: 1.5 seconds
-2026-06-19 21:59:55,043 [INFO] Resume: Last saved business date found in DB is 2026-06-19.
-2026-06-19 21:59:55,043 [INFO] Sync will resume from the next calendar day: 2026-06-20
-2026-06-19 21:59:55,043 [INFO] Sync range: 2026-06-20 to 2026-06-19
-2026-06-19 21:59:55,043 [INFO] Database is already fully synchronized up to today. Exiting.
-2026-06-19 22:03:03,295 [INFO] =========================================
-2026-06-19 22:03:03,295 [INFO] NEPSE Daily Price Data Synchronizer V1 Starting
-2026-06-19 22:03:03,295 [INFO] =========================================
-2026-06-19 22:03:03,295 [INFO] Database Path: D:\TradeNepse\Bulk live market\Database\daily_price.db
-2026-06-19 22:03:03,295 [INFO] Default Config Start Date: 2022-09-18
-2026-06-19 22:03:03,295 [INFO] Politeness Delay: 1.5 seconds
-2026-06-19 22:03:03,297 [INFO] Resume: Last saved business date found in DB is 2026-06-19.
-2026-06-19 22:03:03,297 [INFO] Sync will resume from the next calendar day: 2026-06-20
-2026-06-19 22:03:03,297 [INFO] Sync range: 2026-06-20 to 2026-06-19
-2026-06-19 22:03:03,297 [INFO] Database is already fully synchronized up to today. Exiting.
-2026-06-19 22:05:09,796 [INFO] =========================================
-2026-06-19 22:05:09,796 [INFO] NEPSE Daily Price Data Synchronizer V1 Starting
-2026-06-19 22:05:09,796 [INFO] =========================================
-2026-06-19 22:05:09,797 [INFO] Database Path: D:\TradeNepse\Bulk live market\Database\daily_price.db
-2026-06-19 22:05:09,797 [INFO] Default Config Start Date: 2025-06-19
-2026-06-19 22:05:09,797 [INFO] Politeness Delay: 1.5 seconds
-2026-06-19 22:05:09,799 [INFO] Resume: Last saved business date found in DB is 2026-06-19.
-2026-06-19 22:05:09,799 [INFO] Sync will resume from the next calendar day: 2026-06-20
-2026-06-19 22:05:09,799 [INFO] Sync range: 2026-06-20 to 2026-06-19
-2026-06-19 22:05:09,799 [INFO] Database is already fully synchronized up to today. Exiting.
-2026-06-19 22:05:27,931 [INFO] =========================================
-2026-06-19 22:05:27,931 [INFO] NEPSE Daily Price Data Synchronizer V1 Starting
-2026-06-19 22:05:27,931 [INFO] =========================================
-2026-06-19 22:05:27,932 [INFO] Database Path: D:\TradeNepse\Bulk live market\Database\daily_price.db
-2026-06-19 22:05:27,932 [INFO] Default Config Start Date: 2025-06-19
-2026-06-19 22:05:27,932 [INFO] Politeness Delay: 1.5 seconds
-2026-06-19 22:05:28,003 [INFO] Clean Run: No existing data in database.
-2026-06-19 22:05:28,003 [INFO] Sync will start from configured start date: 2025-06-19
-2026-06-19 22:05:28,004 [INFO] Sync range: 2025-06-19 to 2026-06-19
-2026-06-19 22:05:38,943 [INFO] Date Processed: 2025-06-19 | Records Downloaded: 314 | Records Saved: 314 | Errors: None
-2026-06-19 22:05:41,652 [INFO] Date Processed: 2025-06-20 | Records Downloaded: 0 | Records Saved: 0 | Errors: None (Skipped - No trading data)
-2026-06-19 22:05:44,327 [INFO] Date Processed: 2025-06-21 | Records Downloaded: 0 | Records Saved: 0 | Errors: None (Skipped - No trading data)
-2026-06-19 22:05:47,556 [INFO] Date Processed: 2025-06-22 | Records Downloaded: 310 | Records Saved: 310 | Errors: None
-2026-06-19 22:05:50,542 [INFO] Date Processed: 2025-06-23 | Records Downloaded: 325 | Records Saved: 325 | Errors: None
-2026-06-19 22:05:53,601 [INFO] Date Processed: 2025-06-24 | Records Downloaded: 316 | Records Saved: 316 | Errors: None
-2026-06-19 22:05:56,614 [INFO] Date Processed: 2025-06-25 | Records Downloaded: 311 | Records Saved: 311 | Errors: None
-2026-06-19 22:05:59,556 [INFO] Date Processed: 2025-06-26 | Records Downloaded: 306 | Records Saved: 306 | Errors: None
-2026-06-19 22:06:02,234 [INFO] Date Processed: 2025-06-27 | Records Downloaded: 0 | Records Saved: 0 | Errors: None (Skipped - No trading data)
-2026-06-19 22:06:04,867 [INFO] Date Processed: 2025-06-28 | Records Downloaded: 0 | Records Saved: 0 | Errors: None (Skipped - No trading data)
-2026-06-19 22:06:07,806 [INFO] Date Processed: 2025-06-29 | Records Downloaded: 328 | Records Saved: 328 | Errors: None
-2026-06-19 22:06:10,851 [INFO] Date Processed: 2025-06-30 | Records Downloaded: 318 | Records Saved: 318 | Errors: None
-2026-06-19 22:06:13,827 [INFO] Date Processed: 2025-07-01 | Records Downloaded: 309 | Records Saved: 309 | Errors: None
-2026-06-19 22:06:16,831 [INFO] Date Processed: 2025-07-02 | Records Downloaded: 317 | Records Saved: 317 | Errors: None
-2026-06-19 22:06:19,796 [INFO] Date Processed: 2025-07-03 | Records Downloaded: 311 | Records Saved: 311 | Errors: None
-2026-06-19 22:06:22,477 [INFO] Date Processed: 2025-07-04 | Records Downloaded: 0 | Records Saved: 0 | Errors: None (Skipped - No trading data)
-2026-06-19 22:06:25,171 [INFO] Date Processed: 2025-07-05 | Records Downloaded: 0 | Records Saved: 0 | Errors: None (Skipped - No trading data)
-2026-06-19 22:06:28,195 [INFO] Date Processed: 2025-07-06 | Records Downloaded: 318 | Records Saved: 318 | Errors: None
-2026-06-19 22:06:31,264 [INFO] Date Processed: 2025-07-07 | Records Downloaded: 311 | Records Saved: 311 | Errors: None
-2026-06-19 22:06:34,297 [INFO] Date Processed: 2025-07-08 | Records Downloaded: 304 | Records Saved: 304 | Errors: None
-2026-06-19 22:06:45,402 [INFO] Date Processed: 2025-07-09 | Records Downloaded: 316 | Records Saved: 316 | Errors: None
-2026-06-19 22:06:48,342 [INFO] Date Processed: 2025-07-10 | Records Downloaded: 312 | Records Saved: 312 | Errors: None
-2026-06-19 22:06:51,011 [INFO] Date Processed: 2025-07-11 | Records Downloaded: 0 | Records Saved: 0 | Errors: None (Skipped - No trading data)
-2026-06-19 22:06:53,688 [INFO] Date Processed: 2025-07-12 | Records Downloaded: 0 | Records Saved: 0 | Errors: None (Skipped - No trading data)
-2026-06-19 22:06:56,637 [INFO] Date Processed: 2025-07-13 | Records Downloaded: 311 | Records Saved: 311 | Errors: None
-2026-06-19 22:06:59,632 [INFO] Date Processed: 2025-07-14 | Records Downloaded: 321 | Records Saved: 321 | Errors: None
-2026-06-19 22:07:02,683 [INFO] Date Processed: 2025-07-15 | Records Downloaded: 317 | Records Saved: 317 | Errors: None
-2026-06-19 22:07:05,831 [INFO] Date Processed: 2025-07-16 | Records Downloaded: 330 | Records Saved: 330 | Errors: None
-2026-06-19 22:07:08,829 [INFO] Date Processed: 2025-07-17 | Records Downloaded: 311 | Records Saved: 311 | Errors: None
-2026-06-19 22:07:11,444 [INFO] Date Processed: 2025-07-18 | Records Downloaded: 0 | Records Saved: 0 | Errors: None (Skipped - No trading data)
-2026-06-19 22:07:14,207 [INFO] Date Processed: 2025-07-19 | Records Downloaded: 0 | Records Saved: 0 | Errors: None (Skipped - No trading data)
-2026-06-19 22:07:17,230 [INFO] Date Processed: 2025-07-20 | Records Downloaded: 316 | Records Saved: 316 | Errors: None
-2026-06-19 22:07:20,222 [INFO] Date Processed: 2025-07-21 | Records Downloaded: 311 | Records Saved: 311 | Errors: None
-2026-06-19 22:07:23,149 [INFO] Date Processed: 2025-07-22 | Records Downloaded: 319 | Records Saved: 319 | Errors: None
-2026-06-19 22:07:26,176 [INFO] Date Processed: 2025-07-23 | Records Downloaded: 319 | Records Saved: 319 | Errors: None
-2026-06-19 22:07:29,227 [INFO] Date Processed: 2025-07-24 | Records Downloaded: 328 | Records Saved: 328 | Errors: None
-2026-06-19 22:07:31,856 [INFO] Date Processed: 2025-07-25 | Records Downloaded: 0 | Records Saved: 0 | Errors: None (Skipped - No trading data)
-2026-06-19 22:07:34,529 [INFO] Date Processed: 2025-07-26 | Records Downloaded: 0 | Records Saved: 0 | Errors: None (Skipped - No trading data)
-2026-06-19 22:07:37,541 [INFO] Date Processed: 2025-07-27 | Records Downloaded: 323 | Records Saved: 323 | Errors: None
-2026-06-19 22:07:40,454 [INFO] Date Processed: 2025-07-28 | Records Downloaded: 321 | Records Saved: 321 | Errors: None
-2026-06-19 22:07:53,130 [INFO] Date Processed: 2025-07-29 | Records Downloaded: 321 | Records Saved: 321 | Errors: None
-2026-06-19 22:07:56,138 [INFO] Date Processed: 2025-07-30 | Records Downloaded: 327 | Records Saved: 327 | Errors: None
-2026-06-19 22:07:59,135 [INFO] Date Processed: 2025-07-31 | Records Downloaded: 318 | Records Saved: 318 | Errors: None
-2026-06-19 22:08:01,751 [INFO] Date Processed: 2025-08-01 | Records Downloaded: 0 | Records Saved: 0 | Errors: None (Skipped - No trading data)
-2026-06-19 22:08:04,389 [INFO] Date Processed: 2025-08-02 | Records Downloaded: 0 | Records Saved: 0 | Errors: None (Skipped - No trading data)
-2026-06-19 22:08:07,398 [INFO] Date Processed: 2025-08-03 | Records Downloaded: 319 | Records Saved: 319 | Errors: None
-2026-06-19 22:08:10,519 [INFO] Date Processed: 2025-08-04 | Records Downloaded: 325 | Records Saved: 325 | Errors: None
-2026-06-19 22:08:13,533 [INFO] Date Processed: 2025-08-05 | Records Downloaded: 325 | Records Saved: 325 | Errors: None
-2026-06-19 22:08:16,559 [INFO] Date Processed: 2025-08-06 | Records Downloaded: 320 | Records Saved: 320 | Errors: None
-2026-06-19 22:08:19,484 [INFO] Date Processed: 2025-08-07 | Records Downloaded: 318 | Records Saved: 318 | Errors: None
-2026-06-19 22:08:22,268 [INFO] Date Processed: 2025-08-08 | Records Downloaded: 0 | Records Saved: 0 | Errors: None (Skipped - No trading data)
-2026-06-19 22:08:24,927 [INFO] Date Processed: 2025-08-09 | Records Downloaded: 0 | Records Saved: 0 | Errors: None (Skipped - No trading data)
-2026-06-19 22:08:27,686 [INFO] Date Processed: 2025-08-10 | Records Downloaded: 0 | Records Saved: 0 | Errors: None (Skipped - No trading data)
-2026-06-19 22:08:30,673 [INFO] Date Processed: 2025-08-11 | Records Downloaded: 324 | Records Saved: 324 | Errors: None
-2026-06-19 22:08:33,685 [INFO] Date Processed: 2025-08-12 | Records Downloaded: 323 | Records Saved: 323 | Errors: None
-2026-06-19 22:08:36,695 [INFO] Date Processed: 2025-08-13 | Records Downloaded: 321 | Records Saved: 321 | Errors: None
-2026-06-19 22:08:39,704 [INFO] Date Processed: 2025-08-14 | Records Downloaded: 320 | Records Saved: 320 | Errors: None
-2026-06-19 22:08:42,418 [INFO] Date Processed: 2025-08-15 | Records Downloaded: 0 | Records Saved: 0 | Errors: None (Skipped - No trading data)
-2026-06-19 22:08:45,134 [INFO] Date Processed: 2025-08-16 | Records Downloaded: 0 | Records Saved: 0 | Errors: None (Skipped - No trading data)
-2026-06-19 22:08:48,043 [INFO] Date Processed: 2025-08-17 | Records Downloaded: 317 | Records Saved: 317 | Errors: None
-2026-06-19 22:09:00,879 [INFO] Date Processed: 2025-08-18 | Records Downloaded: 320 | Records Saved: 320 | Errors: None
-2026-06-19 22:09:03,902 [INFO] Date Processed: 2025-08-19 | Records Downloaded: 316 | Records Saved: 316 | Errors: None
-2026-06-19 22:09:06,893 [INFO] Date Processed: 2025-08-20 | Records Downloaded: 323 | Records Saved: 323 | Errors: None
-2026-06-19 22:09:09,852 [INFO] Date Processed: 2025-08-21 | Records Downloaded: 319 | Records Saved: 319 | Errors: None
-2026-06-19 22:09:12,577 [INFO] Date Processed: 2025-08-22 | Records Downloaded: 0 | Records Saved: 0 | Errors: None (Skipped - No trading data)
-2026-06-19 22:09:15,211 [INFO] Date Processed: 2025-08-23 | Records Downloaded: 0 | Records Saved: 0 | Errors: None (Skipped - No trading data)
-2026-06-19 22:09:18,146 [INFO] Date Processed: 2025-08-24 | Records Downloaded: 323 | Records Saved: 323 | Errors: None
-2026-06-19 22:09:21,046 [INFO] Date Processed: 2025-08-25 | Records Downloaded: 317 | Records Saved: 317 | Errors: None
-2026-06-19 22:09:24,077 [INFO] Date Processed: 2025-08-26 | Records Downloaded: 322 | Records Saved: 322 | Errors: None
-2026-06-19 22:09:27,178 [INFO] Date Processed: 2025-08-27 | Records Downloaded: 321 | Records Saved: 321 | Errors: None
-2026-06-19 22:09:30,121 [INFO] Date Processed: 2025-08-28 | Records Downloaded: 322 | Records Saved: 322 | Errors: None
-2026-06-19 22:09:32,739 [INFO] Date Processed: 2025-08-29 | Records Downloaded: 0 | Records Saved: 0 | Errors: None (Skipped - No trading data)
-2026-06-19 22:09:35,416 [INFO] Date Processed: 2025-08-30 | Records Downloaded: 0 | Records Saved: 0 | Errors: None (Skipped - No trading data)
-2026-06-19 22:09:38,464 [INFO] Date Processed: 2025-08-31 | Records Downloaded: 321 | Records Saved: 321 | Errors: None
-2026-06-19 22:09:41,468 [INFO] Date Processed: 2025-09-01 | Records Downloaded: 326 | Records Saved: 326 | Errors: None
-2026-06-19 22:09:44,507 [INFO] Date Processed: 2025-09-02 | Records Downloaded: 323 | Records Saved: 323 | Errors: None
-2026-06-19 22:09:47,594 [INFO] Date Processed: 2025-09-03 | Records Downloaded: 326 | Records Saved: 326 | Errors: None
-2026-06-19 22:09:50,612 [INFO] Date Processed: 2025-09-04 | Records Downloaded: 317 | Records Saved: 317 | Errors: None
-2026-06-19 22:09:53,296 [INFO] Date Processed: 2025-09-05 | Records Downloaded: 0 | Records Saved: 0 | Errors: None (Skipped - No trading data)
-2026-06-19 22:09:55,947 [INFO] Date Processed: 2025-09-06 | Records Downloaded: 0 | Records Saved: 0 | Errors: None (Skipped - No trading data)
-2026-06-19 22:10:07,263 [INFO] Date Processed: 2025-09-07 | Records Downloaded: 334 | Records Saved: 334 | Errors: None
-2026-06-19 22:10:10,294 [INFO] Date Processed: 2025-09-08 | Records Downloaded: 320 | Records Saved: 320 | Errors: None
-2026-06-19 22:10:13,097 [INFO] Date Processed: 2025-09-09 | Records Downloaded: 0 | Records Saved: 0 | Errors: None (Skipped - No trading data)
-2026-06-19 22:10:15,726 [INFO] Date Processed: 2025-09-10 | Records Downloaded: 0 | Records Saved: 0 | Errors: None (Skipped - No trading data)
-2026-06-19 22:10:18,353 [INFO] Date Processed: 2025-09-11 | Records Downloaded: 0 | Records Saved: 0 | Errors: None (Skipped - No trading data)
-2026-06-19 22:10:21,012 [INFO] Date Processed: 2025-09-12 | Records Downloaded: 0 | Records Saved: 0 | Errors: None (Skipped - No trading data)
-2026-06-19 22:10:23,675 [INFO] Date Processed: 2025-09-13 | Records Downloaded: 0 | Records Saved: 0 | Errors: None (Skipped - No trading data)
-2026-06-19 22:10:26,310 [INFO] Date Processed: 2025-09-14 | Records Downloaded: 0 | Records Saved: 0 | Errors: None (Skipped - No trading data)
-2026-06-19 22:10:29,007 [INFO] Date Processed: 2025-09-15 | Records Downloaded: 0 | Records Saved: 0 | Errors: None (Skipped - No trading data)
-2026-06-19 22:10:31,617 [INFO] Date Processed: 2025-09-16 | Records Downloaded: 0 | Records Saved: 0 | Errors: None (Skipped - No trading data)
-2026-06-19 22:10:34,273 [INFO] Date Processed: 2025-09-17 | Records Downloaded: 0 | Records Saved: 0 | Errors: None (Skipped - No trading data)
-2026-06-19 22:10:37,199 [INFO] Date Processed: 2025-09-18 | Records Downloaded: 238 | Records Saved: 238 | Errors: None
-2026-06-19 22:10:39,859 [INFO] Date Processed: 2025-09-19 | Records Downloaded: 0 | Records Saved: 0 | Errors: None (Skipped - No trading data)
-2026-06-19 22:10:42,501 [INFO] Date Processed: 2025-09-20 | Records Downloaded: 0 | Records Saved: 0 | Errors: None (Skipped - No trading data)
-2026-06-19 22:10:45,489 [INFO] Date Processed: 2025-09-21 | Records Downloaded: 329 | Records Saved: 329 | Errors: None
-2026-06-19 22:10:48,105 [INFO] Date Processed: 2025-09-22 | Records Downloaded: 0 | Records Saved: 0 | Errors: None (Skipped - No trading data)
-2026-06-19 22:10:51,078 [INFO] Date Processed: 2025-09-23 | Records Downloaded: 328 | Records Saved: 328 | Errors: None
-2026-06-19 22:10:53,998 [INFO] Date Processed: 2025-09-24 | Records Downloaded: 317 | Records Saved: 317 | Errors: None
-2026-06-19 22:10:56,947 [INFO] Date Processed: 2025-09-25 | Records Downloaded: 327 | Records Saved: 327 | Errors: None
-2026-06-19 22:10:59,565 [INFO] Date Processed: 2025-09-26 | Records Downloaded: 0 | Records Saved: 0 | Errors: None (Skipped - No trading data)
-2026-06-19 22:11:02,167 [INFO] Date Processed: 2025-09-27 | Records Downloaded: 0 | Records Saved: 0 | Errors: None (Skipped - No trading data)
-2026-06-19 22:11:13,811 [INFO] Date Processed: 2025-09-28 | Records Downloaded: 314 | Records Saved: 314 | Errors: None
-2026-06-19 22:11:16,446 [INFO] Date Processed: 2025-09-29 | Records Downloaded: 0 | Records Saved: 0 | Errors: None (Skipped - No trading data)
-2026-06-19 22:11:19,168 [INFO] Date Processed: 2025-09-30 | Records Downloaded: 0 | Records Saved: 0 | Errors: None (Skipped - No trading data)
-2026-06-19 22:11:21,791 [INFO] Date Processed: 2025-10-01 | Records Downloaded: 0 | Records Saved: 0 | Errors: None (Skipped - No trading data)
-2026-06-19 22:11:24,500 [INFO] Date Processed: 2025-10-02 | Records Downloaded: 0 | Records Saved: 0 | Errors: None (Skipped - No trading data)
-2026-06-19 22:11:27,164 [INFO] Date Processed: 2025-10-03 | Records Downloaded: 0 | Records Saved: 0 | Errors: None (Skipped - No trading data)
-2026-06-19 22:11:29,861 [INFO] Date Processed: 2025-10-04 | Records Downloaded: 0 | Records Saved: 0 | Errors: None (Skipped - No trading data)
-2026-06-19 22:11:32,555 [INFO] Date Processed: 2025-10-05 | Records Downloaded: 0 | Records Saved: 0 | Errors: None (Skipped - No trading data)
-2026-06-19 22:11:35,183 [INFO] Date Processed: 2025-10-06 | Records Downloaded: 0 | Records Saved: 0 | Errors: None (Skipped - No trading data)
-2026-06-19 22:11:38,176 [INFO] Date Processed: 2025-10-07 | Records Downloaded: 326 | Records Saved: 326 | Errors: None
-2026-06-19 22:11:41,090 [INFO] Date Processed: 2025-10-08 | Records Downloaded: 335 | Records Saved: 335 | Errors: None
-2026-06-19 22:11:44,009 [INFO] Date Processed: 2025-10-09 | Records Downloaded: 313 | Records Saved: 313 | Errors: None
-2026-06-19 22:11:46,641 [INFO] Date Processed: 2025-10-10 | Records Downloaded: 0 | Records Saved: 0 | Errors: None (Skipped - No trading data)
-2026-06-19 22:11:49,308 [INFO] Date Processed: 2025-10-11 | Records Downloaded: 0 | Records Saved: 0 | Errors: None (Skipped - No trading data)
-2026-06-19 22:11:52,251 [INFO] Date Processed: 2025-10-12 | Records Downloaded: 324 | Records Saved: 324 | Errors: None
-2026-06-19 22:11:55,243 [INFO] Date Processed: 2025-10-13 | Records Downloaded: 330 | Records Saved: 330 | Errors: None
-2026-06-19 22:11:58,197 [INFO] Date Processed: 2025-10-14 | Records Downloaded: 317 | Records Saved: 317 | Errors: None
-2026-06-19 22:12:01,212 [INFO] Date Processed: 2025-10-15 | Records Downloaded: 318 | Records Saved: 318 | Errors: None
-2026-06-19 22:12:04,229 [INFO] Date Processed: 2025-10-16 | Records Downloaded: 311 | Records Saved: 311 | Errors: None
-2026-06-19 22:12:07,024 [INFO] Date Processed: 2025-10-17 | Records Downloaded: 0 | Records Saved: 0 | Errors: None (Skipped - No trading data)
-2026-06-19 22:12:09,716 [INFO] Date Processed: 2025-10-18 | Records Downloaded: 0 | Records Saved: 0 | Errors: None (Skipped - No trading data)
-2026-06-19 22:12:21,426 [INFO] Date Processed: 2025-10-19 | Records Downloaded: 323 | Records Saved: 323 | Errors: None
-2026-06-19 22:12:24,022 [INFO] Date Processed: 2025-10-20 | Records Downloaded: 0 | Records Saved: 0 | Errors: None (Skipped - No trading data)
-2026-06-19 22:12:26,655 [INFO] Date Processed: 2025-10-21 | Records Downloaded: 0 | Records Saved: 0 | Errors: None (Skipped - No trading data)
-2026-06-19 22:12:29,353 [INFO] Date Processed: 2025-10-22 | Records Downloaded: 0 | Records Saved: 0 | Errors: None (Skipped - No trading data)
-2026-06-19 22:12:32,040 [INFO] Date Processed: 2025-10-23 | Records Downloaded: 0 | Records Saved: 0 | Errors: None (Skipped - No trading data)
-2026-06-19 22:12:34,726 [INFO] Date Processed: 2025-10-24 | Records Downloaded: 0 | Records Saved: 0 | Errors: None (Skipped - No trading data)
-2026-06-19 22:12:37,378 [INFO] Date Processed: 2025-10-25 | Records Downloaded: 0 | Records Saved: 0 | Errors: None (Skipped - No trading data)
-2026-06-19 22:12:40,312 [INFO] Date Processed: 2025-10-26 | Records Downloaded: 313 | Records Saved: 313 | Errors: None
-2026-06-19 22:12:42,968 [INFO] Date Processed: 2025-10-27 | Records Downloaded: 0 | Records Saved: 0 | Errors: None (Skipped - No trading data)
-2026-06-19 22:12:45,970 [INFO] Date Processed: 2025-10-28 | Records Downloaded: 314 | Records Saved: 314 | Errors: None
-2026-06-19 22:12:48,944 [INFO] Date Processed: 2025-10-29 | Records Downloaded: 321 | Records Saved: 321 | Errors: None
-2026-06-19 22:12:52,063 [INFO] Date Processed: 2025-10-30 | Records Downloaded: 319 | Records Saved: 319 | Errors: None
-2026-06-19 22:12:54,696 [INFO] Date Processed: 2025-10-31 | Records Downloaded: 0 | Records Saved: 0 | Errors: None (Skipped - No trading data)
-2026-06-19 22:12:57,318 [INFO] Date Processed: 2025-11-01 | Records Downloaded: 0 | Records Saved: 0 | Errors: None (Skipped - No trading data)
-2026-06-19 22:13:00,366 [INFO] Date Processed: 2025-11-02 | Records Downloaded: 319 | Records Saved: 319 | Errors: None
-2026-06-19 22:13:03,369 [INFO] Date Processed: 2025-11-03 | Records Downloaded: 333 | Records Saved: 333 | Errors: None
-2026-06-19 22:13:06,346 [INFO] Date Processed: 2025-11-04 | Records Downloaded: 322 | Records Saved: 322 | Errors: None
-2026-06-19 22:13:09,316 [INFO] Date Processed: 2025-11-05 | Records Downloaded: 312 | Records Saved: 312 | Errors: None
-2026-06-19 22:13:12,311 [INFO] Date Processed: 2025-11-06 | Records Downloaded: 320 | Records Saved: 320 | Errors: None
-2026-06-19 22:13:14,915 [INFO] Date Processed: 2025-11-07 | Records Downloaded: 0 | Records Saved: 0 | Errors: None (Skipped - No trading data)
-2026-06-19 22:13:26,098 [INFO] Date Processed: 2025-11-08 | Records Downloaded: 0 | Records Saved: 0 | Errors: None (Skipped - No trading data)
-2026-06-19 22:13:29,076 [INFO] Date Processed: 2025-11-09 | Records Downloaded: 323 | Records Saved: 323 | Errors: None
-2026-06-19 22:13:32,075 [INFO] Date Processed: 2025-11-10 | Records Downloaded: 327 | Records Saved: 327 | Errors: None
-2026-06-19 22:13:35,021 [INFO] Date Processed: 2025-11-11 | Records Downloaded: 327 | Records Saved: 327 | Errors: None
-2026-06-19 22:13:38,032 [INFO] Date Processed: 2025-11-12 | Records Downloaded: 321 | Records Saved: 321 | Errors: None
-2026-06-19 22:13:41,219 [INFO] Date Processed: 2025-11-13 | Records Downloaded: 329 | Records Saved: 329 | Errors: None
-2026-06-19 22:13:44,070 [INFO] Date Processed: 2025-11-14 | Records Downloaded: 0 | Records Saved: 0 | Errors: None (Skipped - No trading data)
-2026-06-19 22:13:46,837 [INFO] Date Processed: 2025-11-15 | Records Downloaded: 0 | Records Saved: 0 | Errors: None (Skipped - No trading data)
-2026-06-19 22:13:49,809 [INFO] Date Processed: 2025-11-16 | Records Downloaded: 337 | Records Saved: 337 | Errors: None
-2026-06-19 22:13:52,738 [INFO] Date Processed: 2025-11-17 | Records Downloaded: 335 | Records Saved: 335 | Errors: None
-2026-06-19 22:13:55,725 [INFO] Date Processed: 2025-11-18 | Records Downloaded: 345 | Records Saved: 345 | Errors: None
-2026-06-19 22:13:58,734 [INFO] Date Processed: 2025-11-19 | Records Downloaded: 338 | Records Saved: 338 | Errors: None
-2026-06-19 22:14:01,719 [INFO] Date Processed: 2025-11-20 | Records Downloaded: 328 | Records Saved: 328 | Errors: None
-2026-06-19 22:14:04,335 [INFO] Date Processed: 2025-11-21 | Records Downloaded: 0 | Records Saved: 0 | Errors: None (Skipped - No trading data)
-2026-06-19 22:14:06,995 [INFO] Date Processed: 2025-11-22 | Records Downloaded: 0 | Records Saved: 0 | Errors: None (Skipped - No trading data)
-2026-06-19 22:14:09,949 [INFO] Date Processed: 2025-11-23 | Records Downloaded: 334 | Records Saved: 334 | Errors: None
-2026-06-19 22:14:12,990 [INFO] Date Processed: 2025-11-24 | Records Downloaded: 330 | Records Saved: 330 | Errors: None
-2026-06-19 22:14:15,926 [INFO] Date Processed: 2025-11-25 | Records Downloaded: 319 | Records Saved: 319 | Errors: None
-2026-06-19 22:14:18,923 [INFO] Date Processed: 2025-11-26 | Records Downloaded: 322 | Records Saved: 322 | Errors: None
-2026-06-19 22:14:21,919 [INFO] Date Processed: 2025-11-27 | Records Downloaded: 333 | Records Saved: 333 | Errors: None
-2026-06-19 22:14:33,714 [INFO] Date Processed: 2025-11-28 | Records Downloaded: 0 | Records Saved: 0 | Errors: None (Skipped - No trading data)
-2026-06-19 22:14:36,324 [INFO] Date Processed: 2025-11-29 | Records Downloaded: 0 | Records Saved: 0 | Errors: None (Skipped - No trading data)
-2026-06-19 22:14:39,275 [INFO] Date Processed: 2025-11-30 | Records Downloaded: 342 | Records Saved: 342 | Errors: None
-2026-06-19 22:14:42,306 [INFO] Date Processed: 2025-12-01 | Records Downloaded: 325 | Records Saved: 325 | Errors: None
-2026-06-19 22:14:45,269 [INFO] Date Processed: 2025-12-02 | Records Downloaded: 324 | Records Saved: 324 | Errors: None
-2026-06-19 22:14:48,246 [INFO] Date Processed: 2025-12-03 | Records Downloaded: 332 | Records Saved: 332 | Errors: None
-2026-06-19 22:14:50,937 [INFO] Date Processed: 2025-12-04 | Records Downloaded: 0 | Records Saved: 0 | Errors: None (Skipped - No trading data)
-2026-06-19 22:14:53,557 [INFO] Date Processed: 2025-12-05 | Records Downloaded: 0 | Records Saved: 0 | Errors: None (Skipped - No trading data)
-2026-06-19 22:14:56,241 [INFO] Date Processed: 2025-12-06 | Records Downloaded: 0 | Records Saved: 0 | Errors: None (Skipped - No trading data)
-2026-06-19 22:14:59,201 [INFO] Date Processed: 2025-12-07 | Records Downloaded: 325 | Records Saved: 325 | Errors: None
-2026-06-19 22:15:02,169 [INFO] Date Processed: 2025-12-08 | Records Downloaded: 331 | Records Saved: 331 | Errors: None
-2026-06-19 22:15:05,139 [INFO] Date Processed: 2025-12-09 | Records Downloaded: 331 | Records Saved: 331 | Errors: None
-2026-06-19 22:15:08,105 [INFO] Date Processed: 2025-12-10 | Records Downloaded: 329 | Records Saved: 329 | Errors: None
-2026-06-19 22:15:11,080 [INFO] Date Processed: 2025-12-11 | Records Downloaded: 326 | Records Saved: 326 | Errors: None
-2026-06-19 22:15:13,861 [INFO] Date Processed: 2025-12-12 | Records Downloaded: 0 | Records Saved: 0 | Errors: None (Skipped - No trading data)
-2026-06-19 22:15:16,664 [INFO] Date Processed: 2025-12-13 | Records Downloaded: 0 | Records Saved: 0 | Errors: None (Skipped - No trading data)
-2026-06-19 22:15:19,623 [INFO] Date Processed: 2025-12-14 | Records Downloaded: 330 | Records Saved: 330 | Errors: None
-2026-06-19 22:15:22,555 [INFO] Date Processed: 2025-12-15 | Records Downloaded: 329 | Records Saved: 329 | Errors: None
-2026-06-19 22:15:25,682 [INFO] Date Processed: 2025-12-16 | Records Downloaded: 325 | Records Saved: 325 | Errors: None
-2026-06-19 22:15:28,752 [INFO] Date Processed: 2025-12-17 | Records Downloaded: 332 | Records Saved: 332 | Errors: None
-2026-06-19 22:15:40,019 [INFO] Date Processed: 2025-12-18 | Records Downloaded: 329 | Records Saved: 329 | Errors: None
-2026-06-19 22:15:42,707 [INFO] Date Processed: 2025-12-19 | Records Downloaded: 0 | Records Saved: 0 | Errors: None (Skipped - No trading data)
-2026-06-19 22:15:45,411 [INFO] Date Processed: 2025-12-20 | Records Downloaded: 0 | Records Saved: 0 | Errors: None (Skipped - No trading data)
-2026-06-19 22:15:48,518 [INFO] Date Processed: 2025-12-21 | Records Downloaded: 345 | Records Saved: 345 | Errors: None
-2026-06-19 22:15:51,559 [INFO] Date Processed: 2025-12-22 | Records Downloaded: 332 | Records Saved: 332 | Errors: None
-2026-06-19 22:15:54,536 [INFO] Date Processed: 2025-12-23 | Records Downloaded: 328 | Records Saved: 328 | Errors: None
-2026-06-19 22:15:57,748 [INFO] Date Processed: 2025-12-24 | Records Downloaded: 334 | Records Saved: 334 | Errors: None
-2026-06-19 22:16:00,343 [INFO] Date Processed: 2025-12-25 | Records Downloaded: 0 | Records Saved: 0 | Errors: None (Skipped - No trading data)
-2026-06-19 22:16:03,005 [INFO] Date Processed: 2025-12-26 | Records Downloaded: 0 | Records Saved: 0 | Errors: None (Skipped - No trading data)
-2026-06-19 22:16:05,597 [INFO] Date Processed: 2025-12-27 | Records Downloaded: 0 | Records Saved: 0 | Errors: None (Skipped - No trading data)
-2026-06-19 22:16:08,750 [INFO] Date Processed: 2025-12-28 | Records Downloaded: 328 | Records Saved: 328 | Errors: None
-2026-06-19 22:16:11,761 [INFO] Date Processed: 2025-12-29 | Records Downloaded: 337 | Records Saved: 337 | Errors: None
-2026-06-19 22:16:14,468 [INFO] Date Processed: 2025-12-30 | Records Downloaded: 0 | Records Saved: 0 | Errors: None (Skipped - No trading data)
-2026-06-19 22:16:18,146 [INFO] Date Processed: 2025-12-31 | Records Downloaded: 342 | Records Saved: 342 | Errors: None
-2026-06-19 22:16:21,142 [INFO] Date Processed: 2026-01-01 | Records Downloaded: 336 | Records Saved: 336 | Errors: None
-2026-06-19 22:16:23,805 [INFO] Date Processed: 2026-01-02 | Records Downloaded: 0 | Records Saved: 0 | Errors: None (Skipped - No trading data)
-2026-06-19 22:16:26,446 [INFO] Date Processed: 2026-01-03 | Records Downloaded: 0 | Records Saved: 0 | Errors: None (Skipped - No trading data)
-2026-06-19 22:16:29,668 [INFO] Date Processed: 2026-01-04 | Records Downloaded: 323 | Records Saved: 323 | Errors: None
-2026-06-19 22:16:32,600 [INFO] Date Processed: 2026-01-05 | Records Downloaded: 335 | Records Saved: 335 | Errors: None
-2026-06-19 22:16:35,536 [INFO] Date Processed: 2026-01-06 | Records Downloaded: 334 | Records Saved: 334 | Errors: None
-2026-06-19 22:17:33,415 [INFO] Date Processed: 2026-01-07 | Records Downloaded: 323 | Records Saved: 323 | Errors: None
-2026-06-19 22:17:36,419 [INFO] Date Processed: 2026-01-08 | Records Downloaded: 328 | Records Saved: 328 | Errors: None
-2026-06-19 22:17:39,101 [INFO] Date Processed: 2026-01-09 | Records Downloaded: 0 | Records Saved: 0 | Errors: None (Skipped - No trading data)
-2026-06-19 22:17:41,705 [INFO] Date Processed: 2026-01-10 | Records Downloaded: 0 | Records Saved: 0 | Errors: None (Skipped - No trading data)
-2026-06-19 22:17:44,391 [INFO] Date Processed: 2026-01-11 | Records Downloaded: 0 | Records Saved: 0 | Errors: None (Skipped - No trading data)
-2026-06-19 22:17:47,315 [INFO] Date Processed: 2026-01-12 | Records Downloaded: 333 | Records Saved: 333 | Errors: None
-2026-06-19 22:17:50,289 [INFO] Date Processed: 2026-01-13 | Records Downloaded: 349 | Records Saved: 349 | Errors: None
-2026-06-19 22:17:53,402 [INFO] Date Processed: 2026-01-14 | Records Downloaded: 320 | Records Saved: 320 | Errors: None
-2026-06-19 22:17:56,142 [INFO] Date Processed: 2026-01-15 | Records Downloaded: 0 | Records Saved: 0 | Errors: None (Skipped - No trading data)
-2026-06-19 22:17:58,767 [INFO] Date Processed: 2026-01-16 | Records Downloaded: 0 | Records Saved: 0 | Errors: None (Skipped - No trading data)
-2026-06-19 22:18:01,426 [INFO] Date Processed: 2026-01-17 | Records Downloaded: 0 | Records Saved: 0 | Errors: None (Skipped - No trading data)
-2026-06-19 22:18:04,380 [INFO] Date Processed: 2026-01-18 | Records Downloaded: 338 | Records Saved: 338 | Errors: None
-2026-06-19 22:18:07,027 [INFO] Date Processed: 2026-01-19 | Records Downloaded: 0 | Records Saved: 0 | Errors: None (Skipped - No trading data)
-2026-06-19 22:18:10,017 [INFO] Date Processed: 2026-01-20 | Records Downloaded: 339 | Records Saved: 339 | Errors: None
-2026-06-19 22:18:12,957 [INFO] Date Processed: 2026-01-21 | Records Downloaded: 324 | Records Saved: 324 | Errors: None
-2026-06-19 22:18:15,908 [INFO] Date Processed: 2026-01-22 | Records Downloaded: 332 | Records Saved: 332 | Errors: None
-2026-06-19 22:18:18,701 [INFO] Date Processed: 2026-01-23 | Records Downloaded: 0 | Records Saved: 0 | Errors: None (Skipped - No trading data)
-2026-06-19 22:18:21,328 [INFO] Date Processed: 2026-01-24 | Records Downloaded: 0 | Records Saved: 0 | Errors: None (Skipped - No trading data)
-2026-06-19 22:18:24,426 [INFO] Date Processed: 2026-01-25 | Records Downloaded: 331 | Records Saved: 331 | Errors: None
-2026-06-19 22:18:27,338 [INFO] Date Processed: 2026-01-26 | Records Downloaded: 332 | Records Saved: 332 | Errors: None
-2026-06-19 22:18:41,873 [INFO] Date Processed: 2026-01-27 | Records Downloaded: 333 | Records Saved: 333 | Errors: None
-2026-06-19 22:18:44,816 [INFO] Date Processed: 2026-01-28 | Records Downloaded: 334 | Records Saved: 334 | Errors: None
-2026-06-19 22:18:47,759 [INFO] Date Processed: 2026-01-29 | Records Downloaded: 320 | Records Saved: 320 | Errors: None
-2026-06-19 22:18:50,358 [INFO] Date Processed: 2026-01-30 | Records Downloaded: 0 | Records Saved: 0 | Errors: None (Skipped - No trading data)
-2026-06-19 22:18:52,990 [INFO] Date Processed: 2026-01-31 | Records Downloaded: 0 | Records Saved: 0 | Errors: None (Skipped - No trading data)
-2026-06-19 22:18:55,944 [INFO] Date Processed: 2026-02-01 | Records Downloaded: 329 | Records Saved: 329 | Errors: None
-2026-06-19 22:18:58,920 [INFO] Date Processed: 2026-02-02 | Records Downloaded: 330 | Records Saved: 330 | Errors: None
-2026-06-19 22:19:01,930 [INFO] Date Processed: 2026-02-03 | Records Downloaded: 322 | Records Saved: 322 | Errors: None
-2026-06-19 22:19:05,237 [INFO] Date Processed: 2026-02-04 | Records Downloaded: 326 | Records Saved: 326 | Errors: None
-2026-06-19 22:19:08,221 [INFO] Date Processed: 2026-02-05 | Records Downloaded: 326 | Records Saved: 326 | Errors: None
-2026-06-19 22:19:10,837 [INFO] Date Processed: 2026-02-06 | Records Downloaded: 0 | Records Saved: 0 | Errors: None (Skipped - No trading data)
-2026-06-19 22:19:13,455 [INFO] Date Processed: 2026-02-07 | Records Downloaded: 0 | Records Saved: 0 | Errors: None (Skipped - No trading data)
-2026-06-19 22:19:16,489 [INFO] Date Processed: 2026-02-08 | Records Downloaded: 330 | Records Saved: 330 | Errors: None
-2026-06-19 22:19:19,603 [INFO] Date Processed: 2026-02-09 | Records Downloaded: 324 | Records Saved: 324 | Errors: None
-2026-06-19 22:19:22,600 [INFO] Date Processed: 2026-02-10 | Records Downloaded: 324 | Records Saved: 324 | Errors: None
-2026-06-19 22:19:25,648 [INFO] Date Processed: 2026-02-11 | Records Downloaded: 329 | Records Saved: 329 | Errors: None
-2026-06-19 22:19:28,713 [INFO] Date Processed: 2026-02-12 | Records Downloaded: 337 | Records Saved: 337 | Errors: None
-2026-06-19 22:19:31,337 [INFO] Date Processed: 2026-02-13 | Records Downloaded: 0 | Records Saved: 0 | Errors: None (Skipped - No trading data)
-2026-06-19 22:19:34,051 [INFO] Date Processed: 2026-02-14 | Records Downloaded: 0 | Records Saved: 0 | Errors: None (Skipped - No trading data)
-2026-06-19 22:19:36,675 [INFO] Date Processed: 2026-02-15 | Records Downloaded: 0 | Records Saved: 0 | Errors: None (Skipped - No trading data)
+2026-06-20 08:20:46 [INFO] Date Processed: 2026-06-19 | Records Downloaded: 353 | Errors: None
+2026-06-20 08:21:04 [ERROR] Date Processed: 2026-06-20 | Records Downloaded: 0 | Errors: HTTP error 500: Searched Date is not valid.
+2026-06-20 08:21:04 [ERROR] Sync loop interrupted due to error. Next run will resume from this date.
+2026-06-20 08:21:36 [INFO] =========================================
+2026-06-20 08:21:36 [INFO] NEPSE Daily Price Sync V2 Platform Starting
+2026-06-20 08:21:36 [INFO] =========================================
+2026-06-20 08:21:36 [INFO] Sync Range: 2026-06-20 to 2026-06-20
+2026-06-20 08:21:36 [INFO] Politeness Delay: 1.5 seconds
+2026-06-20 08:21:47 [INFO] Date Processed: 2026-06-20 | Records Downloaded: 0 | Errors: None (Skipped - No trading data)
+2026-06-20 08:21:47 [INFO] =========================================
+2026-06-20 08:21:47 [INFO] NEPSE Daily Price Sync V2 Completed Successfully
+2026-06-20 08:21:47 [INFO] =========================================
+2026-06-20 08:57:04 [INFO] =========================================
+2026-06-20 08:57:04 [INFO] NEPSE Daily Price Sync V2 Platform Starting
+2026-06-20 08:57:04 [INFO] =========================================
+2026-06-20 08:57:04 [INFO] Sync Range: 2026-06-20 to 2026-06-20
+2026-06-20 08:57:04 [INFO] Politeness Delay: 1.5 seconds
+2026-06-20 08:57:12 [INFO] Date Processed: 2026-06-20 | Records Downloaded: 0 | Errors: None (Skipped - No trading data)
+2026-06-20 08:57:12 [INFO] =========================================
+2026-06-20 08:57:12 [INFO] NEPSE Daily Price Sync V2 Completed Successfully
+2026-06-20 08:57:12 [INFO] =========================================
+2026-06-20 09:21:20 [INFO] =========================================
+2026-06-20 09:21:20 [INFO] NEPSE Daily Price Sync V2 Platform Starting
+2026-06-20 09:21:20 [INFO] =========================================
+2026-06-20 09:21:20 [INFO] Update Frequency: daily
+2026-06-20 09:21:20 [INFO] Sync Range: 2026-06-20 to 2026-06-20
+2026-06-20 09:21:20 [INFO] Politeness Delay: 1.5 seconds
+2026-06-20 09:21:31 [INFO] Date Processed: 2026-06-20 | Records Downloaded: 0 | Errors: None (Skipped - No trading data)
+2026-06-20 09:21:31 [INFO] =========================================
+2026-06-20 09:21:31 [INFO] NEPSE Daily Price Sync V2 Completed Successfully
+2026-06-20 09:21:31 [INFO] =========================================
+2026-06-20 09:23:39 [INFO] =========================================
+2026-06-20 09:23:39 [INFO] NEPSE Daily Price Sync V2 Platform Starting
+2026-06-20 09:23:39 [INFO] =========================================
+2026-06-20 09:23:39 [INFO] Update Frequency: daily
+2026-06-20 09:23:39 [INFO] Sync Range: 2026-06-20 to 2026-06-20
+2026-06-20 09:23:39 [INFO] Politeness Delay: 1.5 seconds
+2026-06-20 09:23:47 [INFO] Date Processed: 2026-06-20 | Records Downloaded: 0 | Errors: None (Skipped - No trading data)
+2026-06-20 09:23:47 [INFO] =========================================
+2026-06-20 09:23:47 [INFO] NEPSE Daily Price Sync V2 Completed Successfully
+2026-06-20 09:23:47 [INFO] =========================================

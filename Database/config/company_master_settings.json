@@ -1,0 +1,9 @@
+{
+    "enabled": true,
+    "update_frequency": "weekly",
+    "download_delay_seconds": 1,
+    "max_workers": 5,
+    "save_raw_json": true,
+    "test_mode": false,
+    "test_limit": 3
+}

@@ -1,0 +1,26 @@
+{
+    "securityMcsData": {
+        "securityId": "2790",
+        "openPrice": 938.0,
+        "highPrice": 960.0,
+        "lowPrice": 938.0,
+        "totalTradeQuantity": 688,
+        "totalTrades": 22,
+        "lastTradedPrice": 950.6,
+        "previousClose": 957.7,
+        "businessDate": "2026-06-19",
+        "closePrice": 950.6,
+        "fiftyTwoWeekHigh": 1240.0,
+        "fiftyTwoWeekLow": 827.9,
+        "lastUpdatedDateTime": "2026-06-19T14:59:38.013793"
+    },
+    "securityData": {
+        "id": 2790,
+        "symbol": "ACLBSL",
+        "securityName": "Aarambha Chautari Laghubitta Bittiya Sanstha Limited",
+        "activeStatus": "A",
+        "permittedToTrade": "Y",
+        "email": "aarambhachautari@gmail.com",
+        "sector": "Microfinance"
+    }
+}

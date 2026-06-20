@@ -1,0 +1,532 @@
+2026-06-20 08:39:49 [INFO] =========================================
+2026-06-20 08:39:49 [INFO] NEPSE Company Master Sync V1 Starting
+2026-06-20 08:39:49 [INFO] =========================================
+2026-06-20 08:39:49 [INFO] Update Frequency: weekly
+2026-06-20 08:39:49 [INFO] Download Delay: 1.0 seconds
+2026-06-20 08:39:49 [INFO] Save Raw JSON: True
+2026-06-20 08:39:49 [INFO] Test Mode: ENABLED (limit: 3)
+2026-06-20 08:39:49 [INFO] -----------------------------------------
+2026-06-20 08:39:49 [INFO] Step 1: Extracting securityId values from Daily Price data...
+2026-06-20 08:39:49 [INFO] Total unique securityId values found: 387
+2026-06-20 08:39:49 [INFO] TEST MODE: Limited to first 3 companies: [131, 132, 133]
+2026-06-20 08:39:49 [INFO] Already downloaded: 0
+2026-06-20 08:39:49 [INFO] Pending download: 3
+2026-06-20 08:39:49 [INFO] -----------------------------------------
+2026-06-20 08:39:49 [INFO] Step 2: Downloading company data from NEPSE API...
+2026-06-20 08:40:03 [WARNING] [1/3] securityId: 131 | Status: Skipped (invalid/empty response)
+2026-06-20 08:40:05 [WARNING] [2/3] securityId: 132 | Status: Skipped (invalid/empty response)
+2026-06-20 08:40:07 [WARNING] [3/3] securityId: 133 | Status: Skipped (invalid/empty response)
+2026-06-20 08:40:07 [INFO] -----------------------------------------
+2026-06-20 08:40:07 [INFO] Sync Summary:
+2026-06-20 08:40:07 [INFO]   Total Securities Processed: 3
+2026-06-20 08:40:07 [INFO]   New/Updated Records:        0
+2026-06-20 08:40:07 [INFO]   Unchanged Records:          3
+2026-06-20 08:40:07 [INFO]   Errors:                     0
+2026-06-20 08:40:07 [INFO]   Total in Master File:       0
+2026-06-20 08:40:07 [INFO] =========================================
+2026-06-20 08:40:07 [INFO] NEPSE Company Master Sync V1 Completed
+2026-06-20 08:40:07 [INFO] =========================================
+2026-06-20 08:45:16 [INFO] =========================================
+2026-06-20 08:45:16 [INFO] NEPSE Company Master Sync V1 Starting
+2026-06-20 08:45:16 [INFO] =========================================
+2026-06-20 08:45:16 [INFO] Update Frequency: weekly
+2026-06-20 08:45:16 [INFO] Download Delay: 1.0 seconds
+2026-06-20 08:45:16 [INFO] Save Raw JSON: True
+2026-06-20 08:45:16 [INFO] Test Mode: ENABLED (limit: 3)
+2026-06-20 08:45:16 [INFO] -----------------------------------------
+2026-06-20 08:45:16 [INFO] Step 1: Extracting securityId values from Daily Price data...
+2026-06-20 08:45:16 [INFO] Total unique securityId values found: 387
+2026-06-20 08:45:16 [INFO] TEST MODE: Limited to first 3 companies: [131, 132, 133]
+2026-06-20 08:45:16 [INFO] Already downloaded: 0
+2026-06-20 08:45:16 [INFO] Pending download: 3
+2026-06-20 08:45:16 [INFO] -----------------------------------------
+2026-06-20 08:45:16 [INFO] Step 2: Downloading company data from NEPSE API...
+2026-06-20 08:45:24 [INFO] [1/3] securityId: 131 | Symbol: NABIL | Status: Updated
+2026-06-20 08:45:26 [INFO] [2/3] securityId: 132 | Symbol: NIMB | Status: Updated
+2026-06-20 08:45:29 [INFO] [3/3] securityId: 133 | Symbol: SCB | Status: Updated
+2026-06-20 08:45:29 [INFO] -----------------------------------------
+2026-06-20 08:45:29 [INFO] Sync Summary:
+2026-06-20 08:45:29 [INFO]   Total Securities Processed: 3
+2026-06-20 08:45:29 [INFO]   New/Updated Records:        3
+2026-06-20 08:45:29 [INFO]   Unchanged Records:          0
+2026-06-20 08:45:29 [INFO]   Errors:                     0
+2026-06-20 08:45:29 [INFO]   Total in Master File:       3
+2026-06-20 08:45:29 [INFO] =========================================
+2026-06-20 08:45:29 [INFO] NEPSE Company Master Sync V1 Completed
+2026-06-20 08:45:29 [INFO] =========================================
+2026-06-20 08:45:45 [INFO] =========================================
+2026-06-20 08:45:45 [INFO] NEPSE Company Master Sync V1 Starting
+2026-06-20 08:45:45 [INFO] =========================================
+2026-06-20 08:45:45 [INFO] Update Frequency: weekly
+2026-06-20 08:45:45 [INFO] Download Delay: 1.0 seconds
+2026-06-20 08:45:45 [INFO] Save Raw JSON: True
+2026-06-20 08:45:45 [INFO] Test Mode: ENABLED (limit: 3)
+2026-06-20 08:45:45 [INFO] -----------------------------------------
+2026-06-20 08:45:45 [INFO] Step 1: Extracting securityId values from Daily Price data...
+2026-06-20 08:45:45 [INFO] Total unique securityId values found: 387
+2026-06-20 08:45:45 [INFO] TEST MODE: Limited to first 3 companies: [131, 132, 133]
+2026-06-20 08:45:45 [INFO] Already downloaded: 3
+2026-06-20 08:45:45 [INFO] Pending download: 0
+2026-06-20 08:45:45 [INFO] All companies are already up to date. Nothing to download.
+2026-06-20 08:45:45 [INFO] =========================================
+2026-06-20 08:45:45 [INFO] NEPSE Company Master Sync V1 Completed
+2026-06-20 08:45:45 [INFO] =========================================
+2026-06-20 08:47:59 [INFO] =========================================
+2026-06-20 08:47:59 [INFO] NEPSE Company Master Sync V1 Starting
+2026-06-20 08:47:59 [INFO] =========================================
+2026-06-20 08:47:59 [INFO] Update Frequency: weekly
+2026-06-20 08:47:59 [INFO] Download Delay: 1.0 seconds
+2026-06-20 08:47:59 [INFO] Save Raw JSON: True
+2026-06-20 08:47:59 [INFO] Test Mode: DISABLED
+2026-06-20 08:47:59 [INFO] -----------------------------------------
+2026-06-20 08:47:59 [INFO] Step 1: Extracting securityId values from Daily Price data...
+2026-06-20 08:47:59 [INFO] Total unique securityId values found: 387
+2026-06-20 08:47:59 [INFO] Already downloaded: 3
+2026-06-20 08:47:59 [INFO] Pending download: 384
+2026-06-20 08:47:59 [INFO] -----------------------------------------
+2026-06-20 08:47:59 [INFO] Step 2: Downloading company data from NEPSE API...
+2026-06-20 08:48:07 [INFO] [1/384] securityId: 134 | Symbol: HBL | Status: Updated
+2026-06-20 08:48:09 [INFO] [2/384] securityId: 135 | Symbol: SBI | Status: Updated
+2026-06-20 08:48:11 [INFO] [3/384] securityId: 137 | Symbol: EBL | Status: Updated
+2026-06-20 08:48:14 [INFO] [4/384] securityId: 139 | Symbol: NICA | Status: Updated
+2026-06-20 08:48:16 [INFO] [5/384] securityId: 140 | Symbol: MBL | Status: Updated
+2026-06-20 08:59:44 [INFO] =========================================
+2026-06-20 08:59:44 [INFO] NEPSE Company Master Sync V1 Starting
+2026-06-20 08:59:44 [INFO] =========================================
+2026-06-20 08:59:44 [INFO] Update Frequency: weekly
+2026-06-20 08:59:44 [INFO] Download Delay: 1.0 seconds
+2026-06-20 08:59:44 [INFO] Save Raw JSON: True
+2026-06-20 08:59:44 [INFO] Test Mode: DISABLED
+2026-06-20 08:59:44 [INFO] -----------------------------------------
+2026-06-20 08:59:44 [INFO] Step 1: Extracting securityId values from Daily Price data...
+2026-06-20 08:59:44 [INFO] Total unique securityId values found: 387
+2026-06-20 08:59:44 [INFO] Already downloaded: 3
+2026-06-20 08:59:44 [INFO] Pending download: 384
+2026-06-20 08:59:44 [INFO] -----------------------------------------
+2026-06-20 08:59:44 [INFO] Step 2: Downloading company data from NEPSE API...
+2026-06-20 08:59:52 [INFO] [1/384] securityId: 134 | Symbol: HBL | Status: Updated
+2026-06-20 08:59:54 [INFO] [2/384] securityId: 135 | Symbol: SBI | Status: Updated
+2026-06-20 08:59:56 [INFO] [3/384] securityId: 137 | Symbol: EBL | Status: Updated
+2026-06-20 08:59:59 [INFO] [4/384] securityId: 139 | Symbol: NICA | Status: Updated
+2026-06-20 09:00:01 [INFO] [5/384] securityId: 140 | Symbol: MBL | Status: Updated
+2026-06-20 09:00:03 [INFO] [6/384] securityId: 141 | Symbol: LSL | Status: Updated
+2026-06-20 09:00:05 [INFO] [7/384] securityId: 142 | Symbol: KBL | Status: Updated
+2026-06-20 09:00:07 [INFO] [8/384] securityId: 145 | Symbol: SBL | Status: Updated
+2026-06-20 09:00:10 [INFO] [9/384] securityId: 147 | Symbol: SHL | Status: Updated
+2026-06-20 09:00:12 [INFO] [10/384] securityId: 148 | Symbol: TRH | Status: Updated
+2026-06-20 09:00:14 [INFO] [11/384] securityId: 149 | Symbol: OHL | Status: Updated
+2026-06-20 09:00:16 [INFO] [12/384] securityId: 152 | Symbol: NHPC | Status: Updated
+2026-06-20 09:00:18 [INFO] [13/384] securityId: 153 | Symbol: BPCL | Status: Updated
+2026-06-20 09:00:21 [INFO] [14/384] securityId: 154 | Symbol: CHCL | Status: Updated
+2026-06-20 09:00:23 [INFO] [15/384] securityId: 155 | Symbol: STC | Status: Updated
+2026-06-20 09:00:25 [INFO] [16/384] securityId: 156 | Symbol: BBC | Status: Updated
+2026-06-20 09:00:27 [INFO] [17/384] securityId: 163 | Symbol: NUBL | Status: Updated
+2026-06-20 09:00:29 [INFO] [18/384] securityId: 164 | Symbol: CBBL | Status: Updated
+2026-06-20 09:00:31 [INFO] [19/384] securityId: 166 | Symbol: DDBL | Status: Updated
+2026-06-20 09:00:34 [INFO] [20/384] securityId: 171 | Symbol: SANIMA | Status: Updated
+2026-06-20 09:00:36 [INFO] [21/384] securityId: 172 | Symbol: NABBC | Status: Updated
+2026-06-20 09:00:38 [INFO] [22/384] securityId: 176 | Symbol: NICL | Status: Updated
+2026-06-20 09:00:40 [INFO] [23/384] securityId: 177 | Symbol: RBCL | Status: Updated
+2026-06-20 09:00:42 [INFO] [24/384] securityId: 178 | Symbol: NLICL | Status: Updated
+2026-06-20 09:00:45 [INFO] [25/384] securityId: 179 | Symbol: HEI | Status: Updated
+2026-06-20 09:00:47 [INFO] [26/384] securityId: 180 | Symbol: UAIL | Status: Updated
+2026-06-20 09:00:57 [INFO] [27/384] securityId: 182 | Symbol: SPIL | Status: Updated
+2026-06-20 09:01:00 [INFO] [28/384] securityId: 183 | Symbol: NIL | Status: Updated
+2026-06-20 09:01:02 [INFO] [29/384] securityId: 184 | Symbol: PRIN | Status: Updated
+2026-06-20 09:01:04 [INFO] [30/384] securityId: 185 | Symbol: SALICO | Status: Updated
+2026-06-20 09:01:06 [INFO] [31/384] securityId: 186 | Symbol: IGI | Status: Updated
+2026-06-20 09:01:08 [INFO] [32/384] securityId: 187 | Symbol: NLIC | Status: Updated
+2026-06-20 09:01:12 [INFO] [33/384] securityId: 188 | Symbol: LICN | Status: Updated
+2026-06-20 09:01:14 [INFO] [34/384] securityId: 192 | Symbol: SICL | Status: Updated
+2026-06-20 09:01:16 [INFO] [35/384] securityId: 194 | Symbol: NFS | Status: Updated
+2026-06-20 09:01:18 [INFO] [36/384] securityId: 195 | Symbol: BNL | Status: Updated
+2026-06-20 09:01:21 [INFO] [37/384] securityId: 204 | Symbol: GUFL | Status: Updated
+2026-06-20 09:01:23 [INFO] [38/384] securityId: 210 | Symbol: CIT | Status: Updated
+2026-06-20 09:01:25 [INFO] [39/384] securityId: 213 | Symbol: BNT | Status: Updated
+2026-06-20 09:01:27 [INFO] [40/384] securityId: 219 | Symbol: UNL | Status: Updated
+2026-06-20 09:01:29 [INFO] [41/384] securityId: 227 | Symbol: BFC | Status: Updated
+2026-06-20 09:01:32 [INFO] [42/384] securityId: 232 | Symbol: GFCL | Status: Updated
+2026-06-20 09:01:34 [INFO] [43/384] securityId: 235 | Symbol: HDL | Status: Updated
+2026-06-20 09:01:36 [INFO] [44/384] securityId: 236 | Symbol: PFL | Status: Updated
+2026-06-20 09:01:38 [INFO] [45/384] securityId: 238 | Symbol: NMB | Status: Updated
+2026-06-20 09:01:40 [INFO] [46/384] securityId: 244 | Symbol: SIFC | Status: Updated
+2026-06-20 09:01:43 [INFO] [47/384] securityId: 245 | Symbol: CFCL | Status: Updated
+2026-06-20 09:01:45 [INFO] [48/384] securityId: 250 | Symbol: JFL | Status: Updated
+2026-06-20 09:01:47 [INFO] [49/384] securityId: 255 | Symbol: PRVU | Status: Updated
+2026-06-20 09:01:49 [INFO] [50/384] securityId: 256 | Symbol: SFCL | Status: Updated
+2026-06-20 09:01:51 [INFO] [51/384] securityId: 263 | Symbol: GMFIL | Status: Updated
+2026-06-20 09:02:02 [INFO] [52/384] securityId: 268 | Symbol: SWBBL | Status: Updated
+2026-06-20 09:02:04 [INFO] [53/384] securityId: 273 | Symbol: ICFC | Status: Updated
+2026-06-20 09:02:06 [INFO] [54/384] securityId: 274 | Symbol: EDBL | Status: Updated
+2026-06-20 09:02:09 [INFO] [55/384] securityId: 307 | Symbol: NTC | Status: Updated
+2026-06-20 09:02:11 [INFO] [56/384] securityId: 338 | Symbol: PROFL | Status: Updated
+2026-06-20 09:02:13 [INFO] [57/384] securityId: 341 | Symbol: GBIME | Status: Updated
+2026-06-20 09:02:15 [INFO] [58/384] securityId: 348 | Symbol: CZBIL | Status: Updated
+2026-06-20 09:02:17 [INFO] [59/384] securityId: 357 | Symbol: PCBL | Status: Updated
+2026-06-20 09:02:19 [INFO] [60/384] securityId: 358 | Symbol: LBBL | Status: Updated
+2026-06-20 09:02:22 [INFO] [61/384] securityId: 360 | Symbol: AHPC | Status: Updated
+2026-06-20 09:02:24 [INFO] [62/384] securityId: 371 | Symbol: MDB | Status: Updated
+2026-06-20 09:02:26 [INFO] [63/384] securityId: 385 | Symbol: ALICL | Status: Updated
+2026-06-20 09:02:28 [INFO] [64/384] securityId: 393 | Symbol: HLI | Status: Updated
+2026-06-20 09:02:30 [INFO] [65/384] securityId: 396 | Symbol: NMLBBL | Status: Updated
+2026-06-20 09:02:33 [INFO] [66/384] securityId: 397 | Symbol: ADBL | Status: Updated
+2026-06-20 09:02:35 [INFO] [67/384] securityId: 401 | Symbol: MLBL | Status: Updated
+2026-06-20 09:02:37 [INFO] [68/384] securityId: 403 | Symbol: SJLIC | Status: Updated
+2026-06-20 09:02:39 [INFO] [69/384] securityId: 417 | Symbol: GBBL | Status: Updated
+2026-06-20 09:02:42 [INFO] [70/384] securityId: 418 | Symbol: JBBL | Status: Updated
+2026-06-20 09:02:44 [INFO] [71/384] securityId: 449 | Symbol: SBLPO | Status: Updated
+2026-06-20 09:02:46 [INFO] [72/384] securityId: 450 | Symbol: CORBL | Status: Updated
+2026-06-20 09:02:48 [INFO] [73/384] securityId: 459 | Symbol: KSBBL | Status: Updated
+2026-06-20 09:02:50 [INFO] [74/384] securityId: 469 | Symbol: NIMBPO | Status: Updated
+2026-06-20 09:02:52 [INFO] [75/384] securityId: 471 | Symbol: MPFL | Status: Updated
+2026-06-20 09:02:55 [INFO] [76/384] securityId: 472 | Symbol: SADBL | Status: Updated
+2026-06-20 09:02:57 [INFO] [77/384] securityId: 473 | Symbol: SHINE | Status: Updated
+2026-06-20 09:03:07 [INFO] [78/384] securityId: 474 | Symbol: MNBBL | Status: Updated
+2026-06-20 09:03:09 [INFO] [79/384] securityId: 490 | Symbol: FMDBL | Status: Updated
+2026-06-20 09:03:11 [INFO] [80/384] securityId: 516 | Symbol: MFIL | Status: Updated
+2026-06-20 09:03:13 [INFO] [81/384] securityId: 517 | Symbol: NBL | Status: Updated
+2026-06-20 09:03:16 [INFO] [82/384] securityId: 545 | Symbol: SLBBL | Status: Updated
+2026-06-20 09:03:18 [INFO] [83/384] securityId: 559 | Symbol: NLG | Status: Updated
+2026-06-20 09:03:20 [INFO] [84/384] securityId: 561 | Symbol: SINDU | Status: Updated
+2026-06-20 09:03:22 [INFO] [85/384] securityId: 574 | Symbol: SKBBL | Status: Updated
+2026-06-20 09:03:24 [INFO] [86/384] securityId: 583 | Symbol: GBLBS | Status: Updated
+2026-06-20 09:03:27 [INFO] [87/384] securityId: 587 | Symbol: RLFL | Status: Updated
+2026-06-20 09:03:29 [INFO] [88/384] securityId: 591 | Symbol: SHPC | Status: Updated
+2026-06-20 09:03:31 [INFO] [89/384] securityId: 593 | Symbol: KMCDB | Status: Updated
+2026-06-20 09:03:33 [INFO] [90/384] securityId: 601 | Symbol: MLBBL | Status: Updated
+2026-06-20 09:03:35 [INFO] [91/384] securityId: 610 | Symbol: RIDI | Status: Updated
+2026-06-20 09:03:37 [INFO] [92/384] securityId: 618 | Symbol: LLBS | Status: Updated
+2026-06-20 09:03:40 [INFO] [93/384] securityId: 634 | Symbol: RBCLPO | Status: Updated
+2026-06-20 09:03:42 [INFO] [94/384] securityId: 640 | Symbol: MNBBLP | Status: Updated
+2026-06-20 09:03:44 [INFO] [95/384] securityId: 686 | Symbol: BARUN | Status: Updated
+2026-06-20 09:03:46 [INFO] [96/384] securityId: 687 | Symbol: VLBS | Status: Updated
+2026-06-20 09:03:48 [INFO] [97/384] securityId: 693 | Symbol: HLBSL | Status: Updated
+2026-06-20 09:03:51 [INFO] [98/384] securityId: 694 | Symbol: MATRI | Status: Updated
+2026-06-20 09:03:53 [INFO] [99/384] securityId: 695 | Symbol: JSLBB | Status: Updated
+2026-06-20 09:03:55 [INFO] [100/384] securityId: 697 | Symbol: API | Status: Updated
+2026-06-20 09:03:57 [INFO] [101/384] securityId: 700 | Symbol: HEIP | Status: Updated
+2026-06-20 09:03:59 [INFO] [102/384] securityId: 704 | Symbol: NMBMF | Status: Updated
+2026-06-20 09:04:02 [INFO] [103/384] securityId: 705 | Symbol: GILB | Status: Updated
+2026-06-20 09:04:12 [INFO] [104/384] securityId: 706 | Symbol: SWMF | Status: Updated
+2026-06-20 09:04:14 [INFO] [105/384] securityId: 733 | Symbol: MATRIP | Status: Updated
+2026-06-20 09:04:16 [INFO] [106/384] securityId: 1741 | Symbol: MERO | Status: Updated
+2026-06-20 09:04:18 [INFO] [107/384] securityId: 2742 | Symbol: HIDCL | Status: Updated
+2026-06-20 09:04:21 [INFO] [108/384] securityId: 2743 | Symbol: NGPL | Status: Updated
+2026-06-20 09:04:23 [INFO] [109/384] securityId: 2744 | Symbol: GRDBL | Status: Updated
+2026-06-20 09:04:25 [INFO] [110/384] securityId: 2746 | Symbol: NMFBS | Status: Updated
+2026-06-20 09:04:27 [INFO] [111/384] securityId: 2748 | Symbol: RSDC | Status: Updated
+2026-06-20 09:04:29 [INFO] [112/384] securityId: 2751 | Symbol: KKHC | Status: Updated
+2026-06-20 09:04:32 [INFO] [113/384] securityId: 2754 | Symbol: DHPL | Status: Updated
+2026-06-20 09:04:34 [INFO] [114/384] securityId: 2757 | Symbol: AKPL | Status: Updated
+2026-06-20 09:04:37 [INFO] [115/384] securityId: 2758 | Symbol: FOWAD | Status: Updated
+2026-06-20 09:04:39 [INFO] [116/384] securityId: 2759 | Symbol: SPDL | Status: Updated
+2026-06-20 09:04:41 [INFO] [117/384] securityId: 2760 | Symbol: UMHL | Status: Updated
+2026-06-20 09:04:43 [INFO] [118/384] securityId: 2761 | Symbol: SMATA | Status: Updated
+2026-06-20 09:04:45 [INFO] [119/384] securityId: 2766 | Symbol: CHL | Status: Updated
+2026-06-20 09:04:48 [INFO] [120/384] securityId: 2767 | Symbol: HPPL | Status: Updated
+2026-06-20 09:04:50 [INFO] [121/384] securityId: 2768 | Symbol: MSLB | Status: Updated
+2026-06-20 09:04:52 [INFO] [122/384] securityId: 2769 | Symbol: NHDL | Status: Updated
+2026-06-20 09:04:54 [INFO] [123/384] securityId: 2770 | Symbol: SEF | Status: Updated
+2026-06-20 09:04:56 [INFO] [124/384] securityId: 2771 | Symbol: SMB | Status: Updated
+2026-06-20 09:04:59 [INFO] [125/384] securityId: 2774 | Symbol: USLB | Status: Updated
+2026-06-20 09:05:01 [INFO] [126/384] securityId: 2776 | Symbol: RADHI | Status: Updated
+2026-06-20 09:05:03 [INFO] [127/384] securityId: 2781 | Symbol: WNLB | Status: Updated
+2026-06-20 09:05:05 [INFO] [128/384] securityId: 2784 | Symbol: NADEP | Status: Updated
+2026-06-20 09:05:07 [INFO] [129/384] securityId: 2786 | Symbol: PMHPL | Status: Updated
+2026-06-20 09:05:21 [INFO] [130/384] securityId: 2787 | Symbol: KPCL | Status: Updated
+2026-06-20 09:05:23 [INFO] [131/384] securityId: 2788 | Symbol: AKJCL | Status: Updated
+2026-06-20 09:05:25 [INFO] [132/384] securityId: 2789 | Symbol: JOSHI | Status: Updated
+2026-06-20 09:05:27 [INFO] [133/384] securityId: 2790 | Symbol: ACLBSL | Status: Updated
+2026-06-20 09:05:30 [INFO] [134/384] securityId: 2792 | Symbol: UPPER | Status: Updated
+2026-06-20 09:05:32 [INFO] [135/384] securityId: 2804 | Symbol: SLBSL | Status: Updated
+2026-06-20 09:05:34 [INFO] [136/384] securityId: 2806 | Symbol: GHL | Status: Updated
+2026-06-20 09:05:36 [INFO] [137/384] securityId: 2807 | Symbol: ALBSL | Status: Updated
+2026-06-20 09:05:38 [INFO] [138/384] securityId: 2809 | Symbol: SHIVM | Status: Updated
+2026-06-20 09:05:41 [INFO] [139/384] securityId: 2810 | Symbol: UPCL | Status: Updated
+2026-06-20 09:05:43 [INFO] [140/384] securityId: 2811 | Symbol: MHNL | Status: Updated
+2026-06-20 09:05:45 [INFO] [141/384] securityId: 2813 | Symbol: PPCL | Status: Updated
+2026-06-20 09:05:47 [INFO] [142/384] securityId: 2815 | Symbol: GMFBS | Status: Updated
+2026-06-20 09:05:50 [INFO] [143/384] securityId: 2824 | Symbol: HURJA | Status: Updated
+2026-06-20 09:05:52 [INFO] [144/384] securityId: 2825 | Symbol: NICAD85/86 | Status: Updated
+2026-06-20 09:05:54 [INFO] [145/384] securityId: 2826 | Symbol: GLBSL | Status: Updated
+2026-06-20 09:05:56 [INFO] [146/384] securityId: 2829 | Symbol: SMFBS | Status: Updated
+2026-06-20 09:05:58 [INFO] [147/384] securityId: 2831 | Symbol: UNHPL | Status: Updated
+2026-06-20 09:06:01 [INFO] [148/384] securityId: 2832 | Symbol: ILBS | Status: Updated
+2026-06-20 09:06:03 [INFO] [149/384] securityId: 2835 | Symbol: NBF2 | Status: Updated
+2026-06-20 09:06:05 [INFO] [150/384] securityId: 2841 | Symbol: RHPL | Status: Updated
+2026-06-20 09:06:07 [INFO] [151/384] securityId: 2842 | Symbol: SJCL | Status: Updated
+2026-06-20 09:06:09 [INFO] [152/384] securityId: 2850 | Symbol: NMBD2085 | Status: Updated
+2026-06-20 09:06:11 [INFO] [153/384] securityId: 2851 | Symbol: NIBD2082 | Status: Updated
+2026-06-20 09:06:14 [INFO] [154/384] securityId: 2854 | Symbol: NBBD2085 | Status: Updated
+2026-06-20 09:06:24 [INFO] [155/384] securityId: 2859 | Symbol: SIGS2 | Status: Updated
+2026-06-20 09:06:26 [INFO] [156/384] securityId: 2860 | Symbol: SAPDBL | Status: Updated
+2026-06-20 09:06:29 [INFO] [157/384] securityId: 2862 | Symbol: CMF2 | Status: Updated
+2026-06-20 09:06:31 [INFO] [158/384] securityId: 2863 | Symbol: NICBF | Status: Updated
+2026-06-20 09:06:33 [INFO] [159/384] securityId: 2867 | Symbol: NMB50 | Status: Updated
+2026-06-20 09:06:35 [INFO] [160/384] securityId: 2868 | Symbol: NICD83/84 | Status: Updated
+2026-06-20 09:06:37 [INFO] [161/384] securityId: 2875 | Symbol: PBLD86 | Status: Updated
+2026-06-20 09:06:39 [INFO] [162/384] securityId: 2877 | Symbol: SFMF | Status: Updated
+2026-06-20 09:06:42 [INFO] [163/384] securityId: 2880 | Symbol: HDHPC | Status: Updated
+2026-06-20 09:06:44 [INFO] [164/384] securityId: 2881 | Symbol: NRIC | Status: Updated
+2026-06-20 09:06:46 [INFO] [165/384] securityId: 2882 | Symbol: ICFCD83 | Status: Updated
+2026-06-20 09:06:49 [INFO] [166/384] securityId: 2883 | Symbol: GWFD83 | Status: Updated
+2026-06-20 09:06:51 [INFO] [167/384] securityId: 2885 | Symbol: KBLD86 | Status: Updated
+2026-06-20 09:06:53 [INFO] [168/384] securityId: 2886 | Symbol: ADBLD83 | Status: Updated
+2026-06-20 09:06:55 [INFO] [169/384] securityId: 2887 | Symbol: NICLBSL | Status: Updated
+2026-06-20 09:06:58 [INFO] [170/384] securityId: 2889 | Symbol: CIZBD86 | Status: Updated
+2026-06-20 09:07:00 [INFO] [171/384] securityId: 2892 | Symbol: NBLD82 | Status: Updated
+2026-06-20 09:07:02 [INFO] [172/384] securityId: 2896 | Symbol: SMPDA | Status: Updated
+2026-06-20 09:07:04 [INFO] [173/384] securityId: 2898 | Symbol: NRN | Status: Updated
+2026-06-20 09:07:06 [INFO] [174/384] securityId: 2902 | Symbol: LUK | Status: Updated
+2026-06-20 09:07:08 [INFO] [175/384] securityId: 2903 | Symbol: LEC | Status: Updated
+2026-06-20 09:07:11 [INFO] [176/384] securityId: 2904 | Symbol: PBLD84 | Status: Updated
+2026-06-20 09:07:13 [INFO] [177/384] securityId: 2907 | Symbol: SSHL | Status: Updated
+2026-06-20 09:07:15 [INFO] [178/384] securityId: 2908 | Symbol: SGIC | Status: Updated
+2026-06-20 09:07:17 [INFO] [179/384] securityId: 2912 | Symbol: SBLD84 | Status: Updated
+2026-06-20 09:07:19 [INFO] [180/384] securityId: 2913 | Symbol: MEN | Status: Updated
+2026-06-20 09:07:31 [INFO] [181/384] securityId: 2914 | Symbol: UMRH | Status: Updated
+2026-06-20 09:07:34 [INFO] [182/384] securityId: 2915 | Symbol: PMLI | Status: Updated
+2026-06-20 09:07:36 [INFO] [183/384] securityId: 2917 | Symbol: CGH | Status: Updated
+2026-06-20 09:07:38 [INFO] [184/384] securityId: 2919 | Symbol: NIFRA | Status: Updated
+2026-06-20 09:07:40 [INFO] [185/384] securityId: 2922 | Symbol: SBD87 | Status: Updated
+2026-06-20 09:07:42 [INFO] [186/384] securityId: 2923 | Symbol: SLCF | Status: Updated
+2026-06-20 09:07:45 [INFO] [187/384] securityId: 2924 | Symbol: GLH | Status: Updated
+2026-06-20 09:07:47 [INFO] [188/384] securityId: 2925 | Symbol: MLBSL | Status: Updated
+2026-06-20 09:07:49 [INFO] [189/384] securityId: 2931 | Symbol: NIBD84 | Status: Updated
+2026-06-20 09:07:51 [INFO] [190/384] securityId: 2932 | Symbol: MFLD85 | Status: Updated
+2026-06-20 09:07:53 [INFO] [191/384] securityId: 2933 | Symbol: KEF | Status: Updated
+2026-06-20 09:07:55 [INFO] [192/384] securityId: 2934 | Symbol: SHEL | Status: Updated
+2026-06-20 09:07:58 [INFO] [193/384] securityId: 2935 | Symbol: RURU | Status: Updated
+2026-06-20 09:08:00 [INFO] [194/384] securityId: 2936 | Symbol: NCCD86 | Status: Updated
+2026-06-20 09:08:02 [INFO] [195/384] securityId: 2937 | Symbol: SBCF | Status: Updated
+2026-06-20 09:08:04 [INFO] [196/384] securityId: 3946 | Symbol: CHDC | Status: Updated
+2026-06-20 09:08:06 [INFO] [197/384] securityId: 4947 | Symbol: PSF | Status: Updated
+2026-06-20 09:08:08 [INFO] [198/384] securityId: 4948 | Symbol: KSBBLD87 | Status: Updated
+2026-06-20 09:08:11 [INFO] [199/384] securityId: 4949 | Symbol: NIBSF2 | Status: Updated
+2026-06-20 09:08:13 [INFO] [200/384] securityId: 4951 | Symbol: JBLB | Status: Updated
+2026-06-20 09:08:15 [INFO] [201/384] securityId: 4959 | Symbol: NBLD87 | Status: Updated
+2026-06-20 09:08:17 [INFO] [202/384] securityId: 4961 | Symbol: BOKD86 | Status: Updated
+2026-06-20 09:08:19 [INFO] [203/384] securityId: 4962 | Symbol: PBLD87 | Status: Updated
+2026-06-20 09:08:22 [INFO] [204/384] securityId: 4963 | Symbol: NMBD87/88 | Status: Updated
+2026-06-20 09:08:26 [INFO] [205/384] securityId: 4967 | Symbol: NICSF | Status: Updated
+2026-06-20 09:08:36 [INFO] [206/384] securityId: 4968 | Symbol: RMF1 | Status: Updated
+2026-06-20 09:08:40 [INFO] [207/384] securityId: 4969 | Symbol: MND84/85 | Status: Updated
+2026-06-20 09:08:42 [INFO] [208/384] securityId: 5982 | Symbol: SRLI | Status: Updated
+2026-06-20 09:08:44 [INFO] [209/384] securityId: 5984 | Symbol: LBLD88 | Status: Updated
+2026-06-20 09:08:47 [INFO] [210/384] securityId: 6984 | Symbol: PBD85 | Status: Updated
+2026-06-20 09:08:49 [INFO] [211/384] securityId: 6985 | Symbol: SDBD87 | Status: Updated
+2026-06-20 09:08:51 [INFO] [212/384] securityId: 7985 | Symbol: MBLD87 | Status: Updated
+2026-06-20 09:08:55 [INFO] [213/384] securityId: 8003 | Symbol: RBBD83 | Status: Updated
+2026-06-20 09:08:57 [INFO] [214/384] securityId: 8004 | Symbol: GBILD86/87 | Status: Updated
+2026-06-20 09:08:59 [INFO] [215/384] securityId: 8005 | Symbol: MKJC | Status: Updated
+2026-06-20 09:09:01 [INFO] [216/384] securityId: 8018 | Symbol: MLBS | Status: Updated
+2026-06-20 09:09:04 [INFO] [217/384] securityId: 8020 | Symbol: JBBD87 | Status: Updated
+2026-06-20 09:09:06 [INFO] [218/384] securityId: 8021 | Symbol: SAHAS | Status: Updated
+2026-06-20 09:09:08 [INFO] [219/384] securityId: 8022 | Symbol: TPC | Status: Updated
+2026-06-20 09:09:10 [INFO] [220/384] securityId: 8023 | Symbol: MMF1 | Status: Updated
+2026-06-20 09:09:12 [INFO] [221/384] securityId: 8024 | Symbol: NBF3 | Status: Updated
+2026-06-20 09:09:15 [INFO] [222/384] securityId: 8025 | Symbol: SPC | Status: Updated
+2026-06-20 09:09:17 [INFO] [223/384] securityId: 8026 | Symbol: NYADI | Status: Updated
+2026-06-20 09:09:19 [INFO] [224/384] securityId: 8027 | Symbol: NBLD85 | Status: Updated
+2026-06-20 09:09:21 [INFO] [225/384] securityId: 8031 | Symbol: MBJC | Status: Updated
+2026-06-20 09:09:23 [INFO] [226/384] securityId: 8032 | Symbol: BNHC | Status: Updated
+2026-06-20 09:09:26 [INFO] [227/384] securityId: 8033 | Symbol: GBBD85 | Status: Updated
+2026-06-20 09:09:28 [INFO] [228/384] securityId: 8034 | Symbol: ENL | Status: Updated
+2026-06-20 09:09:30 [INFO] [229/384] securityId: 8041 | Symbol: NESDO | Status: Updated
+2026-06-20 09:09:32 [INFO] [230/384] securityId: 8043 | Symbol: CBLD88 | Status: Updated
+2026-06-20 09:09:44 [INFO] [231/384] securityId: 8044 | Symbol: EBLD86 | Status: Updated
+2026-06-20 09:09:46 [INFO] [232/384] securityId: 8045 | Symbol: GVL | Status: Updated
+2026-06-20 09:09:48 [INFO] [233/384] securityId: 8055 | Symbol: BHL | Status: Updated
+2026-06-20 09:09:50 [INFO] [234/384] securityId: 8063 | Symbol: ULBSL | Status: Updated
+2026-06-20 09:09:53 [INFO] [235/384] securityId: 8065 | Symbol: CYCL | Status: Updated
+2026-06-20 09:09:55 [INFO] [236/384] securityId: 8066 | Symbol: RFPL | Status: Updated
+2026-06-20 09:09:57 [INFO] [237/384] securityId: 8070 | Symbol: DORDI | Status: Updated
+2026-06-20 09:09:59 [INFO] [238/384] securityId: 8073 | Symbol: NICFC | Status: Updated
+2026-06-20 09:10:01 [INFO] [239/384] securityId: 8074 | Symbol: KDBY | Status: Updated
+2026-06-20 09:10:03 [INFO] [240/384] securityId: 8075 | Symbol: BHDC | Status: Updated
+2026-06-20 09:10:06 [INFO] [241/384] securityId: 8076 | Symbol: HHL | Status: Updated
+2026-06-20 09:10:08 [INFO] [242/384] securityId: 8097 | Symbol: PBD88 | Status: Updated
+2026-06-20 09:10:10 [INFO] [243/384] securityId: 8098 | Symbol: SBLD89 | Status: Updated
+2026-06-20 09:10:12 [INFO] [244/384] securityId: 8099 | Symbol: UHEWA | Status: Updated
+2026-06-20 09:10:14 [INFO] [245/384] securityId: 8100 | Symbol: SGHC | Status: Updated
+2026-06-20 09:10:17 [INFO] [246/384] securityId: 8102 | Symbol: MHL | Status: Updated
+2026-06-20 09:10:19 [INFO] [247/384] securityId: 8104 | Symbol: USHEC | Status: Updated
+2026-06-20 09:10:21 [INFO] [248/384] securityId: 8106 | Symbol: GIBF1 | Status: Updated
+2026-06-20 09:10:23 [INFO] [249/384] securityId: 8108 | Symbol: RHGCL | Status: Updated
+2026-06-20 09:10:25 [INFO] [250/384] securityId: 8109 | Symbol: SBD89 | Status: Updated
+2026-06-20 09:10:28 [INFO] [251/384] securityId: 8110 | Symbol: SBID83 | Status: Updated
+2026-06-20 09:10:30 [INFO] [252/384] securityId: 8111 | Symbol: HIDCLP | Status: Updated
+2026-06-20 09:10:32 [INFO] [253/384] securityId: 8116 | Symbol: PBD84 | Status: Updated
+2026-06-20 09:10:34 [INFO] [254/384] securityId: 8117 | Symbol: AVYAN | Status: Updated
+2026-06-20 09:10:36 [INFO] [255/384] securityId: 8119 | Symbol: EBLD85 | Status: Updated
+2026-06-20 09:10:39 [INFO] [256/384] securityId: 8121 | Symbol: SPHL | Status: Updated
+2026-06-20 09:10:50 [INFO] [257/384] securityId: 8122 | Symbol: PPL | Status: Updated
+2026-06-20 09:10:53 [INFO] [258/384] securityId: 8123 | Symbol: DLBS | Status: Updated
+2026-06-20 09:10:55 [INFO] [259/384] securityId: 8125 | Symbol: NSIF2 | Status: Updated
+2026-06-20 09:10:57 [INFO] [260/384] securityId: 8126 | Symbol: SIKLES | Status: Updated
+2026-06-20 09:10:59 [INFO] [261/384] securityId: 8127 | Symbol: KBLD89 | Status: Updated
+2026-06-20 09:11:02 [INFO] [262/384] securityId: 8131 | Symbol: EHPL | Status: Updated
+2026-06-20 09:11:04 [INFO] [263/384] securityId: 8132 | Symbol: SHLB | Status: Updated
+2026-06-20 09:11:07 [INFO] [264/384] securityId: 8133 | Symbol: PHCL | Status: Updated
+2026-06-20 09:11:09 [INFO] [265/384] securityId: 9135 | Symbol: BHPL | Status: Updated
+2026-06-20 09:11:11 [INFO] [266/384] securityId: 9137 | Symbol: HBLD86 | Status: Updated
+2026-06-20 09:11:13 [INFO] [267/384] securityId: 9138 | Symbol: NIBLGF | Status: Updated
+2026-06-20 09:11:15 [INFO] [268/384] securityId: 9139 | Symbol: SAGF | Status: Updated
+2026-06-20 09:11:18 [INFO] [269/384] securityId: 9140 | Symbol: UNLB | Status: Updated
+2026-06-20 09:11:20 [INFO] [270/384] securityId: 9141 | Symbol: NIFRAUR85/86 | Status: Updated
+2026-06-20 09:11:22 [INFO] [271/384] securityId: 9146 | Symbol: SMHL | Status: Updated
+2026-06-20 09:11:25 [INFO] [272/384] securityId: 9147 | Symbol: SPL | Status: Updated
+2026-06-20 09:11:27 [INFO] [273/384] securityId: 9148 | Symbol: SMH | Status: Updated
+2026-06-20 09:11:29 [INFO] [274/384] securityId: 9149 | Symbol: MKHC | Status: Updated
+2026-06-20 09:11:31 [INFO] [275/384] securityId: 9150 | Symbol: AHL | Status: Updated
+2026-06-20 09:11:33 [INFO] [276/384] securityId: 9151 | Symbol: KDL | Status: Updated
+2026-06-20 09:11:36 [INFO] [277/384] securityId: 9152 | Symbol: EBLEB89 | Status: Updated
+2026-06-20 09:11:38 [INFO] [278/384] securityId: 9154 | Symbol: SFEF | Status: Updated
+2026-06-20 09:11:40 [INFO] [279/384] securityId: 9156 | Symbol: TAMOR | Status: Updated
+2026-06-20 09:11:42 [INFO] [280/384] securityId: 9158 | Symbol: MHCL | Status: Updated
+2026-06-20 09:11:45 [INFO] [281/384] securityId: 9159 | Symbol: SMJC | Status: Updated
+2026-06-20 09:11:55 [INFO] [282/384] securityId: 9161 | Symbol: ANLB | Status: Updated
+2026-06-20 09:11:57 [INFO] [283/384] securityId: 9166 | Symbol: MAKAR | Status: Updated
+2026-06-20 09:12:00 [INFO] [284/384] securityId: 9167 | Symbol: MKHL | Status: Updated
+2026-06-20 09:12:03 [INFO] [285/384] securityId: 9168 | Symbol: GBILD84/85 | Status: Updated
+2026-06-20 09:12:05 [INFO] [286/384] securityId: 9170 | Symbol: DOLTI | Status: Updated
+2026-06-20 09:12:08 [INFO] [287/384] securityId: 9171 | Symbol: BEDC | Status: Updated
+2026-06-20 09:12:10 [INFO] [288/384] securityId: 9173 | Symbol: CITY | Status: Updated
+2026-06-20 09:12:12 [INFO] [289/384] securityId: 9174 | Symbol: PRSF | Status: Updated
+2026-06-20 09:12:14 [INFO] [290/384] securityId: 9175 | Symbol: MCHL | Status: Updated
+2026-06-20 09:12:16 [INFO] [291/384] securityId: 9176 | Symbol: IHL | Status: Updated
+2026-06-20 09:12:19 [INFO] [292/384] securityId: 9178 | Symbol: RMF2 | Status: Updated
+2026-06-20 09:12:21 [INFO] [293/384] securityId: 9179 | Symbol: MEL | Status: Updated
+2026-06-20 09:12:23 [INFO] [294/384] securityId: 9180 | Symbol: NMBD89/90 | Status: Updated
+2026-06-20 09:12:25 [INFO] [295/384] securityId: 9181 | Symbol: RAWA | Status: Updated
+2026-06-20 09:12:27 [INFO] [296/384] securityId: 9182 | Symbol: SIGS3 | Status: Updated
+2026-06-20 09:12:30 [INFO] [297/384] securityId: 9183 | Symbol: NRM | Status: Updated
+2026-06-20 09:12:32 [INFO] [298/384] securityId: 9184 | Symbol: ILI | Status: Updated
+2026-06-20 09:12:34 [INFO] [299/384] securityId: 9191 | Symbol: C30MF | Status: Updated
+2026-06-20 09:12:36 [INFO] [300/384] securityId: 9192 | Symbol: USHL | Status: Updated
+2026-06-20 09:12:38 [INFO] [301/384] securityId: 9193 | Symbol: GCIL | Status: Updated
+2026-06-20 09:12:41 [INFO] [302/384] securityId: 9194 | Symbol: TSHL | Status: Updated
+2026-06-20 09:12:43 [INFO] [303/384] securityId: 9196 | Symbol: KBSH | Status: Updated
+2026-06-20 09:12:46 [INFO] [304/384] securityId: 9197 | Symbol: LBBLD89 | Status: Updated
+2026-06-20 09:12:48 [INFO] [305/384] securityId: 9198 | Symbol: LVF2 | Status: Updated
+2026-06-20 09:12:50 [INFO] [306/384] securityId: 9199 | Symbol: RNLI | Status: Updated
+2026-06-20 09:13:01 [INFO] [307/384] securityId: 9201 | Symbol: SNLI | Status: Updated
+2026-06-20 09:13:03 [INFO] [308/384] securityId: 9203 | Symbol: MEHL | Status: Updated
+2026-06-20 09:13:06 [INFO] [309/384] securityId: 9208 | Symbol: ULHC | Status: Updated
+2026-06-20 09:13:08 [INFO] [310/384] securityId: 9209 | Symbol: CLI | Status: Updated
+2026-06-20 09:13:10 [INFO] [311/384] securityId: 9211 | Symbol: SBID89 | Status: Updated
+2026-06-20 09:13:12 [INFO] [312/384] securityId: 9212 | Symbol: MANDU | Status: Updated
+2026-06-20 09:13:14 [INFO] [313/384] securityId: 9213 | Symbol: HATHY | Status: Updated
+2026-06-20 09:13:17 [INFO] [314/384] securityId: 9214 | Symbol: BGWT | Status: Updated
+2026-06-20 09:13:19 [INFO] [315/384] securityId: 9215 | Symbol: MSHL | Status: Updated
+2026-06-20 09:13:21 [INFO] [316/384] securityId: 9216 | Symbol: SONA | Status: Updated
+2026-06-20 09:13:23 [INFO] [317/384] securityId: 9217 | Symbol: MMKJL | Status: Updated
+2026-06-20 09:13:26 [INFO] [318/384] securityId: 9218 | Symbol: TVCL | Status: Updated
+2026-06-20 09:13:28 [INFO] [319/384] securityId: 9220 | Symbol: KBLD90 | Status: Updated
+2026-06-20 09:13:30 [INFO] [320/384] securityId: 9221 | Symbol: H8020 | Status: Updated
+2026-06-20 09:13:32 [INFO] [321/384] securityId: 9225 | Symbol: VLUCL | Status: Updated
+2026-06-20 09:13:34 [INFO] [322/384] securityId: 9230 | Symbol: MKCL | Status: Updated
+2026-06-20 09:13:37 [INFO] [323/384] securityId: 9231 | Symbol: CIZBD90 | Status: Updated
+2026-06-20 09:13:39 [INFO] [324/384] securityId: 9232 | Symbol: CKHL | Status: Updated
+2026-06-20 09:13:41 [INFO] [325/384] securityId: 9233 | Symbol: NWCL | Status: Updated
+2026-06-20 09:13:43 [INFO] [326/384] securityId: 9234 | Symbol: HRL | Status: Updated
+2026-06-20 09:13:45 [INFO] [327/384] securityId: 9236 | Symbol: NICGF2 | Status: Updated
+2026-06-20 09:13:47 [INFO] [328/384] securityId: 9237 | Symbol: PMLIP | Status: Updated
+2026-06-20 09:13:50 [INFO] [329/384] securityId: 9238 | Symbol: NABILD87 | Status: Updated
+2026-06-20 09:13:52 [INFO] [330/384] securityId: 9241 | Symbol: KSY | Status: Updated
+2026-06-20 09:13:54 [INFO] [331/384] securityId: 9242 | Symbol: SARBTM | Status: Updated
+2026-06-20 09:13:56 [INFO] [332/384] securityId: 9243 | Symbol: NIMBD90 | Status: Updated
+2026-06-20 09:14:07 [INFO] [333/384] securityId: 9244 | Symbol: NIBLSTF | Status: Updated
+2026-06-20 09:14:09 [INFO] [334/384] securityId: 9245 | Symbol: MNMF1 | Status: Updated
+2026-06-20 09:14:11 [INFO] [335/384] securityId: 9246 | Symbol: GMLI | Status: Updated
+2026-06-20 09:14:13 [INFO] [336/384] securityId: 9248 | Symbol: GSY | Status: Updated
+2026-06-20 09:14:16 [INFO] [337/384] securityId: 9249 | Symbol: ICFCD88 | Status: Updated
+2026-06-20 09:14:18 [INFO] [338/384] securityId: 9250 | Symbol: NMIC | Status: Updated
+2026-06-20 09:14:20 [INFO] [339/384] securityId: 9252 | Symbol: CREST | Status: Updated
+2026-06-20 09:14:22 [INFO] [340/384] securityId: 9254 | Symbol: NMBHF2 | Status: Updated
+2026-06-20 09:14:24 [INFO] [341/384] securityId: 9255 | Symbol: EBLD91 | Status: Updated
+2026-06-20 09:14:26 [INFO] [342/384] securityId: 9256 | Symbol: OMPL | Status: Updated
+2026-06-20 09:14:29 [INFO] [343/384] securityId: 9257 | Symbol: MBLEF | Status: Updated
+2026-06-20 09:14:31 [INFO] [344/384] securityId: 9258 | Symbol: PURE | Status: Updated
+2026-06-20 09:14:33 [INFO] [345/384] securityId: 9259 | Symbol: RSY | Status: Updated
+2026-06-20 09:14:35 [INFO] [346/384] securityId: 9261 | Symbol: NIFRAGED | Status: Updated
+2026-06-20 09:14:37 [INFO] [347/384] securityId: 9262 | Symbol: TTL | Status: Updated
+2026-06-20 09:14:40 [INFO] [348/384] securityId: 9263 | Symbol: SANVI | Status: Updated
+2026-06-20 09:14:42 [INFO] [349/384] securityId: 9264 | Symbol: RBBD2088 | Status: Updated
+2026-06-20 09:14:44 [INFO] [350/384] securityId: 9266 | Symbol: NICAD2091 | Status: Updated
+2026-06-20 09:14:46 [INFO] [351/384] securityId: 9267 | Symbol: BHCL | Status: Updated
+2026-06-20 09:14:48 [INFO] [352/384] securityId: 9269 | Symbol: GBIMESY2 | Status: Updated
+2026-06-20 09:14:50 [INFO] [353/384] securityId: 9270 | Symbol: HIMSTAR | Status: Updated
+2026-06-20 09:14:53 [INFO] [354/384] securityId: 9271 | Symbol: SBLD2091 | Status: Updated
+2026-06-20 09:14:55 [INFO] [355/384] securityId: 9286 | Symbol: SHINED | Status: Updated
+2026-06-20 09:14:57 [INFO] [356/384] securityId: 9287 | Symbol: MABEL | Status: Updated
+2026-06-20 09:14:59 [INFO] [357/384] securityId: 9289 | Symbol: SBID2090 | Status: Updated
+2026-06-20 09:15:01 [INFO] [358/384] securityId: 9290 | Symbol: HLICF | Status: Updated
+2026-06-20 09:15:12 [INFO] [359/384] securityId: 9293 | Symbol: DHEL | Status: Updated
+2026-06-20 09:15:15 [INFO] [360/384] securityId: 9294 | Symbol: SAGAR | Status: Updated
+2026-06-20 09:15:17 [INFO] [361/384] securityId: 9295 | Symbol: SWASTIK | Status: Updated
+2026-06-20 09:15:19 [INFO] [362/384] securityId: 9296 | Symbol: BUNGAL | Status: Updated
+2026-06-20 09:15:21 [INFO] [363/384] securityId: 9297 | Symbol: BANDIPUR | Status: Updated
+2026-06-20 09:15:24 [INFO] [364/384] securityId: 9299 | Symbol: NABILD2089 | Status: Updated
+2026-06-20 09:15:26 [INFO] [365/384] securityId: 9300 | Symbol: JHAPA | Status: Updated
+2026-06-20 09:15:28 [INFO] [366/384] securityId: 9301 | Symbol: SAIL | Status: Updated
+2026-06-20 09:15:30 [INFO] [367/384] securityId: 9302 | Symbol: RBBF40 | Status: Updated
+2026-06-20 09:15:33 [INFO] [368/384] securityId: 9303 | Symbol: SYPNL | Status: Updated
+2026-06-20 09:15:35 [INFO] [369/384] securityId: 9304 | Symbol: CSY | Status: Updated
+2026-06-20 09:15:37 [INFO] [370/384] securityId: 9305 | Symbol: SABBL | Status: Updated
+2026-06-20 09:15:39 [INFO] [371/384] securityId: 9306 | Symbol: RSML | Status: Updated
+2026-06-20 09:15:42 [INFO] [372/384] securityId: 9308 | Symbol: HFIN | Status: Updated
+2026-06-20 09:15:44 [INFO] [373/384] securityId: 9311 | Symbol: SOHL | Status: Updated
+2026-06-20 09:15:46 [INFO] [374/384] securityId: 9312 | Symbol: NSY | Status: Updated
+2026-06-20 09:15:48 [INFO] [375/384] securityId: 9322 | Symbol: BJHL | Status: Updated
+2026-06-20 09:15:50 [INFO] [376/384] securityId: 9323 | Symbol: SKHL | Status: Updated
+2026-06-20 09:15:52 [INFO] [377/384] securityId: 9324 | Symbol: RLEL | Status: Updated
+2026-06-20 09:15:55 [INFO] [378/384] securityId: 9325 | Symbol: SKHEL | Status: Updated
+2026-06-20 09:15:57 [INFO] [379/384] securityId: 9327 | Symbol: ICFCD89 | Status: Updated
+2026-06-20 09:15:59 [INFO] [380/384] securityId: 9329 | Symbol: SIPD | Status: Updated
+2026-06-20 09:16:01 [INFO] [381/384] securityId: 9330 | Symbol: PCIL | Status: Updated
+2026-06-20 09:16:03 [INFO] [382/384] securityId: 9334 | Symbol: KHPL | Status: Updated
+2026-06-20 09:16:05 [INFO] [383/384] securityId: 9336 | Symbol: SOPL | Status: Updated
+2026-06-20 09:16:16 [INFO] [384/384] securityId: 9337 | Symbol: APHL | Status: Updated
+2026-06-20 09:16:16 [INFO] -----------------------------------------
+2026-06-20 09:16:16 [INFO] Sync Summary:
+2026-06-20 09:16:16 [INFO]   Total Securities Processed: 384
+2026-06-20 09:16:16 [INFO]   New/Updated Records:        384
+2026-06-20 09:16:16 [INFO]   Unchanged Records:          0
+2026-06-20 09:16:16 [INFO]   Errors:                     0
+2026-06-20 09:16:16 [INFO]   Total in Master File:       387
+2026-06-20 09:16:16 [INFO] =========================================
+2026-06-20 09:16:16 [INFO] NEPSE Company Master Sync V1 Completed
+2026-06-20 09:16:16 [INFO] =========================================
+2026-06-20 09:21:39 [INFO] =========================================
+2026-06-20 09:21:39 [INFO] NEPSE Company Master Sync V1 Starting
+2026-06-20 09:21:39 [INFO] =========================================
+2026-06-20 09:21:39 [INFO] Update Frequency: weekly
+2026-06-20 09:21:39 [INFO] Download Delay: 1.0 seconds
+2026-06-20 09:21:39 [INFO] Save Raw JSON: True
+2026-06-20 09:21:39 [INFO] Test Mode: DISABLED
+2026-06-20 09:21:39 [INFO] -----------------------------------------
+2026-06-20 09:21:39 [INFO] Step 1: Extracting securityId values from Daily Price data...
+2026-06-20 09:21:39 [INFO] Total unique securityId values found: 387
+2026-06-20 09:21:39 [INFO] Already downloaded: 387
+2026-06-20 09:21:39 [INFO] Pending download: 0
+2026-06-20 09:21:39 [INFO] All companies are already up to date. Nothing to download.
+2026-06-20 09:21:39 [INFO] =========================================
+2026-06-20 09:21:39 [INFO] NEPSE Company Master Sync V1 Completed
+2026-06-20 09:21:39 [INFO] =========================================
+2026-06-20 09:23:47 [INFO] =========================================
+2026-06-20 09:23:47 [INFO] NEPSE Company Master Sync V1 Starting
+2026-06-20 09:23:47 [INFO] =========================================
+2026-06-20 09:23:47 [INFO] Update Frequency: weekly
+2026-06-20 09:23:47 [INFO] Download Delay: 1.0 seconds
+2026-06-20 09:23:47 [INFO] Save Raw JSON: True
+2026-06-20 09:23:47 [INFO] Test Mode: DISABLED
+2026-06-20 09:23:47 [INFO] -----------------------------------------
+2026-06-20 09:23:47 [INFO] Step 1: Extracting securityId values from Daily Price data...
+2026-06-20 09:23:47 [INFO] Total unique securityId values found: 387
+2026-06-20 09:23:47 [INFO] Already downloaded: 387
+2026-06-20 09:23:47 [INFO] Pending download: 0
+2026-06-20 09:23:47 [INFO] All companies are already up to date. Nothing to download.
+2026-06-20 09:23:47 [INFO] =========================================
+2026-06-20 09:23:47 [INFO] NEPSE Company Master Sync V1 Completed
+2026-06-20 09:23:47 [INFO] =========================================

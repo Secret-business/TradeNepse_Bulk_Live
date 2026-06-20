@@ -1,0 +1,7 @@
+{
+    "enabled": true,
+    "test_mode": false,
+    "test_limit": 3,
+    "save_raw_json": true,
+    "update_frequency": "daily"
+}

@@ -1,0 +1,54 @@
+{
+    "timestamp": "2026-06-20T09:48:53.718336",
+    "test_mode": true,
+    "runs": [
+        {
+            "source": "company_master",
+            "date": "2026-06-20",
+            "records_imported": 387,
+            "duration": 0.043032,
+            "status": "Success",
+            "error_message": null
+        },
+        {
+            "source": "daily_price",
+            "date": "2026-06-16",
+            "records_imported": 10,
+            "duration": 0.004948,
+            "status": "Success",
+            "error_message": null
+        },
+        {
+            "source": "daily_price",
+            "date": "2026-06-17",
+            "records_imported": 10,
+            "duration": 0.002897,
+            "status": "Success",
+            "error_message": null
+        },
+        {
+            "source": "indices_51",
+            "date": "2026-06-20",
+            "records_imported": 10,
+            "duration": 0.002814,
+            "status": "Success",
+            "error_message": null
+        },
+        {
+            "source": "indices_52",
+            "date": "2026-06-20",
+            "records_imported": 10,
+            "duration": 0.001669,
+            "status": "Success",
+            "error_message": null
+        },
+        {
+            "source": "floorsheet",
+            "date": "2026-06-19",
+            "records_imported": 100,
+            "duration": 0.17005,
+            "status": "Success",
+            "error_message": null
+        }
+    ]
+}

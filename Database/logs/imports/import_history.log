@@ -1,0 +1,211 @@
+[2026-06-20 09:47:18] [INFO] =========================================
+[2026-06-20 09:47:18] [INFO] TradeNepse Ingestion Platform V2 Starting
+[2026-06-20 09:47:18] [INFO] =========================================
+[2026-06-20 09:47:18] [INFO] !!! TEST MODE IS ENABLED !!! (Only small samples will be imported)
+[2026-06-20 09:47:20] [WARNING] Connection attempt 1/3 failed: connection to server at "192.168.4.203", port 5432 failed: Connection refused (0x0000274D/10061)
+	Is the server running on that host and accepting TCP/IP connections?
+
+[2026-06-20 09:47:22] [WARNING] Connection attempt 2/3 failed: connection to server at "192.168.4.203", port 5432 failed: Connection refused (0x0000274D/10061)
+	Is the server running on that host and accepting TCP/IP connections?
+
+[2026-06-20 09:47:24] [WARNING] Connection attempt 3/3 failed: connection to server at "192.168.4.203", port 5432 failed: Connection refused (0x0000274D/10061)
+	Is the server running on that host and accepting TCP/IP connections?
+
+[2026-06-20 09:47:24] [CRITICAL] Database connection failed. Ingestion aborted: Could not connect to PostgreSQL after 3 attempts: connection to server at "192.168.4.203", port 5432 failed: Connection refused (0x0000274D/10061)
+	Is the server running on that host and accepting TCP/IP connections?
+
+[2026-06-20 09:48:33] [INFO] =========================================
+[2026-06-20 09:48:33] [INFO] TradeNepse Ingestion Platform V2 Starting
+[2026-06-20 09:48:33] [INFO] =========================================
+[2026-06-20 09:48:33] [INFO] !!! TEST MODE IS ENABLED !!! (Only small samples will be imported)
+[2026-06-20 09:48:33] [INFO] -----------------------------------------
+[2026-06-20 09:48:33] [INFO] 1. Starting Company Master Import...
+[2026-06-20 09:48:33] [INFO] Test mode enabled: limiting company master import to 5 records.
+[2026-06-20 09:48:33] [INFO] Successfully upserted 5 company master records.
+[2026-06-20 09:48:33] [INFO] -----------------------------------------
+[2026-06-20 09:48:33] [INFO] 2. Starting Daily Price Import...
+[2026-06-20 09:48:33] [INFO] Test Mode: Restricting Daily Price to first 2 files.
+[2026-06-20 09:48:33] [INFO] Found 2 daily price files to process.
+[2026-06-20 09:48:33] [ERROR] Error importing daily price file 2026-06-16.json: insert or update on table "daily_price" violates foreign key constraint "fk_daily_price_company"
+DETAIL:  Key (symbol)=(ACLBSL) is not present in table "company_master".
+Traceback (most recent call last):
+  File "D:\TradeNepse\Bulk live market\Database\database\importers\daily_price_importer.py", line 162, in import_file
+    execute_values(cur, query, records)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kxnas\AppData\Local\Programs\Python\Python313\Lib\site-packages\psycopg2\extras.py", line 1299, in execute_values
+    cur.execute(b''.join(parts))
+    ~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+psycopg2.errors.ForeignKeyViolation: insert or update on table "daily_price" violates foreign key constraint "fk_daily_price_company"
+DETAIL:  Key (symbol)=(ACLBSL) is not present in table "company_master".
+
+[2026-06-20 09:48:33] [ERROR] Error importing daily price file 2026-06-17.json: insert or update on table "daily_price" violates foreign key constraint "fk_daily_price_company"
+DETAIL:  Key (symbol)=(ACLBSL) is not present in table "company_master".
+Traceback (most recent call last):
+  File "D:\TradeNepse\Bulk live market\Database\database\importers\daily_price_importer.py", line 162, in import_file
+    execute_values(cur, query, records)
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\kxnas\AppData\Local\Programs\Python\Python313\Lib\site-packages\psycopg2\extras.py", line 1299, in execute_values
+    cur.execute(b''.join(parts))
+    ~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+psycopg2.errors.ForeignKeyViolation: insert or update on table "daily_price" violates foreign key constraint "fk_daily_price_company"
+DETAIL:  Key (symbol)=(ACLBSL) is not present in table "company_master".
+
+[2026-06-20 09:48:33] [INFO] -----------------------------------------
+[2026-06-20 09:48:33] [INFO] 3. Starting Indices Import...
+[2026-06-20 09:48:33] [INFO] Test Mode: Restricting Indices to first 2 index files.
+[2026-06-20 09:48:33] [INFO] Found 2 historical index files to process.
+[2026-06-20 09:48:33] [INFO] Imported 10 new index records for index ID 51.
+[2026-06-20 09:48:33] [INFO] Imported 10 new index records for index ID 52.
+[2026-06-20 09:48:33] [INFO] -----------------------------------------
+[2026-06-20 09:48:33] [INFO] 4. Starting Floorsheet Import...
+[2026-06-20 09:48:33] [INFO] Test Mode: Restricting Floorsheet to first 1 file.
+[2026-06-20 09:48:33] [INFO] Found 1 floorsheet files to process.
+[2026-06-20 09:48:33] [INFO] Test mode enabled: limiting floorsheet import to 100 records.
+[2026-06-20 09:48:33] [INFO] Imported 100 floorsheet records for date 2026-06-19.
+[2026-06-20 09:48:33] [INFO] =========================================
+[2026-06-20 09:48:33] [INFO] Import Execution Complete Summary:
+[2026-06-20 09:48:33] [INFO]   Total Files Processed: 6
+[2026-06-20 09:48:33] [INFO]   Successful Syncs:      4
+[2026-06-20 09:48:33] [INFO]   Skipped (Up-to-date):  0
+[2026-06-20 09:48:33] [INFO]   Failed Operations:     2
+[2026-06-20 09:48:33] [INFO]   Total Records Loaded:  125
+[2026-06-20 09:48:33] [INFO] =========================================
+[2026-06-20 09:48:33] [INFO] TradeNepse Ingestion Platform Completed
+[2026-06-20 09:48:33] [INFO] =========================================
+[2026-06-20 09:48:53] [INFO] =========================================
+[2026-06-20 09:48:53] [INFO] TradeNepse Ingestion Platform V2 Starting
+[2026-06-20 09:48:53] [INFO] =========================================
+[2026-06-20 09:48:53] [INFO] !!! TEST MODE IS ENABLED !!! (Only small samples will be imported)
+[2026-06-20 09:48:53] [INFO] -----------------------------------------
+[2026-06-20 09:48:53] [INFO] 1. Starting Company Master Import...
+[2026-06-20 09:48:53] [INFO] Successfully upserted 387 company master records.
+[2026-06-20 09:48:53] [INFO] -----------------------------------------
+[2026-06-20 09:48:53] [INFO] 2. Starting Daily Price Import...
+[2026-06-20 09:48:53] [INFO] Test Mode: Restricting Daily Price to first 2 files.
+[2026-06-20 09:48:53] [INFO] Found 2 daily price files to process.
+[2026-06-20 09:48:53] [INFO] Imported 10 daily price records for date 2026-06-16.
+[2026-06-20 09:48:53] [INFO] Imported 10 daily price records for date 2026-06-17.
+[2026-06-20 09:48:53] [INFO] -----------------------------------------
+[2026-06-20 09:48:53] [INFO] 3. Starting Indices Import...
+[2026-06-20 09:48:53] [INFO] Test Mode: Restricting Indices to first 2 index files.
+[2026-06-20 09:48:53] [INFO] Found 2 historical index files to process.
+[2026-06-20 09:48:53] [INFO] Imported 10 new index records for index ID 51.
+[2026-06-20 09:48:53] [INFO] Imported 10 new index records for index ID 52.
+[2026-06-20 09:48:53] [INFO] -----------------------------------------
+[2026-06-20 09:48:53] [INFO] 4. Starting Floorsheet Import...
+[2026-06-20 09:48:53] [INFO] Test Mode: Restricting Floorsheet to first 1 file.
+[2026-06-20 09:48:53] [INFO] Found 1 floorsheet files to process.
+[2026-06-20 09:48:53] [INFO] Test mode enabled: limiting floorsheet import to 100 records.
+[2026-06-20 09:48:53] [INFO] Imported 100 floorsheet records for date 2026-06-19.
+[2026-06-20 09:48:53] [INFO] =========================================
+[2026-06-20 09:48:53] [INFO] Import Execution Complete Summary:
+[2026-06-20 09:48:53] [INFO]   Total Files Processed: 6
+[2026-06-20 09:48:53] [INFO]   Successful Syncs:      6
+[2026-06-20 09:48:53] [INFO]   Skipped (Up-to-date):  0
+[2026-06-20 09:48:53] [INFO]   Failed Operations:     0
+[2026-06-20 09:48:53] [INFO]   Total Records Loaded:  527
+[2026-06-20 09:48:53] [INFO] =========================================
+[2026-06-20 09:48:53] [INFO] TradeNepse Ingestion Platform Completed
+[2026-06-20 09:48:53] [INFO] =========================================
+[2026-06-20 09:48:57] [INFO] =========================================
+[2026-06-20 09:48:57] [INFO] TradeNepse Ingestion Platform V2 Starting
+[2026-06-20 09:48:57] [INFO] =========================================
+[2026-06-20 09:48:57] [INFO] !!! TEST MODE IS ENABLED !!! (Only small samples will be imported)
+[2026-06-20 09:48:57] [INFO] -----------------------------------------
+[2026-06-20 09:48:57] [INFO] 1. Starting Company Master Import...
+[2026-06-20 09:48:57] [INFO] Successfully upserted 387 company master records.
+[2026-06-20 09:48:57] [INFO] -----------------------------------------
+[2026-06-20 09:48:57] [INFO] 2. Starting Daily Price Import...
+[2026-06-20 09:48:57] [INFO] Test Mode: Restricting Daily Price to first 2 files.
+[2026-06-20 09:48:57] [INFO] Found 2 daily price files to process.
+[2026-06-20 09:48:57] [INFO] Daily Price date 2026-06-16 already imported. Skipping (Resume check).
+[2026-06-20 09:48:57] [INFO] Daily Price date 2026-06-17 already imported. Skipping (Resume check).
+[2026-06-20 09:48:57] [INFO] -----------------------------------------
+[2026-06-20 09:48:57] [INFO] 3. Starting Indices Import...
+[2026-06-20 09:48:57] [INFO] Test Mode: Restricting Indices to first 2 index files.
+[2026-06-20 09:48:57] [INFO] Found 2 historical index files to process.
+[2026-06-20 09:48:57] [INFO] Imported 10 new index records for index ID 51.
+[2026-06-20 09:48:57] [INFO] Imported 10 new index records for index ID 52.
+[2026-06-20 09:48:57] [INFO] -----------------------------------------
+[2026-06-20 09:48:57] [INFO] 4. Starting Floorsheet Import...
+[2026-06-20 09:48:57] [INFO] Test Mode: Restricting Floorsheet to first 1 file.
+[2026-06-20 09:48:57] [INFO] Found 1 floorsheet files to process.
+[2026-06-20 09:48:57] [INFO] Floorsheet date 2026-06-19 already imported. Skipping (Resume check).
+[2026-06-20 09:48:57] [INFO] =========================================
+[2026-06-20 09:48:57] [INFO] Import Execution Complete Summary:
+[2026-06-20 09:48:57] [INFO]   Total Files Processed: 6
+[2026-06-20 09:48:57] [INFO]   Successful Syncs:      3
+[2026-06-20 09:48:57] [INFO]   Skipped (Up-to-date):  3
+[2026-06-20 09:48:57] [INFO]   Failed Operations:     0
+[2026-06-20 09:48:57] [INFO]   Total Records Loaded:  407
+[2026-06-20 09:48:57] [INFO] =========================================
+[2026-06-20 09:48:57] [INFO] TradeNepse Ingestion Platform Completed
+[2026-06-20 09:48:57] [INFO] =========================================
+[2026-06-20 09:56:06] [INFO] =========================================
+[2026-06-20 09:56:06] [INFO] TradeNepse Ingestion Platform V2 Starting
+[2026-06-20 09:56:06] [INFO] =========================================
+[2026-06-20 09:56:06] [INFO] !!! TEST MODE IS ENABLED !!! (Only small samples will be imported)
+[2026-06-20 09:56:06] [INFO] -----------------------------------------
+[2026-06-20 09:56:06] [INFO] 1. Starting Company Master Import...
+[2026-06-20 09:56:06] [INFO] Successfully upserted 387 company master records.
+[2026-06-20 09:56:06] [INFO] -----------------------------------------
+[2026-06-20 09:56:06] [INFO] 2. Starting Daily Price Import...
+[2026-06-20 09:56:06] [INFO] Test Mode: Restricting Daily Price to first 2 files.
+[2026-06-20 09:56:06] [INFO] Found 2 daily price files to process.
+[2026-06-20 09:56:06] [INFO] Daily Price date 2026-06-16 already imported. Skipping (Resume check).
+[2026-06-20 09:56:06] [INFO] Daily Price date 2026-06-17 already imported. Skipping (Resume check).
+[2026-06-20 09:56:06] [INFO] -----------------------------------------
+[2026-06-20 09:56:06] [INFO] 3. Starting Indices Import...
+[2026-06-20 09:56:06] [INFO] Test Mode: Restricting Indices to first 2 index files.
+[2026-06-20 09:56:06] [INFO] Found 2 historical index files to process.
+[2026-06-20 09:56:06] [INFO] Imported 10 new index records for index ID 51.
+[2026-06-20 09:56:06] [INFO] Imported 10 new index records for index ID 52.
+[2026-06-20 09:56:06] [INFO] -----------------------------------------
+[2026-06-20 09:56:06] [INFO] 4. Starting Floorsheet Import...
+[2026-06-20 09:56:06] [INFO] Test Mode: Restricting Floorsheet to first 1 file.
+[2026-06-20 09:56:06] [INFO] Found 1 floorsheet files to process.
+[2026-06-20 09:56:06] [INFO] Floorsheet date 2026-06-19 already imported. Skipping (Resume check).
+[2026-06-20 09:56:07] [INFO] =========================================
+[2026-06-20 09:56:07] [INFO] Import Execution Complete Summary:
+[2026-06-20 09:56:07] [INFO]   Total Files Processed: 6
+[2026-06-20 09:56:07] [INFO]   Successful Syncs:      3
+[2026-06-20 09:56:07] [INFO]   Skipped (Up-to-date):  3
+[2026-06-20 09:56:07] [INFO]   Failed Operations:     0
+[2026-06-20 09:56:07] [INFO]   Total Records Loaded:  407
+[2026-06-20 09:56:07] [INFO] =========================================
+[2026-06-20 09:56:07] [INFO] TradeNepse Ingestion Platform Completed
+[2026-06-20 09:56:07] [INFO] =========================================
+[2026-06-20 09:56:13] [INFO] =========================================
+[2026-06-20 09:56:13] [INFO] TradeNepse Ingestion Platform V2 Starting
+[2026-06-20 09:56:13] [INFO] =========================================
+[2026-06-20 09:56:13] [INFO] !!! TEST MODE IS ENABLED !!! (Only small samples will be imported)
+[2026-06-20 09:56:13] [INFO] -----------------------------------------
+[2026-06-20 09:56:13] [INFO] 1. Starting Company Master Import...
+[2026-06-20 09:56:13] [INFO] Successfully upserted 387 company master records.
+[2026-06-20 09:56:13] [INFO] -----------------------------------------
+[2026-06-20 09:56:13] [INFO] 2. Starting Daily Price Import...
+[2026-06-20 09:56:13] [INFO] Test Mode: Restricting Daily Price to first 2 files.
+[2026-06-20 09:56:13] [INFO] Found 2 daily price files to process.
+[2026-06-20 09:56:13] [INFO] Daily Price date 2026-06-16 already imported. Skipping (Resume check).
+[2026-06-20 09:56:13] [INFO] Daily Price date 2026-06-17 already imported. Skipping (Resume check).
+[2026-06-20 09:56:13] [INFO] -----------------------------------------
+[2026-06-20 09:56:13] [INFO] 3. Starting Indices Import...
+[2026-06-20 09:56:13] [INFO] Test Mode: Restricting Indices to first 2 index files.
+[2026-06-20 09:56:13] [INFO] Found 2 historical index files to process.
+[2026-06-20 09:56:13] [INFO] Imported 10 new index records for index ID 51.
+[2026-06-20 09:56:13] [INFO] Imported 10 new index records for index ID 52.
+[2026-06-20 09:56:13] [INFO] -----------------------------------------
+[2026-06-20 09:56:13] [INFO] 4. Starting Floorsheet Import...
+[2026-06-20 09:56:13] [INFO] Test Mode: Restricting Floorsheet to first 1 file.
+[2026-06-20 09:56:13] [INFO] Found 1 floorsheet files to process.
+[2026-06-20 09:56:13] [INFO] Floorsheet date 2026-06-19 already imported. Skipping (Resume check).
+[2026-06-20 09:56:13] [INFO] =========================================
+[2026-06-20 09:56:13] [INFO] Import Execution Complete Summary:
+[2026-06-20 09:56:13] [INFO]   Total Files Processed: 6
+[2026-06-20 09:56:13] [INFO]   Successful Syncs:      3
+[2026-06-20 09:56:13] [INFO]   Skipped (Up-to-date):  3
+[2026-06-20 09:56:13] [INFO]   Failed Operations:     0
+[2026-06-20 09:56:13] [INFO]   Total Records Loaded:  407
+[2026-06-20 09:56:13] [INFO] =========================================
+[2026-06-20 09:56:13] [INFO] TradeNepse Ingestion Platform Completed
+[2026-06-20 09:56:13] [INFO] =========================================
